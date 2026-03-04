@@ -703,6 +703,303 @@ export default function EstateOS() {
     </div>
   );
 
+  // ── MONTHLY REPORTS ──────────────────────────────────────────────────────────
+  const EXPENSE_CATEGORIES = ["Mortgage","Property Taxes","Insurance","Utilities","Management Fees","Leasing Fee","Internet","Bank Charges","Cleaner","Repairs","Travel","Other"];
+
+  const CORPORATIONS = [
+    { id: "2771051", name: "2771051 Ontario Inc.", properties: ["43-ruskin","401-southwood","164-kirkpatrick"] },
+    { id: "1000203074", name: "1000203074 Ontario Inc.", properties: ["232-van-order","32-holland"] },
+    { id: "awesome-jv", name: "Awesome JV Deals Inc.", properties: ["787-downing","913-uxbridge","30-barbara","213-colborne"] },
+    { id: "altaray-svc", name: "Altaray Property Svc Ltd.", properties: ["285-van-order","661-milford"] },
+    { id: "personal", name: "René (Personal)", properties: ["293-van-order","82-hamilton"] },
+    { id: "managed", name: "Managed Only", properties: ["311-portsmouth","1241-johnson","315-portsmouth"] },
+  ];
+
+  // Seed expense data matching 43 Ruskin template
+  const initExpenses = () => {
+    const data = {};
+    PORTFOLIO.forEach(p => {
+      data[p.id] = {};
+      MONTHS.forEach(m => {
+        data[p.id][m] = {
+          Mortgage: 0, "Property Taxes": 0, Insurance: 0, Utilities: 0,
+          "Management Fees": 0, "Leasing Fee": 0, Internet: 0,
+          "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0
+        };
+      });
+    });
+    // Pre-fill 43 Ruskin from the spreadsheet
+    const r = data["43-ruskin"];
+    r["Jan 2026"] = { Mortgage: 1783.11, "Property Taxes": 364.60, Insurance: 128.00, Utilities: 400.00, "Management Fees": 0, "Leasing Fee": 0, Internet: 0, "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0 };
+    r["Feb 2026"] = { Mortgage: 1248.23, "Property Taxes": 364.60, Insurance: 128.00, Utilities: 365.00, "Management Fees": 0, "Leasing Fee": 0, Internet: 0, "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0 };
+    r["Mar 2026"] = { Mortgage: 1783.11, "Property Taxes": 364.60, Insurance: 128.00, Utilities: 365.00, "Management Fees": 0, "Leasing Fee": 0, Internet: 0, "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0 };
+    // Pre-fill 401 Southwood
+    const s = data["401-southwood"];
+    s["Jan 2026"] = { Mortgage: 1978.00, "Property Taxes": 322.50, Insurance: 159.05, Utilities: 209.03, "Management Fees": 0, "Leasing Fee": 0, Internet: 0, "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0 };
+    s["Feb 2026"] = { Mortgage: 1978.00, "Property Taxes": 322.50, Insurance: 159.05, Utilities: 209.03, "Management Fees": 0, "Leasing Fee": 0, Internet: 0, "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0 };
+    s["Mar 2026"] = { Mortgage: 1978.00, "Property Taxes": 322.50, Insurance: 159.05, Utilities: 209.03, "Management Fees": 0, "Leasing Fee": 0, Internet: 0, "Bank Charges": 0, Cleaner: 0, Repairs: 0, Travel: 0, Other: 0 };
+    return data;
+  };
+
+  const [expenses, setExpenses] = useState(initExpenses);
+  const [reportView, setReportView] = useState("property"); // property | corp | portfolio
+  const [reportMonth, setReportMonth] = useState(CURRENT_MONTH);
+  const [reportProperty, setReportProperty] = useState(PORTFOLIO[6]); // 43 Ruskin default
+
+  function updateExpense(propId, month, category, value) {
+    setExpenses(prev => ({
+      ...prev,
+      [propId]: { ...prev[propId], [month]: { ...prev[propId][month], [category]: parseFloat(value) || 0 } }
+    }));
+  }
+
+  function getPropertyCashflow(propId, month) {
+    const prop = PORTFOLIO.find(p => p.id === propId);
+    if (!prop) return { revenue: 0, expenses: 0, cashflow: 0 };
+    const revenue = prop.tenants.reduce((s, t) => s + (t.payments[month] || 0), 0);
+    const exp = expenses[propId]?.[month] || {};
+    const totalExp = Object.values(exp).reduce((s, v) => s + (v || 0), 0);
+    return { revenue, expenses: totalExp, cashflow: revenue - totalExp };
+  }
+
+  function getYTD(propId) {
+    const months = MONTHS.filter(m => PORTFOLIO.find(p => p.id === propId)?.tenants.some(t => t.payments[m] != null));
+    let rev = 0, exp = 0;
+    MONTHS.slice(0, 3).forEach(m => { // Jan-Mar YTD
+      const cf = getPropertyCashflow(propId, m);
+      rev += cf.revenue; exp += cf.expenses;
+    });
+    return { revenue: rev, expenses: exp, cashflow: rev - exp };
+  }
+
+  const MonthlyReports = () => {
+    const p = reportProperty;
+    const cf = getPropertyCashflow(p.id, reportMonth);
+    const ytd = getYTD(p.id);
+    const exp = expenses[p.id]?.[reportMonth] || {};
+    const totalRent = p.tenants.reduce((s, t) => s + t.rent, 0);
+
+    // Corp rollup
+    const corpData = CORPORATIONS.map(corp => {
+      let rev = 0, expTotal = 0;
+      corp.properties.forEach(pid => {
+        const cf = getPropertyCashflow(pid, reportMonth);
+        rev += cf.revenue; expTotal += cf.expenses;
+      });
+      return { ...corp, revenue: rev, expenses: expTotal, cashflow: rev - expTotal };
+    });
+
+    // Portfolio totals
+    const portfolioRev = PORTFOLIO.reduce((s, p) => s + getPropertyCashflow(p.id, reportMonth).revenue, 0);
+    const portfolioExp = PORTFOLIO.reduce((s, p) => s + getPropertyCashflow(p.id, reportMonth).expenses, 0);
+    const portfolioCF = portfolioRev - portfolioExp;
+
+    return (
+      <div style={{ padding: 24 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+          <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Monthly Reports</div>
+          <select value={reportMonth} onChange={e => setReportMonth(e.target.value)}
+            style={{ background: "#0d1117", border: "1px solid #161d2a", color: "#f1f5f9", fontSize: 13, borderRadius: 8, padding: "6px 12px" }}>
+            {MONTHS.map(m => <option key={m}>{m}</option>)}
+          </select>
+        </div>
+
+        {/* View Toggle */}
+        <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
+          {[["property","Per Property"],["corp","By Corporation"],["portfolio","Full Portfolio"]].map(([id, label]) => (
+            <button key={id} onClick={() => setReportView(id)}
+              style={{ padding: "7px 18px", borderRadius: 20, border: "1px solid #161d2a", background: reportView === id ? "#f6c90e" : "#0d1117", color: reportView === id ? "#000" : "#6b7280", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── PER PROPERTY VIEW ── */}
+        {reportView === "property" && (
+          <div>
+            <select value={p.id} onChange={e => setReportProperty(PORTFOLIO.find(x => x.id === e.target.value))}
+              style={{ background: "#0d1117", border: "1px solid #161d2a", color: "#f1f5f9", fontSize: 14, borderRadius: 8, padding: "8px 14px", marginBottom: 20, width: "100%", maxWidth: 360 }}>
+              {PORTFOLIO.map(prop => <option key={prop.id} value={prop.id}>{prop.address}</option>)}
+            </select>
+
+            {/* Header */}
+            <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "18px 22px", marginBottom: 16 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div>
+                  <div style={{ fontSize: 20, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Cash Flow Statement — {p.address}</div>
+                  <div style={{ fontSize: 12, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>{p.ownership} · {reportMonth}</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>NET CASH FLOW</div>
+                  <div style={{ fontSize: 26, fontWeight: 700, color: cf.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(cf.cashflow)}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {/* REVENUE */}
+              <div style={{ background: "#0d1117", border: "1px solid #0d2b1a", borderRadius: 12, padding: "18px 20px" }}>
+                <div style={{ fontSize: 11, color: "#22c55e", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 14 }}>REVENUE</div>
+                {p.tenants.map((t, i) => (
+                  <div key={t.id} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid #0f1a10" }}>
+                    <span style={{ color: "#9ca3af", fontSize: 13 }}>{t.name} ({t.unit})</span>
+                    <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, color: t.payments[reportMonth] ? "#22c55e" : "#ef4444" }}>{fmt(t.payments[reportMonth] || 0)}</span>
+                  </div>
+                ))}
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 0 0", marginTop: 4 }}>
+                  <span style={{ color: "#f1f5f9", fontWeight: 700, fontSize: 13 }}>Total Revenue</span>
+                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: "#22c55e", fontWeight: 700 }}>{fmt(cf.revenue)}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0" }}>
+                  <span style={{ color: "#4b5563", fontSize: 11 }}>Target</span>
+                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#4b5563" }}>{fmt(totalRent)}</span>
+                </div>
+              </div>
+
+              {/* EXPENSES */}
+              <div style={{ background: "#0d1117", border: "1px solid #2a1200", borderRadius: 12, padding: "18px 20px" }}>
+                <div style={{ fontSize: 11, color: "#f97316", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 14 }}>EXPENSES</div>
+                {EXPENSE_CATEGORIES.map(cat => (
+                  <div key={cat} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: "1px solid #150d00" }}>
+                    <span style={{ color: "#6b7280", fontSize: 12 }}>{cat}</span>
+                    <input type="number" value={exp[cat] || ""} onChange={e => updateExpense(p.id, reportMonth, cat, e.target.value)}
+                      placeholder="0.00"
+                      style={{ width: 90, background: "#070a10", border: "1px solid #1e293b", borderRadius: 6, padding: "3px 7px", color: exp[cat] ? "#f1f5f9" : "#374151", fontSize: 12, fontFamily: "'DM Mono',monospace", textAlign: "right" }} />
+                  </div>
+                ))}
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 0 0", marginTop: 4 }}>
+                  <span style={{ color: "#f1f5f9", fontWeight: 700, fontSize: 13 }}>Total Expenses</span>
+                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: "#f97316", fontWeight: 700 }}>{fmt(cf.expenses)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Cash Flow + YTD */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 16 }}>
+              <div style={{ background: "#0d1117", border: `1px solid ${cf.cashflow >= 0 ? "#0d2b1a" : "#2a0000"}`, borderRadius: 12, padding: "18px 22px" }}>
+                <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>CASH FLOW — {reportMonth}</div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                  <span style={{ color: "#6b7280", fontSize: 13 }}>Revenue</span>
+                  <span style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace" }}>{fmt(cf.revenue)}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
+                  <span style={{ color: "#6b7280", fontSize: 13 }}>Expenses</span>
+                  <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace" }}>({fmt(cf.expenses)})</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #1e293b", paddingTop: 10 }}>
+                  <span style={{ color: "#f1f5f9", fontWeight: 700 }}>Net Cash Flow</span>
+                  <span style={{ color: cf.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontSize: 18, fontWeight: 700 }}>{fmt(cf.cashflow)}</span>
+                </div>
+              </div>
+              <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "18px 22px" }}>
+                <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>YTD (Jan–Mar 2026)</div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                  <span style={{ color: "#6b7280", fontSize: 13 }}>Revenue</span>
+                  <span style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace" }}>{fmt(ytd.revenue)}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
+                  <span style={{ color: "#6b7280", fontSize: 13 }}>Expenses</span>
+                  <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace" }}>({fmt(ytd.expenses)})</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #1e293b", paddingTop: 10 }}>
+                  <span style={{ color: "#f1f5f9", fontWeight: 700 }}>Net YTD</span>
+                  <span style={{ color: ytd.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontSize: 18, fontWeight: 700 }}>{fmt(ytd.cashflow)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── BY CORPORATION VIEW ── */}
+        {reportView === "corp" && (
+          <div>
+            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 16 }}>CASH FLOW BY CORPORATION — {reportMonth}</div>
+            {corpData.map(corp => (
+              <div key={corp.id} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "18px 22px", marginBottom: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{corp.name}</div>
+                    <div style={{ fontSize: 11, color: "#374151", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{corp.properties.length} properties</div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>NET CASH FLOW</div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: corp.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(corp.cashflow)}</div>
+                  </div>
+                </div>
+                {corp.properties.map(pid => {
+                  const prop = PORTFOLIO.find(p => p.id === pid);
+                  if (!prop) return null;
+                  const pcf = getPropertyCashflow(pid, reportMonth);
+                  return (
+                    <div key={pid} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderTop: "1px solid #0f1520" }}>
+                      <span style={{ color: "#6b7280", fontSize: 13 }}>{prop.address}</span>
+                      <div style={{ display: "flex", gap: 20 }}>
+                        <span style={{ color: "#22c55e", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>{fmt(pcf.revenue)}</span>
+                        <span style={{ color: "#f97316", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>({fmt(pcf.expenses)})</span>
+                        <span style={{ color: pcf.cashflow >= 0 ? "#22c55e" : "#ef4444", fontSize: 13, fontFamily: "'DM Mono',monospace", fontWeight: 700, minWidth: 80, textAlign: "right" }}>{fmt(pcf.cashflow)}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 0", borderTop: "1px solid #1e293b", marginTop: 4 }}>
+                  <span style={{ color: "#9ca3af", fontSize: 12, fontWeight: 600 }}>Totals</span>
+                  <div style={{ display: "flex", gap: 20 }}>
+                    <span style={{ color: "#22c55e", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>{fmt(corp.revenue)}</span>
+                    <span style={{ color: "#f97316", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>({fmt(corp.expenses)})</span>
+                    <span style={{ color: corp.cashflow >= 0 ? "#22c55e" : "#ef4444", fontSize: 13, fontFamily: "'DM Mono',monospace", fontWeight: 700, minWidth: 80, textAlign: "right" }}>{fmt(corp.cashflow)}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ── FULL PORTFOLIO VIEW ── */}
+        {reportView === "portfolio" && (
+          <div>
+            <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "20px 24px", marginBottom: 20 }}>
+              <div style={{ fontSize: 16, fontFamily: "'Playfair Display',serif", color: "#f6c90e", marginBottom: 16 }}>Altaray Portfolio — {reportMonth}</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginBottom: 16 }}>
+                {[["TOTAL REVENUE", fmt(portfolioRev), "#22c55e"], ["TOTAL EXPENSES", fmt(portfolioExp), "#f97316"], ["NET CASH FLOW", fmt(portfolioCF), portfolioCF >= 0 ? "#22c55e" : "#ef4444"]].map(([l, v, c]) => (
+                  <div key={l} style={{ background: "#070a10", borderRadius: 10, padding: "14px 18px" }}>
+                    <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
+                    <div style={{ fontSize: 22, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 12 }}>ALL PROPERTIES</div>
+            <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, overflow: "hidden" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "10px 18px", borderBottom: "1px solid #161d2a" }}>
+                {["PROPERTY","REVENUE","EXPENSES","CASH FLOW"].map(h => <div key={h} style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
+              </div>
+              {PORTFOLIO.map((prop, i) => {
+                const pcf = getPropertyCashflow(prop.id, reportMonth);
+                return (
+                  <div key={prop.id} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "11px 18px", borderBottom: i < PORTFOLIO.length - 1 ? "1px solid #0f1520" : "none", background: i % 2 === 0 ? "#0a0e16" : "#0d1117" }}>
+                    <div>
+                      <span style={{ color: "#e2e8f0", fontSize: 13 }}>{prop.address}</span>
+                      {!prop.owned && <span style={{ fontSize: 9, color: "#374151", background: "#161d2a", padding: "1px 5px", borderRadius: 6, marginLeft: 6, fontFamily: "'DM Mono',monospace" }}>MGD</span>}
+                    </div>
+                    <div style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{fmt(pcf.revenue)}</div>
+                    <div style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>({fmt(pcf.expenses)})</div>
+                    <div style={{ color: pcf.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 600 }}>{fmt(pcf.cashflow)}</div>
+                  </div>
+                );
+              })}
+              <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "13px 18px", borderTop: "2px solid #1e293b", background: "#0d1117" }}>
+                <div style={{ color: "#f1f5f9", fontWeight: 700, fontSize: 13 }}>PORTFOLIO TOTAL</div>
+                <div style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700 }}>{fmt(portfolioRev)}</div>
+                <div style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700 }}>({fmt(portfolioExp)})</div>
+                <div style={{ color: portfolioCF >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontSize: 15, fontWeight: 700 }}>{fmt(portfolioCF)}</div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   // ── LAYOUT ───────────────────────────────────────────────────────────────────
   return (
     <div style={{ minHeight: "100vh", background: "#070a10", color: "#f1f5f9", fontFamily: "'DM Sans',sans-serif" }}>
@@ -713,6 +1010,7 @@ export default function EstateOS() {
         {[
           { id: "dashboard", label: "Dashboard" },
           { id: "rent", label: "Rent Check" },
+          { id: "reports", label: "Reports" },
           { id: "property", label: selectedProperty?.address || "Property", disabled: !selectedProperty },
           { id: "chat", label: "AI Co-worker" },
         ].map(t => (
@@ -721,12 +1019,13 @@ export default function EstateOS() {
             {t.label}
           </button>
         ))}
-        <div style={{ marginLeft: "auto", fontSize: 10, color: "#1f2937", fontFamily: "'DM Mono',monospace" }}>18 PROPERTIES · 50+ TENANTS</div>
+        <div style={{ marginLeft: "auto", fontSize: 10, color: "#1f2937", fontFamily: "'DM Mono',monospace" }}>17 PROPERTIES · 50+ TENANTS</div>
       </div>
 
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {tab === "dashboard" && <Dashboard />}
         {tab === "rent" && <RentCheck />}
+        {tab === "reports" && <MonthlyReports />}
         {tab === "property" && <PropertyDetail />}
         {tab === "chat" && <AIChat />}
       </div>
