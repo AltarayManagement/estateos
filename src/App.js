@@ -1725,11 +1725,6 @@ export default function EstateOS() {
     );
   };
 
-  // ── LAYOUT ───────────────────────────────────────────────────────────────────
-  return (
-    <div style={{ minHeight: "100vh", background: "#070a10", color: "#f1f5f9", fontFamily: "'DM Sans',sans-serif" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-
   // ── MORTGAGES TAB ────────────────────────────────────────────────────────────
   const MortgagesTab = () => {
     const knownMortgages = Object.entries(MORTGAGE_DATA);
@@ -1835,438 +1830,9 @@ export default function EstateOS() {
     );
   };
 
-  // ── VACANCIES TAB ─────────────────────────────────────────────────────────────
-  const VACANCIES = [
-    {
-      id: "v1", available: "March 1, 2026", address: "164 Kirkpatrick", unit: "Unit 2",
-      beds: 2, baths: 1, price: 1700, utilities: "Plus utilities", parking: null,
-      type: "apartment", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1iE0B9oqFN-ZVmSqIcN54I24lOMrto6Gd",
-      notes: "2 bedroom unit — well maintained",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v2", available: "March 1, 2026", address: "246 Adelaide", unit: "Unit 5",
-      beds: 2, baths: 1, price: 1800, utilities: "All inclusive", parking: "+$50/mo",
-      type: "apartment", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1APTlcjO_rt2Dc7cuY7iqNcGe-Dxlb6qc",
-      notes: "All utilities included. Parking available.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v3", available: "April 1, 2026", address: "246 Adelaide", unit: "Unit 8",
-      beds: 2, baths: 1, price: 1800, utilities: "All inclusive", parking: "+$50/mo",
-      type: "apartment", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1APTlcjO_rt2Dc7cuY7iqNcGe-Dxlb6qc",
-      notes: "All utilities included. Parking available.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v4", available: "April 1, 2026", address: "32 Holland Cres", unit: "Unit 1",
-      beds: 3, baths: 2, price: 2000, utilities: "Plus utilities", parking: "2 spots included",
-      type: "apartment", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1kI4EUdoD75mttuhbaDYmJvlQNmKaV9i4",
-      notes: "Spacious 3 bed / 2 bath. 2 parking spots included.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v5", available: "May 1, 2026", address: "246 Adelaide", unit: "Unit 13",
-      beds: 2, baths: 1, price: 1800, utilities: "All inclusive", parking: "+$50/mo",
-      type: "apartment", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1APTlcjO_rt2Dc7cuY7iqNcGe-Dxlb6qc",
-      notes: "All utilities included. Parking available.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v6", available: "May 1, 2026", address: "1241 Johnson", unit: "Unit 2",
-      beds: 3, baths: 1, price: 1800, utilities: "Plus utilities", parking: "2 spots included",
-      type: "apartment", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/10kQ35yxWMPAOB0qDywC38jUSau9x6w25",
-      notes: "3 bedrooms, 2 parking spots.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v7", available: "May 1, 2026", address: "28 Toronto St", unit: "Whole House",
-      beds: 8, baths: 4, price: 1200, utilities: "Plus utilities", parking: "4 spots",
-      type: "house", status: "available",
-      driveFolder: null,
-      notes: "8 bedroom house. $1,200/room. 4 parking spots. Great for groups or student house.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v8", available: "May 1, 2026", address: "82 Hamilton", unit: "Rooms",
-      beds: null, baths: null, price: 750, utilities: "All inclusive", parking: "Street parking",
-      type: "rooms", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1tkZgNRkcM98uGym9djSCb27K6cp3KCoF",
-      notes: "4 rooms available. Students & young professionals. All inclusive. Furnished.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v9", available: "May 1, 2026", address: "311 Portsmouth", unit: "Rooms",
-      beds: null, baths: null, price: 750, utilities: "All inclusive", parking: "Limited",
-      type: "rooms", status: "available",
-      driveFolder: null,
-      notes: "4 rooms available. Students & young professionals. All inclusive.",
-      contact: "altaraymanagement@gmail.com",
-    },
-    {
-      id: "v10", available: "May 1, 2026", address: "19 MacPherson", unit: "Rooms",
-      beds: null, baths: null, price: 750, utilities: "Plus utilities", parking: "Limited",
-      type: "rooms", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/1h9ol09t2OEShkbuD1Qeg4Tid5bh971M2",
-      notes: "4 rooms available. Women only. Furnished. Shared common areas.",
-      contact: "altaraymanagement@gmail.com",
-      tag: "Women Only",
-    },
-    {
-      id: "v11", available: "May 1, 2026", address: "152 Calderwood", unit: "Rooms",
-      beds: null, baths: null, price: 750, utilities: "All inclusive", parking: "2 spots",
-      type: "rooms", status: "available",
-      driveFolder: "https://drive.google.com/drive/folders/14ZmBucYolzHxdEfMwi3GQkAmy9ihbWFB",
-      notes: "4 rooms available. Students & young professionals. All inclusive. Furnished.",
-      contact: "altaraymanagement@gmail.com",
-    },
-  ];
-
-  const [vacancyFilter, setVacancyFilter] = useState("all"); // all | march | april | may | apartment | rooms
-  const [vacancySelected, setVacancySelected] = useState(null);
-
-  const VacanciesTab = () => {
-    const totalRevenuePotential = VACANCIES.reduce((s, v) => s + v.price, 0);
-    const byMonth = {
-      "March 1, 2026": VACANCIES.filter(v => v.available === "March 1, 2026"),
-      "April 1, 2026": VACANCIES.filter(v => v.available === "April 1, 2026"),
-      "May 1, 2026":   VACANCIES.filter(v => v.available === "May 1, 2026"),
-    };
-    const filtered = vacancyFilter === "all" ? VACANCIES
-      : vacancyFilter === "march" ? VACANCIES.filter(v => v.available.includes("March"))
-      : vacancyFilter === "april" ? VACANCIES.filter(v => v.available.includes("April"))
-      : vacancyFilter === "may"   ? VACANCIES.filter(v => v.available.includes("May"))
-      : vacancyFilter === "apartment" ? VACANCIES.filter(v => v.type === "apartment")
-      : VACANCIES.filter(v => v.type === "rooms" || v.type === "house");
-
-    function generateListingEmail(v) {
-      const subject = `${v.address} ${v.unit} — Available ${v.available}`;
-      const body = `Hi,\n\nThank you for your interest in our available unit at ${v.address}.\n\nHere are the details:\n\n📍 Address: ${v.address} — ${v.unit}\n📅 Available: ${v.available}\n🛏 ${v.type === "rooms" ? "Rooms available" : `${v.beds} Bedroom${v.beds > 1 ? "s" : ""} / ${v.baths} Bath`}\n💰 $${v.price.toLocaleString()}/${v.type === "rooms" ? "room/month" : "month"}\n🔌 Utilities: ${v.utilities}\n🚗 Parking: ${v.parking || "None available"}\n\n${v.notes}\n\nTo schedule a viewing, please reply to this email or contact us at altaraymanagement@gmail.com.\n\nWe look forward to hearing from you!\n\nAltaray Property Services\naltaraymanagement@gmail.com`;
-      return { subject, body };
-    }
-
-    function copyListingText(v) {
-      const txt = `🏠 ${v.address} — ${v.unit}\n📅 Available ${v.available}\n${v.type === "rooms" ? "🛏 Rooms available (shared house)" : `🛏 ${v.beds} Bed / ${v.baths} Bath`}\n💰 $${v.price.toLocaleString()}${v.type === "rooms" ? "/room" : ""}/month — ${v.utilities}\n🚗 Parking: ${v.parking || "Not available"}\n\n${v.notes}\n\n📧 altaraymanagement@gmail.com`;
-      navigator.clipboard.writeText(txt).catch(() => {});
-    }
-
-    const MonthGroup = ({ label, units }) => (
-      <div style={{ marginBottom: 32 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-          <div style={{ background: "#f6c90e", color: "#000", fontSize: 11, fontFamily: "'DM Mono',monospace", letterSpacing: 2, padding: "4px 12px", borderRadius: 20, fontWeight: 700 }}>
-            {label.toUpperCase()}
-          </div>
-          <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>
-            {units.length} {units.length === 1 ? "unit" : "units"} · ${units.reduce((s, v) => s + v.price, 0).toLocaleString()}/mo potential
-          </div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 14 }}>
-          {units.map(v => <VacancyCard key={v.id} v={v} />)}
-        </div>
-      </div>
-    );
-
-    const VacancyCard = ({ v }) => {
-      const isSelected = vacancySelected === v.id;
-      const monthColor = v.available.includes("March") ? "#f59e0b" : v.available.includes("April") ? "#818cf8" : "#34d399";
-      return (
-        <div style={{ background: "#0d1117", border: `1px solid ${isSelected ? "#f6c90e" : "#161d2a"}`, borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: "border-color 0.15s" }}
-          onClick={() => setVacancySelected(isSelected ? null : v.id)}>
-          {/* Card header */}
-          <div style={{ background: "#070a10", padding: "14px 18px", borderBottom: "1px solid #161d2a" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{v.address}</div>
-                <div style={{ fontSize: 12, color: "#6b7280", marginTop: 2 }}>{v.unit}</div>
-              </div>
-              <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: 18, fontWeight: 700, color: "#f6c90e", fontFamily: "'DM Mono',monospace" }}>
-                  ${v.price.toLocaleString()}
-                  <span style={{ fontSize: 11, color: "#6b7280", fontWeight: 400 }}>{v.type === "rooms" ? "/room" : "/mo"}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card body */}
-          <div style={{ padding: "14px 18px" }}>
-            {/* Available date badge */}
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#0a0e16", border: `1px solid ${monthColor}33`, borderRadius: 20, padding: "4px 10px", marginBottom: 12 }}>
-              <div style={{ width: 6, height: 6, borderRadius: "50%", background: monthColor }} />
-              <span style={{ fontSize: 11, color: monthColor, fontFamily: "'DM Mono',monospace" }}>Available {v.available}</span>
-            </div>
-
-            {/* Special tag */}
-            {v.tag && (
-              <div style={{ display: "inline-flex", marginLeft: 8, background: "#7c3aed22", border: "1px solid #7c3aed44", borderRadius: 20, padding: "4px 10px", marginBottom: 12 }}>
-                <span style={{ fontSize: 11, color: "#a78bfa", fontFamily: "'DM Mono',monospace" }}>⭐ {v.tag}</span>
-              </div>
-            )}
-
-            {/* Details grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
-              {[
-                ["🛏", v.type === "rooms" ? "Rooms (shared)" : `${v.beds} Bed / ${v.baths} Bath`],
-                ["🔌", v.utilities],
-                ["🚗", v.parking || "No parking"],
-                ["📋", v.type === "apartment" ? "Apartment" : v.type === "house" ? "Whole House" : "Student Rooms"],
-              ].map(([icon, label]) => (
-                <div key={label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <span style={{ fontSize: 13 }}>{icon}</span>
-                  <span style={{ fontSize: 12, color: "#9ca3af" }}>{label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Notes */}
-            <div style={{ fontSize: 12, color: "#4b5563", lineHeight: 1.5, marginBottom: 14, fontStyle: "italic" }}>{v.notes}</div>
-
-            {/* Action buttons */}
-            <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={e => { e.stopPropagation(); copyListingText(v); }}
-                style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
-                📋 COPY AD
-              </button>
-              <button onClick={e => { e.stopPropagation(); const d = generateListingEmail(v); setEmailDraft({ to: "", subject: d.subject, body: d.body }); }}
-                style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
-                ✉ EMAIL
-              </button>
-              {v.driveFolder && (
-                <button onClick={e => { e.stopPropagation(); window.open(v.driveFolder, "_blank"); }}
-                  style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
-                  📁 PHOTOS
-                </button>
-              )}
-              <button onClick={e => { e.stopPropagation(); generateListingPDF(v); }}
-                style={{ flex: 1, padding: "7px 0", background: "#ef444420", border: "1px solid #ef444440", borderRadius: 8, color: "#f87171", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
-                ↓ PDF
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    };
-
-    return (
-      <div style={{ padding: 24 }}>
-        {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 22 }}>
-          <div>
-            <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Available Units</div>
-            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>
-              {VACANCIES.length} units · ${totalRevenuePotential.toLocaleString()}/mo potential revenue
-            </div>
-          </div>
-          <button onClick={() => generateAllListingsPDF()}
-            style={{ padding: "9px 18px", background: "#f6c90e", border: "none", borderRadius: 8, color: "#000", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", fontWeight: 700, letterSpacing: 1 }}>
-            ↓ ALL LISTINGS PDF
-          </button>
-        </div>
-
-        {/* Summary cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }}>
-          {[
-            ["MARCH AVail.", Object.values(byMonth)[0].length, "#f59e0b", "$" + Object.values(byMonth)[0].reduce((s,v)=>s+v.price,0).toLocaleString()],
-            ["APRIL AVAIL.", Object.values(byMonth)[1].length, "#818cf8", "$" + Object.values(byMonth)[1].reduce((s,v)=>s+v.price,0).toLocaleString()],
-            ["MAY AVAIL.",   Object.values(byMonth)[2].length, "#34d399", "$" + Object.values(byMonth)[2].reduce((s,v)=>s+v.price,0).toLocaleString()],
-            ["TOTAL UNITS",  VACANCIES.length, "#f6c90e", "$" + totalRevenuePotential.toLocaleString() + "/mo"],
-          ].map(([label, count, color, sub]) => (
-            <div key={label} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "14px 18px" }}>
-              <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{label}</div>
-              <div style={{ fontSize: 28, fontWeight: 700, color, fontFamily: "'DM Mono',monospace" }}>{count}</div>
-              <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{sub}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Filters */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
-          {[
-            ["all", "All Units"],
-            ["march", "🟡 March"],
-            ["april", "🟣 April"],
-            ["may", "🟢 May"],
-            ["apartment", "Apartments"],
-            ["rooms", "Rooms / House"],
-          ].map(([id, label]) => (
-            <button key={id} onClick={() => setVacancyFilter(id)}
-              style={{ padding: "6px 16px", borderRadius: 20, border: "1px solid #161d2a", background: vacancyFilter === id ? "#f6c90e" : "#0d1117", color: vacancyFilter === id ? "#000" : "#6b7280", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {/* Listings — grouped by month when showing all, flat otherwise */}
-        {vacancyFilter === "all" ? (
-          Object.entries(byMonth).map(([month, units]) => (
-            <MonthGroup key={month} label={month} units={units} />
-          ))
-        ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 14 }}>
-            {filtered.map(v => <VacancyCard key={v.id} v={v} />)}
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  function generateListingPDF(v) {
-    const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
-    <title>${v.address} ${v.unit} — Available ${v.available}</title>
-    <style>
-      *{box-sizing:border-box;margin:0;padding:0}
-      body{font-family:Arial,sans-serif;padding:50px;color:#111;max-width:750px;margin:0 auto}
-      .logo{font-size:22px;font-weight:900;letter-spacing:2px;color:#111}
-      .logo span{color:#c8a900}
-      .tagline{font-size:9px;letter-spacing:4px;color:#888;margin-top:3px}
-      .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:18px;border-bottom:3px solid #111}
-      .available-badge{background:#f6c90e;color:#000;font-weight:700;padding:8px 18px;border-radius:4px;font-size:13px;letter-spacing:1px}
-      h1{font-size:28px;font-weight:900;margin:18px 0 4px}
-      .unit{font-size:16px;color:#555;margin-bottom:18px}
-      .price-box{background:#f5f5f5;border-radius:8px;padding:20px 24px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
-      .price{font-size:36px;font-weight:900;color:#111;font-family:monospace}
-      .price span{font-size:16px;font-weight:400;color:#777}
-      .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
-      .detail-box{border:1px solid #e5e5e5;border-radius:6px;padding:14px 16px}
-      .detail-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:4px}
-      .detail-val{font-size:14px;font-weight:700}
-      .notes-section{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px 20px;margin-bottom:24px}
-      .notes-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#92400e;margin-bottom:6px}
-      .notes-text{font-size:14px;color:#78350f;line-height:1.6}
-      ${v.tag ? `.tag-banner{background:#7c3aed;color:#fff;text-align:center;padding:10px;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:20px;border-radius:6px}` : ""}
-      .contact-box{background:#111;color:#fff;border-radius:8px;padding:20px 24px;text-align:center}
-      .contact-label{font-size:10px;letter-spacing:3px;color:#888;margin-bottom:8px}
-      .contact-email{font-size:16px;font-weight:700;color:#f6c90e;letter-spacing:1px}
-      .contact-sub{font-size:11px;color:#555;margin-top:6px}
-      .footer{margin-top:24px;font-size:10px;color:#aaa;text-align:center}
-      @media print{body{padding:24px}}
-    </style></head><body>
-      <div class="header">
-        <div>
-          <div class="logo">ALTARAY<span>▲</span></div>
-          <div class="tagline">PROPERTY SERVICES</div>
-        </div>
-        <div class="available-badge">AVAILABLE ${v.available.toUpperCase()}</div>
-      </div>
-
-      ${v.tag ? `<div class="tag-banner">⭐ ${v.tag.toUpperCase()}</div>` : ""}
-
-      <h1>${v.address}</h1>
-      <div class="unit">${v.unit}</div>
-
-      <div class="price-box">
-        <div>
-          <div class="price">$${v.price.toLocaleString()}<span>/${v.type === "rooms" ? "room/month" : "month"}</span></div>
-          <div style="font-size:12px;color:#888;margin-top:4px">${v.utilities}</div>
-        </div>
-        <div style="text-align:right;font-size:13px;color:#555">
-          <div style="margin-bottom:4px">📅 Available: <strong>${v.available}</strong></div>
-          ${v.parking ? `<div>🚗 Parking: <strong>${v.parking}</strong></div>` : ""}
-        </div>
-      </div>
-
-      <div class="details-grid">
-        <div class="detail-box">
-          <div class="detail-label">Unit Type</div>
-          <div class="detail-val">${v.type === "rooms" ? "Student / Shared House" : v.type === "house" ? "Whole House" : "Apartment"}</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">${v.type === "rooms" ? "Rooms" : "Bedrooms / Bathrooms"}</div>
-          <div class="detail-val">${v.type === "rooms" ? "4 rooms available" : `${v.beds} bed / ${v.baths} bath`}</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Utilities</div>
-          <div class="detail-val">${v.utilities}</div>
-        </div>
-        <div class="detail-box">
-          <div class="detail-label">Parking</div>
-          <div class="detail-val">${v.parking || "Not included"}</div>
-        </div>
-      </div>
-
-      <div class="notes-section">
-        <div class="notes-label">About This Unit</div>
-        <div class="notes-text">${v.notes}</div>
-      </div>
-
-      <div class="contact-box">
-        <div class="contact-label">SCHEDULE A VIEWING</div>
-        <div class="contact-email">altaraymanagement@gmail.com</div>
-        <div class="contact-sub">Reply to this listing or email us to book a showing</div>
-      </div>
-
-      <div class="footer">Altaray Property Services · ${new Date().toLocaleDateString("en-CA")} · All information subject to change without notice</div>
-    </body></html>`;
-    const w = window.open(URL.createObjectURL(new Blob([html], { type: "text/html" })), "_blank");
-    setTimeout(() => w?.print(), 600);
-  }
-
-  function generateAllListingsPDF() {
-    const byMonth = {
-      "March 1, 2026": VACANCIES.filter(v => v.available.includes("March")),
-      "April 1, 2026":  VACANCIES.filter(v => v.available.includes("April")),
-      "May 1, 2026":    VACANCIES.filter(v => v.available.includes("May")),
-    };
-    const rows = VACANCIES.map(v => `
-      <tr>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee;font-weight:600">${v.address}</td>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee;color:#555">${v.unit}</td>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee">${v.type === "rooms" ? "Rooms" : `${v.beds}bd/${v.baths}ba`}</td>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee;font-family:monospace;font-weight:700">$${v.price.toLocaleString()}</td>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee;color:#555">${v.utilities}</td>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee;color:#555">${v.parking || "—"}</td>
-        <td style="padding:9px 12px;border-bottom:1px solid #eee;font-weight:700;color:${v.available.includes("March")?"#b45309":v.available.includes("April")?"#4338ca":"#065f46"}">${v.available}</td>
-      </tr>`).join("");
-    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Altaray — Available Units ${new Date().getFullYear()}</title>
-    <style>
-      *{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:40px;max-width:1000px;margin:0 auto;color:#111}
-      .logo{font-size:20px;font-weight:900;letter-spacing:2px}.logo span{color:#c8a900}
-      .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid #111}
-      h2{font-size:14px;color:#555;font-weight:normal;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px}
-      .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
-      .sum-box{border:1px solid #ddd;border-radius:6px;padding:14px 16px}
-      .sum-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:6px}
-      .sum-val{font-size:22px;font-weight:900;font-family:monospace}
-      table{width:100%;border-collapse:collapse}
-      thead tr{background:#111;color:#fff}
-      thead th{padding:9px 12px;text-align:left;font-size:11px;letter-spacing:1px}
-      tbody tr:nth-child(even){background:#fafafa}
-      .contact{margin-top:28px;background:#111;color:#fff;padding:18px 24px;border-radius:8px;text-align:center}
-      .contact a{color:#f6c90e;font-weight:700}
-      .footer{margin-top:20px;font-size:10px;color:#aaa;text-align:center}
-      @media print{body{padding:20px}}
-    </style></head><body>
-      <div class="header">
-        <div>
-          <div class="logo">ALTARAY<span>▲</span></div>
-          <div style="font-size:9px;letter-spacing:4px;color:#888;margin-top:2px">PROPERTY SERVICES</div>
-        </div>
-        <div style="text-align:right">
-          <h2>Available Units</h2>
-          <div style="font-size:12px;color:#555">As of ${new Date().toLocaleDateString("en-CA", {month:"long",day:"numeric",year:"numeric"})}</div>
-        </div>
-      </div>
-      <div class="summary">
-        ${Object.entries(byMonth).map(([m, units]) => `<div class="sum-box"><div class="sum-label">${m}</div><div class="sum-val">${units.length}</div><div style="font-size:11px;color:#999;margin-top:4px">$${units.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo</div></div>`).join("")}
-        <div class="sum-box" style="border-color:#f6c90e"><div class="sum-label">Total Available</div><div class="sum-val" style="color:#c8a900">${VACANCIES.length}</div><div style="font-size:11px;color:#999;margin-top:4px">$${VACANCIES.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo</div></div>
-      </div>
-      <table>
-        <thead><tr><th>Address</th><th>Unit</th><th>Size</th><th>Price</th><th>Utilities</th><th>Parking</th><th>Available</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-      <div class="contact">To schedule a viewing: <a href="mailto:altaraymanagement@gmail.com">altaraymanagement@gmail.com</a></div>
-      <div class="footer">Altaray Property Services · ${new Date().toLocaleDateString("en-CA")} · Subject to change without notice</div>
-    </body></html>`;
-    const w = window.open(URL.createObjectURL(new Blob([html], { type: "text/html" })), "_blank");
-    setTimeout(() => w?.print(), 600);
-  }
-
+  // ── NAV + RENDER ──────────────────────────────────────────────────────────────
+  return (
+    <div style={{ background: "#070a10", minHeight: "100vh", color: "#f1f5f9" }}>
       <div style={{ background: "#070a10", borderBottom: "1px solid #0d1117", padding: "0 24px", display: "flex", alignItems: "center", height: 54, position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ fontSize: 17, fontFamily: "'Playfair Display',serif", color: "#f6c90e", marginRight: 30, letterSpacing: 0.5 }}>EstateOS</div>
         {[
@@ -2290,7 +1856,7 @@ export default function EstateOS() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {tab === "dashboard" && <Dashboard />}
         {tab === "rent" && <RentCheck />}
-        {tab === "vacancies" && <VacanciesTab />}
+        {tab === "vacancies" && <VacanciesTab vacancies={VACANCIES} setEmailDraft={setEmailDraft} />}
         {tab === "reports" && <MonthlyReports />}
         {tab === "t776" && <T776Tab />}
         {tab === "mortgages" && <MortgagesTab />}
@@ -2303,3 +1869,264 @@ export default function EstateOS() {
     </div>
   );
 }
+
+// ── VACANCIES DATA ─────────────────────────────────────────────────────────────
+const VACANCIES = [
+  { id: "v1", available: "March 1, 2026", address: "164 Kirkpatrick", unit: "Unit 2", beds: 2, baths: 1, price: 1700, utilities: "Plus utilities", parking: null, type: "apartment", driveFolder: "https://drive.google.com/drive/folders/1iE0B9oqFN-ZVmSqIcN54I24lOMrto6Gd", notes: "2 bedroom unit — well maintained" },
+  { id: "v2", available: "March 1, 2026", address: "246 Adelaide", unit: "Unit 5", beds: 2, baths: 1, price: 1800, utilities: "All inclusive", parking: "+$50/mo", type: "apartment", driveFolder: "https://drive.google.com/drive/folders/1APTlcjO_rt2Dc7cuY7iqNcGe-Dxlb6qc", notes: "All utilities included. Parking available." },
+  { id: "v3", available: "April 1, 2026", address: "246 Adelaide", unit: "Unit 8", beds: 2, baths: 1, price: 1800, utilities: "All inclusive", parking: "+$50/mo", type: "apartment", driveFolder: "https://drive.google.com/drive/folders/1APTlcjO_rt2Dc7cuY7iqNcGe-Dxlb6qc", notes: "All utilities included. Parking available." },
+  { id: "v4", available: "April 1, 2026", address: "32 Holland Cres", unit: "Unit 1", beds: 3, baths: 2, price: 2000, utilities: "Plus utilities", parking: "2 spots included", type: "apartment", driveFolder: "https://drive.google.com/drive/folders/1kI4EUdoD75mttuhbaDYmJvlQNmKaV9i4", notes: "Spacious 3 bed / 2 bath. 2 parking spots included." },
+  { id: "v5", available: "May 1, 2026", address: "246 Adelaide", unit: "Unit 13", beds: 2, baths: 1, price: 1800, utilities: "All inclusive", parking: "+$50/mo", type: "apartment", driveFolder: "https://drive.google.com/drive/folders/1APTlcjO_rt2Dc7cuY7iqNcGe-Dxlb6qc", notes: "All utilities included. Parking available." },
+  { id: "v6", available: "May 1, 2026", address: "1241 Johnson", unit: "Unit 2", beds: 3, baths: 1, price: 1800, utilities: "Plus utilities", parking: "2 spots included", type: "apartment", driveFolder: "https://drive.google.com/drive/folders/10kQ35yxWMPAOB0qDywC38jUSau9x6w25", notes: "3 bedrooms, 2 parking spots." },
+  { id: "v7", available: "May 1, 2026", address: "28 Toronto St", unit: "Whole House", beds: 8, baths: 4, price: 1200, utilities: "Plus utilities", parking: "4 spots", type: "house", driveFolder: null, notes: "8 bedroom house. $1,200/room. 4 parking spots. Great for groups or student house." },
+  { id: "v8", available: "May 1, 2026", address: "82 Hamilton", unit: "Rooms", beds: null, baths: null, price: 750, utilities: "All inclusive", parking: "Street parking", type: "rooms", driveFolder: "https://drive.google.com/drive/folders/1tkZgNRkcM98uGym9djSCb27K6cp3KCoF", notes: "4 rooms available. Students & young professionals. All inclusive. Furnished." },
+  { id: "v9", available: "May 1, 2026", address: "311 Portsmouth", unit: "Rooms", beds: null, baths: null, price: 750, utilities: "All inclusive", parking: "Limited", type: "rooms", driveFolder: null, notes: "4 rooms available. Students & young professionals. All inclusive." },
+  { id: "v10", available: "May 1, 2026", address: "19 MacPherson", unit: "Rooms", beds: null, baths: null, price: 750, utilities: "Plus utilities", parking: "Limited", type: "rooms", tag: "Women Only", driveFolder: "https://drive.google.com/drive/folders/1h9ol09t2OEShkbuD1Qeg4Tid5bh971M2", notes: "4 rooms available. Women only. Furnished. Shared common areas." },
+  { id: "v11", available: "May 1, 2026", address: "152 Calderwood", unit: "Rooms", beds: null, baths: null, price: 750, utilities: "All inclusive", parking: "2 spots", type: "rooms", driveFolder: "https://drive.google.com/drive/folders/14ZmBucYolzHxdEfMwi3GQkAmy9ihbWFB", notes: "4 rooms available. Students & young professionals. All inclusive. Furnished." },
+];
+
+function generateListingPDF(v) {
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+  <title>${v.address} ${v.unit}</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;padding:50px;color:#111;max-width:750px;margin:0 auto}
+    .logo{font-size:22px;font-weight:900;letter-spacing:2px}.logo span{color:#c8a900}
+    .tagline{font-size:9px;letter-spacing:4px;color:#888;margin-top:3px}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:18px;border-bottom:3px solid #111}
+    .available-badge{background:#f6c90e;color:#000;font-weight:700;padding:8px 18px;border-radius:4px;font-size:13px;letter-spacing:1px}
+    h1{font-size:28px;font-weight:900;margin:18px 0 4px}
+    .unit{font-size:16px;color:#555;margin-bottom:18px}
+    .price-box{background:#f5f5f5;border-radius:8px;padding:20px 24px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
+    .price{font-size:36px;font-weight:900;color:#111;font-family:monospace}
+    .price span{font-size:16px;font-weight:400;color:#777}
+    .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+    .detail-box{border:1px solid #e5e5e5;border-radius:6px;padding:14px 16px}
+    .detail-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:4px}
+    .detail-val{font-size:14px;font-weight:700}
+    .notes-section{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px 20px;margin-bottom:24px}
+    .notes-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#92400e;margin-bottom:6px}
+    .notes-text{font-size:14px;color:#78350f;line-height:1.6}
+    .contact-box{background:#111;color:#fff;border-radius:8px;padding:20px 24px;text-align:center}
+    .contact-label{font-size:10px;letter-spacing:3px;color:#888;margin-bottom:8px}
+    .contact-email{font-size:16px;font-weight:700;color:#f6c90e;letter-spacing:1px}
+    .contact-sub{font-size:11px;color:#555;margin-top:6px}
+    .footer{margin-top:24px;font-size:10px;color:#aaa;text-align:center}
+    @media print{body{padding:24px}}
+  </style></head><body>
+    <div class="header">
+      <div><div class="logo">ALTARAY<span>▲</span></div><div class="tagline">PROPERTY SERVICES</div></div>
+      <div class="available-badge">AVAILABLE ${v.available.toUpperCase()}</div>
+    </div>
+    ${v.tag ? `<div style="background:#7c3aed;color:#fff;text-align:center;padding:10px;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:20px;border-radius:6px">⭐ ${v.tag.toUpperCase()}</div>` : ""}
+    <h1>${v.address}</h1>
+    <div class="unit">${v.unit}</div>
+    <div class="price-box">
+      <div>
+        <div class="price">$${v.price.toLocaleString()}<span>/${v.type === "rooms" ? "room/month" : "month"}</span></div>
+        <div style="font-size:12px;color:#888;margin-top:4px">${v.utilities}</div>
+      </div>
+      <div style="text-align:right;font-size:13px;color:#555">
+        <div style="margin-bottom:4px">📅 Available: <strong>${v.available}</strong></div>
+        ${v.parking ? `<div>🚗 Parking: <strong>${v.parking}</strong></div>` : ""}
+      </div>
+    </div>
+    <div class="details-grid">
+      <div class="detail-box"><div class="detail-label">Unit Type</div><div class="detail-val">${v.type === "rooms" ? "Student / Shared House" : v.type === "house" ? "Whole House" : "Apartment"}</div></div>
+      <div class="detail-box"><div class="detail-label">${v.type === "rooms" ? "Rooms" : "Bedrooms / Bathrooms"}</div><div class="detail-val">${v.type === "rooms" ? "4 rooms available" : `${v.beds} bed / ${v.baths} bath`}</div></div>
+      <div class="detail-box"><div class="detail-label">Utilities</div><div class="detail-val">${v.utilities}</div></div>
+      <div class="detail-box"><div class="detail-label">Parking</div><div class="detail-val">${v.parking || "Not included"}</div></div>
+    </div>
+    <div class="notes-section">
+      <div class="notes-label">About This Unit</div>
+      <div class="notes-text">${v.notes}</div>
+    </div>
+    <div class="contact-box">
+      <div class="contact-label">SCHEDULE A VIEWING</div>
+      <div class="contact-email">altaraymanagement@gmail.com</div>
+      <div class="contact-sub">Reply to this listing or email us to book a showing</div>
+    </div>
+    <div class="footer">Altaray Property Services · ${new Date().toLocaleDateString("en-CA")} · All information subject to change without notice</div>
+  </body></html>`;
+  const w = window.open(URL.createObjectURL(new Blob([html], { type: "text/html" })), "_blank");
+  setTimeout(() => w?.print(), 600);
+}
+
+function generateAllListingsPDF(vacancies) {
+  const byMonth = {
+    "March 1, 2026": vacancies.filter(v => v.available.includes("March")),
+    "April 1, 2026":  vacancies.filter(v => v.available.includes("April")),
+    "May 1, 2026":    vacancies.filter(v => v.available.includes("May")),
+  };
+  const rows = vacancies.map(v => `
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee;font-weight:600">${v.address}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee;color:#555">${v.unit}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee">${v.type === "rooms" ? "Rooms" : `${v.beds}bd/${v.baths}ba`}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee;font-family:monospace;font-weight:700">$${v.price.toLocaleString()}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee;color:#555">${v.utilities}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee;color:#555">${v.parking || "—"}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #eee;font-weight:700;color:${v.available.includes("March")?"#b45309":v.available.includes("April")?"#4338ca":"#065f46"}">${v.available}</td>
+    </tr>`).join("");
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Altaray — Available Units</title>
+  <style>
+    *{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:40px;max-width:1000px;margin:0 auto;color:#111}
+    .logo{font-size:20px;font-weight:900;letter-spacing:2px}.logo span{color:#c8a900}
+    .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid #111}
+    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+    .sum-box{border:1px solid #ddd;border-radius:6px;padding:14px 16px}
+    .sum-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:6px}
+    .sum-val{font-size:22px;font-weight:900;font-family:monospace}
+    table{width:100%;border-collapse:collapse}
+    thead tr{background:#111;color:#fff}
+    thead th{padding:9px 12px;text-align:left;font-size:11px;letter-spacing:1px}
+    tbody tr:nth-child(even){background:#fafafa}
+    .contact{margin-top:28px;background:#111;color:#fff;padding:18px 24px;border-radius:8px;text-align:center}
+    .contact a{color:#f6c90e;font-weight:700}
+    .footer{margin-top:20px;font-size:10px;color:#aaa;text-align:center}
+    @media print{body{padding:20px}}
+  </style></head><body>
+    <div class="header">
+      <div><div class="logo">ALTARAY<span>▲</span></div><div style="font-size:9px;letter-spacing:4px;color:#888;margin-top:2px">PROPERTY SERVICES</div></div>
+      <div style="text-align:right"><div style="font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#555;font-weight:normal">Available Units</div><div style="font-size:12px;color:#555">As of ${new Date().toLocaleDateString("en-CA", {month:"long",day:"numeric",year:"numeric"})}</div></div>
+    </div>
+    <div class="summary">
+      ${Object.entries(byMonth).map(([m, units]) => `<div class="sum-box"><div class="sum-label">${m}</div><div class="sum-val">${units.length}</div><div style="font-size:11px;color:#999;margin-top:4px">$${units.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo</div></div>`).join("")}
+      <div class="sum-box" style="border-color:#f6c90e"><div class="sum-label">Total Available</div><div class="sum-val" style="color:#c8a900">${vacancies.length}</div><div style="font-size:11px;color:#999;margin-top:4px">$${vacancies.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Address</th><th>Unit</th><th>Size</th><th>Price</th><th>Utilities</th><th>Parking</th><th>Available</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="contact">To schedule a viewing: <a href="mailto:altaraymanagement@gmail.com">altaraymanagement@gmail.com</a></div>
+    <div class="footer">Altaray Property Services · ${new Date().toLocaleDateString("en-CA")} · Subject to change without notice</div>
+  </body></html>`;
+  const w = window.open(URL.createObjectURL(new Blob([html], { type: "text/html" })), "_blank");
+  setTimeout(() => w?.print(), 600);
+}
+
+// ── VACANCIES TAB COMPONENT ────────────────────────────────────────────────────
+function VacanciesTab({ vacancies, setEmailDraft }) {
+  const [vacancyFilter, setVacancyFilter] = useState("all");
+  const totalRevenuePotential = vacancies.reduce((s, v) => s + v.price, 0);
+  const byMonth = {
+    "March 1, 2026": vacancies.filter(v => v.available.includes("March")),
+    "April 1, 2026":  vacancies.filter(v => v.available.includes("April")),
+    "May 1, 2026":    vacancies.filter(v => v.available.includes("May")),
+  };
+  const filtered = vacancyFilter === "all" ? vacancies
+    : vacancyFilter === "march" ? vacancies.filter(v => v.available.includes("March"))
+    : vacancyFilter === "april" ? vacancies.filter(v => v.available.includes("April"))
+    : vacancyFilter === "may"   ? vacancies.filter(v => v.available.includes("May"))
+    : vacancyFilter === "apartment" ? vacancies.filter(v => v.type === "apartment")
+    : vacancies.filter(v => v.type === "rooms" || v.type === "house");
+
+  function generateListingEmail(v) {
+    return {
+      subject: `${v.address} ${v.unit} — Available ${v.available}`,
+      body: `Hi,\n\nThank you for your interest in our available unit at ${v.address}.\n\nHere are the details:\n\n📍 Address: ${v.address} — ${v.unit}\n📅 Available: ${v.available}\n🛏 ${v.type === "rooms" ? "Rooms available" : `${v.beds} Bedroom${v.beds > 1 ? "s" : ""} / ${v.baths} Bath`}\n💰 $${v.price.toLocaleString()}/${v.type === "rooms" ? "room/month" : "month"}\n🔌 Utilities: ${v.utilities}\n🚗 Parking: ${v.parking || "None available"}\n\n${v.notes}\n\nTo schedule a viewing, please reply to this email.\n\nAltaray Property Services\naltaraymanagement@gmail.com`,
+    };
+  }
+
+  function copyListingText(v) {
+    const txt = `🏠 ${v.address} — ${v.unit}\n📅 Available ${v.available}\n${v.type === "rooms" ? "🛏 Rooms available (shared house)" : `🛏 ${v.beds} Bed / ${v.baths} Bath`}\n💰 $${v.price.toLocaleString()}${v.type === "rooms" ? "/room" : ""}/month — ${v.utilities}\n🚗 Parking: ${v.parking || "Not available"}\n\n${v.notes}\n\n📧 altaraymanagement@gmail.com`;
+    navigator.clipboard.writeText(txt).catch(() => {});
+  }
+
+  const VacancyCard = ({ v }) => {
+    const monthColor = v.available.includes("March") ? "#f59e0b" : v.available.includes("April") ? "#818cf8" : "#34d399";
+    return (
+      <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, overflow: "hidden" }}>
+        <div style={{ background: "#070a10", padding: "14px 18px", borderBottom: "1px solid #161d2a" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{v.address}</div>
+              <div style={{ fontSize: 12, color: "#6b7280", marginTop: 2 }}>{v.unit}</div>
+            </div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#f6c90e", fontFamily: "'DM Mono',monospace" }}>
+              ${v.price.toLocaleString()}<span style={{ fontSize: 11, color: "#6b7280", fontWeight: 400 }}>{v.type === "rooms" ? "/room" : "/mo"}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{ padding: "14px 18px" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#0a0e16", border: `1px solid ${monthColor}33`, borderRadius: 20, padding: "4px 10px", marginBottom: 10 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: monthColor }} />
+            <span style={{ fontSize: 11, color: monthColor, fontFamily: "'DM Mono',monospace" }}>Available {v.available}</span>
+          </div>
+          {v.tag && (
+            <div style={{ display: "inline-flex", marginLeft: 8, background: "#7c3aed22", border: "1px solid #7c3aed44", borderRadius: 20, padding: "4px 10px", marginBottom: 10 }}>
+              <span style={{ fontSize: 11, color: "#a78bfa", fontFamily: "'DM Mono',monospace" }}>⭐ {v.tag}</span>
+            </div>
+          )}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
+            {[["🛏", v.type === "rooms" ? "Rooms (shared)" : `${v.beds} Bed / ${v.baths} Bath`], ["🔌", v.utilities], ["🚗", v.parking || "No parking"], ["📋", v.type === "apartment" ? "Apartment" : v.type === "house" ? "Whole House" : "Student Rooms"]].map(([icon, label]) => (
+              <div key={label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ fontSize: 13 }}>{icon}</span>
+                <span style={{ fontSize: 12, color: "#9ca3af" }}>{label}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 12, color: "#4b5563", lineHeight: 1.5, marginBottom: 12, fontStyle: "italic" }}>{v.notes}</div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button onClick={() => copyListingText(v)} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>📋 COPY</button>
+            <button onClick={() => { const d = generateListingEmail(v); setEmailDraft({ to: "", subject: d.subject, body: d.body }); }} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>✉ EMAIL</button>
+            {v.driveFolder && <button onClick={() => window.open(v.driveFolder, "_blank")} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>📁 PHOTOS</button>}
+            <button onClick={() => generateListingPDF(v)} style={{ flex: 1, padding: "7px 0", background: "#ef444420", border: "1px solid #ef444440", borderRadius: 8, color: "#f87171", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>↓ PDF</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ padding: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 22 }}>
+        <div>
+          <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Available Units</div>
+          <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>{vacancies.length} units · ${totalRevenuePotential.toLocaleString()}/mo potential revenue</div>
+        </div>
+        <button onClick={() => generateAllListingsPDF(vacancies)} style={{ padding: "9px 18px", background: "#f6c90e", border: "none", borderRadius: 8, color: "#000", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", fontWeight: 700 }}>↓ ALL LISTINGS PDF</button>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }}>
+        {[
+          ["MARCH AVAIL.", byMonth["March 1, 2026"].length, "#f59e0b", "$" + byMonth["March 1, 2026"].reduce((s,v)=>s+v.price,0).toLocaleString()],
+          ["APRIL AVAIL.", byMonth["April 1, 2026"].length, "#818cf8", "$" + byMonth["April 1, 2026"].reduce((s,v)=>s+v.price,0).toLocaleString()],
+          ["MAY AVAIL.",   byMonth["May 1, 2026"].length,   "#34d399", "$" + byMonth["May 1, 2026"].reduce((s,v)=>s+v.price,0).toLocaleString()],
+          ["TOTAL UNITS",  vacancies.length, "#f6c90e", "$" + totalRevenuePotential.toLocaleString() + "/mo"],
+        ].map(([label, count, color, sub]) => (
+          <div key={label} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "14px 18px" }}>
+            <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{label}</div>
+            <div style={{ fontSize: 28, fontWeight: 700, color, fontFamily: "'DM Mono',monospace" }}>{count}</div>
+            <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
+        {[["all","All Units"],["march","🟡 March"],["april","🟣 April"],["may","🟢 May"],["apartment","Apartments"],["rooms","Rooms / House"]].map(([id, label]) => (
+          <button key={id} onClick={() => setVacancyFilter(id)} style={{ padding: "6px 16px", borderRadius: 20, border: "1px solid #161d2a", background: vacancyFilter === id ? "#f6c90e" : "#0d1117", color: vacancyFilter === id ? "#000" : "#6b7280", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>{label}</button>
+        ))}
+      </div>
+
+      {vacancyFilter === "all" ? (
+        Object.entries(byMonth).map(([month, units]) => (
+          <div key={month} style={{ marginBottom: 32 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+              <div style={{ background: "#f6c90e", color: "#000", fontSize: 11, fontFamily: "'DM Mono',monospace", letterSpacing: 2, padding: "4px 12px", borderRadius: 20, fontWeight: 700 }}>{month.toUpperCase()}</div>
+              <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>{units.length} {units.length === 1 ? "unit" : "units"} · ${units.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo potential</div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 14 }}>
+              {units.map(v => <VacancyCard key={v.id} v={v} />)}
+            </div>
+          </div>
+        ))
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 14 }}>
+          {filtered.map(v => <VacancyCard key={v.id} v={v} />)}
+        </div>
+      )}
+    </div>
+  );
+}
+
