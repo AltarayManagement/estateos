@@ -132,9 +132,9 @@ const PORTFOLIO = [
       { id: "khemraj", unit: "Unit 2", name: "Khemraj Dahal", email: "", rent: 1896.25, flags: ["⚠ Last Month??"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1896.25, "Feb 2026": 1896.25, "Mar 2026": null },
         notes: { "Mar 2026": "Last month?? — needs urgent follow-up" } },
-      { id: "kirkpatrick-basement", unit: "Basement", name: "Karanjit Singh", email: "karanjit0895@gmail.com", rent: 1700, flags: ["New Tenant"], depositType: "auto", leaseEnd: null, lastIncrease: null,
+      { id: "kirkpatrick-basement", unit: "Unit 2", name: "Karanjit Singh", email: "karanjit0895@gmail.com", rent: 1700, flags: ["Move-in Today ✅"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Mar 2026": 1700 },
-        notes: { "Mar 2026": "Move-in Mar 2026 — paid $3,500 via e-transfer ($1,700 first + $1,700 last + $100 key deposit). Referred by Robert." } },
+        notes: { "Mar 2026": "Move-in Mar 5, 2026 — paid $3,500 via e-transfer: $1,700 first month + $1,700 last month deposit + $100 key deposit." } },
     ]
   },
   {
@@ -245,7 +245,8 @@ const PORTFOLIO = [
       { id: "kim", unit: "Unit 1", name: "Kim Lambert", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
       { id: "alexander-b", unit: "Unit 2", name: "Alexander Babiak", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
       { id: "ky", unit: "Unit 3", name: "Ky", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "ethan", unit: "Unit 4", name: "Ethan Alexander Williamson", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200 } },
+      { id: "ethan", unit: "Unit 4", name: "Ethan Alexander Williamson", email: "", rent: 1200, flags: ["⚠ Short Mar"], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 600 },
+        notes: { "Mar 2026": "Paid $600 via e-transfer Mar 5 — short $600" } },
       { id: "aleksander", unit: "Unit 5", name: "Aleksander Oliver Guy", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
       { id: "sebastien", unit: "Unit 6", name: "Sebastien McBride", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
       { id: "taylor", unit: "Unit 7", name: "Taylor James Plicarpo", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
@@ -348,7 +349,7 @@ const PORTFOLIO = [
       { id: "erik-h", unit: "Room", name: "Erik Husband", email: "", rent: 1150, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Mar 2026": 1150 } },
       { id: "george-k", unit: "Room", name: "George Kenzie", email: "", rent: 1050, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
-        payments: {} },
+        payments: { "Mar 2026": 1050 } },
       { id: "andrew-g", unit: "Room", name: "Andrew Gurdon", email: "", rent: 1250, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1250, "Feb 2026": 1250 } },
       { id: "trinity-s", unit: "Room 5", name: "Trinity Smith", email: "trinity6650@gmail.com", rent: 1150, flags: ["⚠ LTB HEARING Mar 17", "No Pay Nov/Dec 2025"], depositType: "auto", leaseEnd: null, lastIncrease: null,
@@ -431,35 +432,141 @@ const OWNERSHIP_MAP = {
 };
 
 // ─── MORTGAGE DATA — from Annual Statements ───────────────────────────────────
+// ── 1ST MORTGAGES ──────────────────────────────────────────────────────────────
 const MORTGAGE_DATA = {
-  "661-milford": {
-    lender: "CIBC", loanNum: "003440072", type: "Variable Flex", bank: "CIBC",
-    balanceJan2025: 386723.42, balanceDec2025: 385883.11,
-    principalPaid2025: 840.31, interestPaid2025: 25066.00,
-    monthlyPayment: 2706.09, rateStart: 5.000, rateEnd: 3.700,
-    maturity: "Dec 8, 2030", mortgagee: "Waxwing Properties Ltd.",
-    monthlyPrincipal: 70.03, monthlyInterest: 2088.83,
-    note: "Rate dropped from 5.0% to 3.7% on Dec 8, 2025"
+  "213-nelson": {
+    lender: "CIBC", type: "Fixed", bank: "CIBC", account: "213 Nelson Account",
+    balance: 318009.00, rate: 5.30, monthlyPayment: 1811.74,
+    maturity: "Sept 9, 2024", mortgagee: "213 Nelson",
+    note: "⚠️ Maturity Sept 2024 — confirm renewal status."
   },
-  "30-barbara": {
-    lender: "Scotiabank", loanNum: "5016099", type: "Variable Rate", bank: "Scotia",
-    balanceJan2025: 443535.27, balanceDec2025: 435194.61,
-    principalPaid2025: 8340.66, interestPaid2025: 19394.95,
-    monthlyPayment: 2194.48, rateStart: 4.900, rateEnd: 3.900,
-    maturity: "May 2, 2027", mortgagee: "Tanya & Justin Schomberg",
-    monthlyPrincipal: 695.06, monthlyInterest: 1616.25,
-    note: "Rate dropped from 4.9% to 3.9% in 2025. Renewal May 2027."
+  "293-van-order": {
+    lender: "CIBC", type: "Fixed", bank: "CIBC", account: "293 Van Order",
+    balance: 211143.27, rate: 4.44, monthlyPayment: 1135.00,
+    maturity: "Oct 1, 2029", mortgagee: "293 Van Order Dr.",
+    note: "Fixed 4.44%. Renewal Oct 2029."
   },
   "43-ruskin": {
-    lender: "CIBC", loanNum: "003449245", type: "Variable Flex", bank: "CIBC",
-    balanceJan2025: 329899.42, balanceDec2025: 329899.42,
-    principalPaid2025: 0, interestPaid2025: 14978.76,
-    monthlyPayment: 1248.23, rateStart: 4.950, rateEnd: 3.950,
-    maturity: "Mar 5, 2026", mortgagee: "2771051 Ontario Inc.",
-    monthlyPrincipal: 0, monthlyInterest: 1248.23,
-    note: "⚠️ MATURITY Mar 5, 2026 — renewal required NOW. Rate 4.95% → 3.95%. No principal paid in 2025. Deferred interest $2,622.17."
+    lender: "CIBC", type: "Variable", bank: "CIBC", account: "43 Ruskin Account",
+    balance: 329899.42, rate: null, monthlyPayment: 1248.23,
+    maturity: "Mar 30, 2026", mortgagee: "2771051 Ontario Inc.",
+    note: "⚠️ MATURITY Mar 2026 — renewal required NOW. Rate history: 1.95% (2022) → 5.95% → 6.45% (Jun 2024)."
+  },
+  "1-place-darmes": {
+    lender: "CIBC", type: "Variable", bank: "CIBC", account: "211 Account",
+    balance: 288324.15, rate: null, monthlyPayment: 1221.11,
+    maturity: "Apr 30, 2026", mortgagee: "1 Place d'Armes",
+    note: "⚠️ MATURITY Apr 2026 — renewal required soon."
+  },
+  "81-michael-grass": {
+    lender: "CIBC", type: "Variable", bank: "CIBC", account: "Michael Grass Account",
+    balance: 222297.49, rate: null, monthlyPayment: 910.72,
+    maturity: "Aug 14, 2025", mortgagee: "81 Michael Grass",
+    note: "⚠️ Maturity Aug 2025 — confirm renewal. Rate: 2.45% (2022) → 6.45%."
+  },
+  "401-southwood": {
+    lender: "Desjardins", type: "Fixed", bank: "Desjardins", account: "2771051 Account",
+    balance: 384890.04, rate: 2.84, monthlyPayment: 1956.92,
+    maturity: "Jan 21, 2027", mortgagee: "401 Southwood",
+    note: "Fixed 2.84%. Renewal Jan 2027."
+  },
+  "164-kirkpatrick": {
+    lender: "Desjardins", type: "Fixed", bank: "Desjardins", account: "2771051 Account",
+    balance: 397098.94, rate: 2.49, monthlyPayment: 1971.70,
+    maturity: "Nov 15, 2026", mortgagee: "164 Kirkpatrick",
+    note: "Fixed 2.49%. Renewal Nov 2026. 2nd mortgage: Debbie Gilbert $75k @ 10%."
+  },
+  "232-van-order": {
+    lender: "Desjardins", type: "Fixed", bank: "Desjardins", account: "1000203074 Ontario Inc.",
+    balance: 467689.22, rate: 4.81, monthlyPayment: 2838.21,
+    maturity: "May 31, 2026", mortgagee: "232 Van Order Dr.",
+    note: "Fixed 4.81%. Renewal May 2026."
+  },
+  "285-van-order": {
+    lender: "Desjardins", type: "Fixed", bank: "Desjardins", account: "211 Account",
+    balance: 345838.52, rate: 5.74, monthlyPayment: 2268.61,
+    maturity: "Jan 14, 2028", mortgagee: "285 Van Order Dr.",
+    note: "Fixed 5.74%. Renewal Jan 2028."
+  },
+  "213-colborne": {
+    lender: "RBC", type: "Variable", bank: "RBC", account: "Colborne Account",
+    balance: 209145.42, rate: 6.05, monthlyPayment: 928.20,
+    maturity: "Aug 7, 2025", mortgagee: "213 Colborne",
+    note: "⚠️ Maturity Aug 2025 — confirm renewal."
+  },
+  "82-hamilton": {
+    lender: "RBC", type: "Variable", bank: "RBC", account: "RBC",
+    balance: 144097.00, rate: 5.80, monthlyPayment: 715.25,
+    maturity: "Dec 16, 2025", mortgagee: "82 Hamilton",
+    note: "⚠️ Maturity Dec 2025 — confirm renewal. 2nd mortgages: David Russell $110k @ 8% + Andres Orozco $64k @ 8%."
+  },
+  "913-uxbridge": {
+    lender: "Unknown", type: "—", bank: "—", account: "913 Uxbridge Account",
+    balance: null, rate: null, monthlyPayment: 2233.11,
+    maturity: "—", mortgagee: "913 Uxbridge",
+    note: "Lender/balance details missing — verify."
+  },
+  "661-milford": {
+    lender: "CIBC", type: "—", bank: "CIBC", account: "Milford Account",
+    balance: null, rate: null, monthlyPayment: 1475.41,
+    maturity: "Feb 8, 2026", mortgagee: "661 Milford",
+    note: "Balance/rate details missing — verify."
+  },
+  "30-barbara": {
+    lender: "Scotiabank", type: "Variable", bank: "Scotiabank", account: "30 Barbara Account",
+    balance: 447164.33, rate: 5.90, monthlyPayment: 2700.04,
+    maturity: "May 2, 2027", mortgagee: "30 Barbara",
+    note: "Variable 5.9%. Renewal May 2027."
+  },
+  "787-downing": {
+    lender: "Equitable Bank", type: "Fixed", bank: "Equitable Bank", account: "787 Downing Account",
+    balance: 508000.00, rate: 4.19, monthlyPayment: 2740.48,
+    maturity: "Jun 1, 2023", mortgagee: "787 Downing",
+    note: "⚠️ Maturity Jun 2023 — confirm current status/renewal."
+  },
+  "32-holland": {
+    lender: "Optimum Mortgage", type: "—", bank: "Optimum", account: "1000203074 Ontario Inc.",
+    balance: 528800.00, rate: 5.44, monthlyPayment: 2962.56,
+    maturity: "Aug 1, 2023", mortgagee: "32 Holland Cres",
+    note: "⚠️ Maturity Aug 2023 — confirm current status/renewal."
+  },
+  "331-meadowcrest": {
+    lender: "Private — John Chase", type: "Private", bank: "Private", account: "2771051 Account",
+    balance: 425000.00, rate: 9.00, monthlyPayment: 3187.50,
+    maturity: "Jun 1, 2023", mortgagee: "331 Meadowcrest",
+    note: "Private lender John Chase @ 9%. Confirm current status."
+  },
+  "246-adelaide": {
+    lender: "First National", type: "Fixed", bank: "First National", account: "246 Adelaide Account",
+    balance: 2102547.00, rate: 4.40, monthlyPayment: 11357.00,
+    maturity: "—", mortgagee: "246 Adelaide",
+    note: "Fixed 4.40%. Large portfolio mortgage — $2.1M balance."
   },
 };
+
+// ── 2ND MORTGAGES ──────────────────────────────────────────────────────────────
+const SECOND_MORTGAGES = [
+  { property: "82 Hamilton",      lender: "David Russell",     account: "01392-004-6629210", amount: 110000, rate: 8.0,  paymentType: "annually", annual: 8800,   monthly: 733.33, maturity: "Jul 31, 2025", term: "2 years", note: "⚠️ Maturity Jul 2025 — confirm renewal." },
+  { property: "81 Michael Grass", lender: "Michael Dominguez", account: "Michael Grass Account", amount: 139000, rate: 10.0, paymentType: "monthly", annual: 0, monthly: 1158.33, maturity: "Oct 1, 2025",  term: "1 year",  note: "Monthly payments. Plan: sell house." },
+  { property: "213 Nelson",       lender: "Claire Levesque",   account: "00542 010 0602167", amount: 150000, rate: 8.0,  paymentType: "annually", annual: 12000,  monthly: 1000.00, maturity: "Nov 8, 2025",  term: "2 years", note: "Refi Adelaide in 2027." },
+  { property: "82 Hamilton",      lender: "Andres Orozco",     account: "TD MG Account",    amount: 64000,  rate: 8.0,  paymentType: "annually", annual: 5120,   monthly: 426.67, maturity: "Dec 1, 2025",  term: "open",    note: "Open term." },
+  { property: "285 Van Order",    lender: "Brian Gordon",      account: "211 Account",       amount: 105000, rate: 10.0, paymentType: "annually", annual: 10500,  monthly: 875.00, maturity: "Jan 16, 2026", term: "2 years", note: "" },
+  { property: "43 Ruskin",        lender: "George Fang",       account: "277 Ontario Inc.",  amount: 102500, rate: 10.0, paymentType: "annually", annual: 10500,  monthly: 875.00, maturity: "Jan 31, 2026", term: "1 year",  note: "" },
+  { property: "164 Kirkpatrick",  lender: "Debbie Gilbert",    account: "164 Kirkpatrick Account", amount: 75000, rate: 10.0, paymentType: "monthly", annual: 0, monthly: 625.00, maturity: "Feb 1, 2026",  term: "open",    note: "Open term." },
+  { property: "293 Van Order",    lender: "Allen Castaban",    account: "293 Van Order bank account", amount: 120000, rate: 10.0, paymentType: "annually", annual: 12000, monthly: 1000.00, maturity: "Mar 31, 2026", term: "2 years", note: "" },
+  { property: "1 Place D'Armes",  lender: "Stephane Masson",   account: "211 Account",       amount: 85000,  rate: 10.0, paymentType: "annually", annual: 8500,   monthly: 708.33, maturity: "Apr 25, 2026", term: "—",       note: "Plan: Refi/pay down with flip." },
+];
+
+// ── LINES OF CREDIT ───────────────────────────────────────────────────────────
+const LINES_OF_CREDIT = [
+  { name: "Personal LOC",         bank: "CIBC", balance: 11952.51,  limit: 14000.00,  rate: 9.70,  monthly: 250.00,  property: "Personal" },
+  { name: "293 Van Order LOC",    bank: "CIBC", balance: 72522.69,  limit: 72522.69,  rate: 7.70,  monthly: 501.73,  property: "293 Van Order Dr." },
+  { name: "81 Michael Grass LOC", bank: "CIBC", balance: 9966.85,   limit: 10702.00,  rate: 7.20,  monthly: 109.79,  property: "81 Michael Grass" },
+  { name: "213 Nelson LOC",       bank: "CIBC", balance: 0.00,      limit: 2557.00,   rate: 7.20,  monthly: 0.00,    property: "213 Nelson" },
+  { name: "CEBA Loan",            bank: "CIBC", balance: 60000.00,  limit: 60000.00,  rate: 0.00,  monthly: 0.00,    property: "Business — pay $40k get $20k free" },
+  { name: "Altaray LOC",          bank: "CIBC", balance: 12358.85,  limit: 50000.00,  rate: 10.70, monthly: 0.00,    property: "Altaray Property Ltd. #4045211" },
+  { name: "TD LOC",               bank: "TD",   balance: 10000.00,  limit: 25000.00,  rate: 11.19, monthly: 86.92,   property: "Personal" },
+];
 
 // ─── ALTARAY LOGO ─────────────────────────────────────────────────────────────
 // Replace this URL with the direct Google Drive image link
@@ -486,7 +593,12 @@ export default function EstateOS() {
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
   const [emailDraft, setEmailDraft] = useState(null);
-  const [receiptModal, setReceiptModal] = useState(null); // { tenant, property }
+  const [receiptModal, setReceiptModal] = useState(null);
+  const [gmailTokens, setGmailTokens] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("estateos_gmail_tokens") || "{}"); } catch { return {}; }
+  });
+  const [inboxScans, setInboxScans] = useState({}); // { propId: { status, results, lastScanned } }
+  const [scanningProp, setScanningProp] = useState(null);
   const chatEndRef = useRef(null);
 
   function generateReceiptHTML(property, tenant, year) {
@@ -581,12 +693,12 @@ export default function EstateOS() {
         <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 16, padding: 28, width: "100%", maxWidth: 480 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 20 }}>
             <div style={{ fontSize: 18, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Rent Receipt — {year}</div>
-            <button onClick={() => setReceiptModal(null)} style={{ background: "none", border: "none", color: "#6b7280", fontSize: 20, cursor: "pointer" }}>✕</button>
+            <button onClick={() => setReceiptModal(null)} style={{ background: "none", border: "none", color: "#e2e8f0", fontSize: 20, cursor: "pointer" }}>✕</button>
           </div>
           <div style={{ background: "#070a10", borderRadius: 10, padding: "14px 18px", marginBottom: 18 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#f1f5f9", marginBottom: 4 }}>{tenant.name}</div>
-            <div style={{ fontSize: 12, color: "#6b7280" }}>{tenant.unit} · {property.address}</div>
-            <div style={{ fontSize: 20, color: "#22c55e", fontFamily: "'DM Mono',monospace", fontWeight: 700, marginTop: 8 }}>${totalPaid.toFixed(2)} <span style={{ fontSize: 12, color: "#4b5563" }}>total paid {year}</span></div>
+            <div style={{ fontSize: 12, color: "#e2e8f0" }}>{tenant.unit} · {property.address}</div>
+            <div style={{ fontSize: 20, color: "#22c55e", fontFamily: "'DM Mono',monospace", fontWeight: 700, marginTop: 8 }}>${totalPaid.toFixed(2)} <span style={{ fontSize: 12, color: "#ffffff" }}>total paid {year}</span></div>
           </div>
           {!tenant.email && (
             <div style={{ background: "#2a1200", border: "1px solid #f97316", borderRadius: 8, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#f97316" }}>
@@ -605,7 +717,7 @@ export default function EstateOS() {
               </button>
             )}
           </div>
-          <div style={{ marginTop: 12, fontSize: 11, color: "#374151", textAlign: "center" }}>Receipt includes CRA tax note for Ontario Trillium Benefit</div>
+          <div style={{ marginTop: 12, fontSize: 11, color: "#ffffff", textAlign: "center" }}>Receipt includes CRA tax note for Ontario Trillium Benefit</div>
         </div>
       </div>
     );
@@ -680,10 +792,128 @@ export default function EstateOS() {
     }
   }
 
+  // ── GMAIL OAUTH + SCAN ───────────────────────────────────────────────────────
+  const GMAIL_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID"; // Set in Google Cloud Console
+  const GMAIL_SCOPE = "https://www.googleapis.com/auth/gmail.readonly";
+
+  function connectGmail(property) {
+    const email = property.email;
+    if (!email) return;
+    const redirectUri = window.location.origin + window.location.pathname;
+    const state = btoa(JSON.stringify({ propId: property.id, email }));
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GMAIL_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(GMAIL_SCOPE)}&login_hint=${encodeURIComponent(email)}&state=${state}&prompt=consent`;
+    window.open(authUrl, "_blank", "width=500,height=600");
+  }
+
+  // Handle OAuth redirect token
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.includes("access_token")) {
+      const params = new URLSearchParams(hash.replace("#", "?"));
+      const token = params.get("access_token");
+      const state = params.get("state");
+      if (token && state) {
+        try {
+          const { propId, email } = JSON.parse(atob(state));
+          const updated = { ...gmailTokens, [propId]: { token, email, connectedAt: Date.now() } };
+          setGmailTokens(updated);
+          localStorage.setItem("estateos_gmail_tokens", JSON.stringify(updated));
+          window.history.replaceState({}, "", window.location.pathname);
+          // Auto-scan after connect
+          setTimeout(() => scanInbox(propId, token), 500);
+        } catch {}
+      }
+    }
+  }, []);
+
+  async function scanInbox(propId, token) {
+    const prop = PORTFOLIO.find(p => p.id === propId);
+    if (!prop) return;
+    setScanningProp(propId);
+    setInboxScans(prev => ({ ...prev, [propId]: { status: "scanning", results: prev[propId]?.results || [], lastScanned: null } }));
+
+    try {
+      // Fetch last 30 days of emails
+      const since = Math.floor((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000);
+      const searchRes = await fetch(
+        `https://gmail.googleapis.com/gmail/v1/users/me/messages?q=after:${since}&maxResults=40`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const searchJson = await searchRes.json();
+      if (searchJson.error) throw new Error(searchJson.error.message);
+
+      const messages = searchJson.messages || [];
+      const emailTexts = [];
+
+      // Fetch snippet + subject for each
+      for (const msg of messages.slice(0, 20)) {
+        const msgRes = await fetch(
+          `https://gmail.googleapis.com/gmail/v1/users/me/messages/${msg.id}?format=metadata&metadataHeaders=Subject&metadataHeaders=From&metadataHeaders=Date`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const msgJson = await msgRes.json();
+        const headers = msgJson.payload?.headers || [];
+        const subject = headers.find(h => h.name === "Subject")?.value || "";
+        const from = headers.find(h => h.name === "From")?.value || "";
+        const date = headers.find(h => h.name === "Date")?.value || "";
+        const snippet = msgJson.snippet || "";
+        emailTexts.push({ subject, from, date, snippet });
+      }
+
+      if (emailTexts.length === 0) {
+        setInboxScans(prev => ({ ...prev, [propId]: { status: "done", results: [], lastScanned: new Date().toLocaleString() } }));
+        setScanningProp(null);
+        return;
+      }
+
+      // Send to Claude for analysis
+      const tenantList = prop.tenants.map(t => `${t.name} (${t.unit}, $${t.rent}/mo)`).join(", ");
+      const aiRes = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: `You are analyzing emails for a property management inbox. Property: ${prop.address}. Tenants: ${tenantList}. Current month: ${CURRENT_MONTH}. 
+Identify emails related to: rent payments (e-transfers, bank notifications, payment confirmations), expenses (invoices, receipts, utility bills), or other property matters.
+Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown", "tenant": "name or null", "amount": number or null, "description": "brief description", "date": "date string", "confidence": "high"|"medium"|"low" }`,
+          messages: [{ role: "user", content: `Analyze these emails from the inbox for ${prop.address}:\n\n${emailTexts.map((e, i) => `Email ${i + 1}:\nFrom: ${e.from}\nDate: ${e.date}\nSubject: ${e.subject}\nPreview: ${e.snippet}`).join("\n\n---\n\n")}` }]
+        })
+      });
+      const aiData = await aiRes.json();
+      const raw = aiData.content?.[0]?.text || "[]";
+      let results = [];
+      try {
+        const clean = raw.replace(/```json|```/g, "").trim();
+        results = JSON.parse(clean);
+      } catch { results = []; }
+
+      setInboxScans(prev => ({ ...prev, [propId]: { status: "done", results, lastScanned: new Date().toLocaleString() } }));
+    } catch (err) {
+      setInboxScans(prev => ({ ...prev, [propId]: { status: "error", error: err.message, results: [], lastScanned: new Date().toLocaleString() } }));
+    }
+    setScanningProp(null);
+  }
+
+  function scanAllInboxes() {
+    PORTFOLIO.forEach(p => {
+      const tok = gmailTokens[p.id];
+      if (tok?.token) scanInbox(p.id, tok.token);
+    });
+  }
+
+  // Auto-scan on load if tokens exist
+  useEffect(() => {
+    const hasTokens = Object.keys(gmailTokens).length > 0;
+    if (hasTokens) {
+      setTimeout(() => scanAllInboxes(), 1500);
+    }
+  }, []);
+
   // ── DASHBOARD ────────────────────────────────────────────────────────────────
   const Dashboard = () => (
     <div style={{ padding: 24 }}>
-      <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 3, marginBottom: 4 }}>ALTARAY PROPERTY SERVICES · RENÉ MASSE</div>
+      <div style={{ fontSize: 12, color: "#cbd5e1", fontFamily: "'DM Mono',monospace", letterSpacing: 3, marginBottom: 4 }}>ALTARAY PROPERTY SERVICES · RENÉ MASSE</div>
       <div style={{ fontSize: 28, fontFamily: "'Playfair Display',serif", color: "#f6c90e", marginBottom: 24 }}>Portfolio Overview — {CURRENT_MONTH}</div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 14, marginBottom: 26 }}>
@@ -694,24 +924,24 @@ export default function EstateOS() {
           { label: "ALERTS", value: stats.alerts.length, alert: true },
         ].map((k, i) => (
           <div key={i} style={{ background: "#0d1117", border: `1px solid ${k.alert && k.value > 0 ? "#3f0000" : "#161d2a"}`, borderRadius: 12, padding: "18px 22px" }}>
-            <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 8 }}>{k.label}</div>
-            <div style={{ fontSize: 28, fontWeight: 700, color: k.alert && k.value > 0 ? "#ef4444" : "#f6c90e", fontFamily: "'DM Mono',monospace" }}>{k.value}</div>
+            <div style={{ fontSize: 12, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 8 }}>{k.label}</div>
+            <div style={{ fontSize: 32, fontWeight: 700, color: k.alert && k.value > 0 ? "#ef4444" : "#f6c90e", fontFamily: "'DM Mono',monospace" }}>{k.value}</div>
           </div>
         ))}
       </div>
 
       {stats.alerts.length > 0 && (
         <div style={{ marginBottom: 26 }}>
-          <div style={{ fontSize: 10, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>ALERTS — {CURRENT_MONTH}</div>
+          <div style={{ fontSize: 11, color: "#e2e8f0", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>ALERTS — {CURRENT_MONTH}</div>
           {stats.alerts.slice(0, 12).map((a, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 14px", marginBottom: 5, background: "#0d1117", borderLeft: `3px solid ${a.status === "flag" ? "#f97316" : "#ef4444"}`, borderRadius: 8 }}>
               <div>
-                <span style={{ color: "#f1f5f9", fontWeight: 600, fontSize: 13 }}>{a.tenant}</span>
-                <span style={{ color: "#4b5563", fontSize: 12, margin: "0 6px" }}>·</span>
-                <span style={{ color: "#6b7280", fontSize: 12 }}>{a.property}</span>
+                <span style={{ color: "#ffffff", fontWeight: 600, fontSize: 14 }}>{a.tenant}</span>
+                <span style={{ color: "#cbd5e1", fontSize: 13, margin: "0 6px" }}>·</span>
+                <span style={{ color: "#cbd5e1", fontSize: 13 }}>{a.property}</span>
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                {a.amount != null && <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>{fmt(a.amount)} / {fmt(a.expected)}</span>}
+                {a.amount != null && <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{fmt(a.amount)} / {fmt(a.expected)}</span>}
                 <span style={{ fontSize: 10, padding: "2px 9px", borderRadius: 20, background: "#1a0000", color: a.status === "flag" ? "#fb923c" : "#fca5a5", fontFamily: "'DM Mono',monospace" }}>
                   {a.flag || a.status.toUpperCase()}
                 </span>
@@ -724,7 +954,7 @@ export default function EstateOS() {
       <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
         {["all", "owned", "managed"].map(f => (
           <button key={f} onClick={() => setFilterOwned(f)}
-            style={{ padding: "5px 14px", borderRadius: 20, border: "1px solid #161d2a", background: filterOwned === f ? "#f6c90e" : "#0d1117", color: filterOwned === f ? "#000" : "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
+            style={{ padding: "5px 14px", borderRadius: 20, border: "1px solid #1e293b", background: filterOwned === f ? "#f6c90e" : "#0d1117", color: filterOwned === f ? "#000" : "#e2e8f0", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", letterSpacing: 1 }}>
             {f.toUpperCase()}
           </button>
         ))}
@@ -743,13 +973,13 @@ export default function EstateOS() {
               {/* Address header — clickable to property detail */}
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, cursor: "pointer" }}
                 onClick={() => { setSelectedProperty(p); setTab("property"); }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#f1f5f9" }}>{p.address}</div>
-                {!p.owned && <span style={{ fontSize: 9, color: "#4b5563", background: "#161d2a", padding: "2px 7px", borderRadius: 8, fontFamily: "'DM Mono',monospace" }}>MANAGED</span>}
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#ffffff" }}>{p.address}</div>
+                {!p.owned && <span style={{ fontSize: 10, color: "#ffffff", background: "#1e293b", padding: "2px 7px", borderRadius: 8, fontFamily: "'DM Mono',monospace" }}>MANAGED</span>}
               </div>
-              <div style={{ fontSize: 11, color: "#374151", marginBottom: 8, fontFamily: "'DM Mono',monospace" }}>{p.ownership}</div>
+              <div style={{ fontSize: 12, color: "#ffffff", marginBottom: 8, fontFamily: "'DM Mono',monospace" }}>{p.ownership}</div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-                <span style={{ fontSize: 11, color: "#4b5563" }}>{p.tenants.length} tenants</span>
-                <span style={{ fontSize: 11, color: paidCount === p.tenants.length ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{paidCount}/{p.tenants.length} paid</span>
+                <span style={{ fontSize: 12, color: "#ffffff" }}>{p.tenants.length} tenants</span>
+                <span style={{ fontSize: 12, color: paidCount === p.tenants.length ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{paidCount}/{p.tenants.length} paid</span>
               </div>
 
               {/* Receipt buttons */}
@@ -763,9 +993,9 @@ export default function EstateOS() {
               </div>
 
               {/* Lease + Rent Increase section */}
-              <div style={{ borderTop: "1px solid #161d2a", paddingTop: 10 }}>
+              <div style={{ borderTop: "1px solid #1e293b", paddingTop: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>LEASE & RENT INCREASE</div>
+                  <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>LEASE & RENT INCREASE</div>
                   <a href={LEASE_FOLDER} target="_blank" rel="noreferrer"
                     style={{ fontSize: 10, padding: "2px 9px", borderRadius: 7, border: "1px solid #1e3a1e", background: "#070a10", color: "#22c55e", cursor: "pointer", fontFamily: "'DM Mono',monospace", textDecoration: "none" }}>
                     📄 Leases
@@ -774,8 +1004,7 @@ export default function EstateOS() {
                 {p.tenants.map(t => {
                   const meta = tenantMeta[t.id] || {};
                   const leaseVal = meta.leaseEnd || "";
-                  // Colour-code: expired = red, within 60 days = orange, ok = dimmed
-                  let leaseColor = "#374151";
+                  let leaseColor = "#cbd5e1";
                   if (leaseVal) {
                     const d = new Date(leaseVal);
                     const now = new Date("2026-03-04");
@@ -786,26 +1015,26 @@ export default function EstateOS() {
                   }
                   return (
                     <div key={t.id} style={{ marginBottom: 8, background: "#070a10", borderRadius: 8, padding: "8px 10px" }}>
-                      <div style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 6 }}>{t.name} <span style={{ color: "#374151", fontWeight: 400 }}>· {t.unit}</span></div>
+                      <div style={{ fontSize: 12, color: "#ffffff", fontWeight: 600, marginBottom: 6 }}>{t.name} <span style={{ color: "#ffffff", fontWeight: 400 }}>· {t.unit}</span></div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
                         <div>
-                          <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 3 }}>LEASE END</div>
+                          <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 3 }}>LEASE END</div>
                           <input
                             type="text"
                             placeholder="e.g. Jun 30, 2026"
                             value={leaseVal}
                             onChange={e => setTenantMeta(prev => ({ ...prev, [t.id]: { ...prev[t.id], leaseEnd: e.target.value } }))}
-                            style={{ width: "100%", background: "#0d1117", border: `1px solid ${leaseVal ? leaseColor + "60" : "#1e293b"}`, borderRadius: 6, padding: "4px 7px", color: leaseVal ? leaseColor : "#374151", fontSize: 11, fontFamily: "'DM Mono',monospace", boxSizing: "border-box" }}
+                            style={{ width: "100%", background: "#0d1117", border: `1px solid ${leaseVal ? leaseColor + "80" : "#1e293b"}`, borderRadius: 6, padding: "4px 7px", color: leaseVal ? leaseColor : "#ffffff", fontSize: 11, fontFamily: "'DM Mono',monospace", boxSizing: "border-box" }}
                           />
                         </div>
                         <div>
-                          <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 3 }}>LAST INCREASE</div>
+                          <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 3 }}>LAST INCREASE</div>
                           <input
                             type="text"
                             placeholder="e.g. Jan 2025"
                             value={meta.lastIncrease || ""}
                             onChange={e => setTenantMeta(prev => ({ ...prev, [t.id]: { ...prev[t.id], lastIncrease: e.target.value } }))}
-                            style={{ width: "100%", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 6, padding: "4px 7px", color: meta.lastIncrease ? "#818cf8" : "#374151", fontSize: 11, fontFamily: "'DM Mono',monospace", boxSizing: "border-box" }}
+                            style={{ width: "100%", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 6, padding: "4px 7px", color: meta.lastIncrease ? "#818cf8" : "#ffffff", fontSize: 11, fontFamily: "'DM Mono',monospace", boxSizing: "border-box" }}
                           />
                         </div>
                       </div>
@@ -813,6 +1042,71 @@ export default function EstateOS() {
                   );
                 })}
               </div>
+
+              {/* ── GMAIL INBOX SCAN ── */}
+              {p.email && (
+                <div style={{ borderTop: "1px solid #1e293b", paddingTop: 10, marginTop: 4 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>📬 INBOX SCAN</div>
+                    <div style={{ display: "flex", gap: 6 }}>
+                      {gmailTokens[p.id] ? (
+                        <button onClick={e => { e.stopPropagation(); scanInbox(p.id, gmailTokens[p.id].token); }}
+                          disabled={scanningProp === p.id}
+                          style={{ fontSize: 10, padding: "2px 9px", borderRadius: 7, border: "1px solid #1e3a5f", background: "#070a10", color: scanningProp === p.id ? "#374151" : "#60a5fa", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>
+                          {scanningProp === p.id ? "⏳ Scanning..." : "↻ Scan"}
+                        </button>
+                      ) : (
+                        <button onClick={e => { e.stopPropagation(); connectGmail(p); }}
+                          style={{ fontSize: 10, padding: "2px 9px", borderRadius: 7, border: "1px solid #1e3a1e", background: "#070a10", color: "#22c55e", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>
+                          + Connect Gmail
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Scan results */}
+                  {(() => {
+                    const scan = inboxScans[p.id];
+                    if (!scan) return (
+                      <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", padding: "6px 0" }}>
+                        {gmailTokens[p.id] ? "Scan pending..." : "Connect Gmail to auto-detect payments"}
+                      </div>
+                    );
+                    if (scan.status === "scanning") return (
+                      <div style={{ fontSize: 11, color: "#60a5fa", fontFamily: "'DM Mono',monospace" }}>⏳ Reading inbox...</div>
+                    );
+                    if (scan.status === "error") return (
+                      <div style={{ fontSize: 11, color: "#ef4444", fontFamily: "'DM Mono',monospace" }}>⚠ {scan.error} — try reconnecting Gmail</div>
+                    );
+                    if (scan.results.length === 0) return (
+                      <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>No payment emails found · Last scanned {scan.lastScanned}</div>
+                    );
+                    return (
+                      <div>
+                        {scan.results.map((r, i) => {
+                          const typeColor = r.type === "rent" ? "#22c55e" : r.type === "expense" ? "#f97316" : "#94a3b8";
+                          const typeBg = r.type === "rent" ? "#052010" : r.type === "expense" ? "#1a0800" : "#0d1117";
+                          const typeLabel = r.type === "rent" ? "RENT" : r.type === "expense" ? "EXPENSE" : "UNKNOWN";
+                          return (
+                            <div key={i} style={{ background: typeBg, border: `1px solid ${typeColor}30`, borderRadius: 7, padding: "7px 10px", marginBottom: 5 }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
+                                <span style={{ fontSize: 10, color: typeColor, fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{typeLabel}</span>
+                                <span style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>{r.amount ? fmt(r.amount) : "?"}</span>
+                              </div>
+                              <div style={{ fontSize: 11, color: "#ffffff" }}>
+                                {r.tenant || "Unknown sender"} · {r.description}
+                              </div>
+                              <div style={{ fontSize: 10, color: "#ffffff", marginTop: 2, fontFamily: "'DM Mono',monospace" }}>{r.date}</div>
+                              {r.confidence && <span style={{ fontSize: 9, color: r.confidence === "high" ? "#22c55e" : r.confidence === "medium" ? "#f97316" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{r.confidence.toUpperCase()} CONFIDENCE</span>}
+                            </div>
+                          );
+                        })}
+                        <div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 4 }}>Last scanned: {scan.lastScanned}</div>
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
 
             </div>
           );
@@ -823,7 +1117,7 @@ export default function EstateOS() {
 
   // ── PROPERTY DETAIL ──────────────────────────────────────────────────────────
   const PropertyDetail = () => {
-    if (!selectedProperty) return <div style={{ padding: 40, color: "#4b5563" }}>Select a property from the dashboard.</div>;
+    if (!selectedProperty) return <div style={{ padding: 40, color: "#ffffff" }}>Select a property from the dashboard.</div>;
     const p = selectedProperty;
     const monthlyTarget = p.tenants.reduce((s, t) => s + t.rent, 0);
     const collected = p.tenants.reduce((s, t) => s + (t.payments[selectedMonth] || 0), 0);
@@ -833,16 +1127,16 @@ export default function EstateOS() {
           <button onClick={() => setTab("dashboard")} style={{ background: "none", border: "none", color: "#f6c90e", cursor: "pointer", fontSize: 22, lineHeight: 1 }}>←</button>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>{p.address}</div>
-            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{p.ownership} · {p.bank}{p.account ? " #" + p.account : ""}</div>
+            <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{p.ownership} · {p.bank}{p.account ? " #" + p.account : ""}</div>
           </div>
-          {!p.owned && <span style={{ fontSize: 10, color: "#6b7280", background: "#161d2a", padding: "4px 12px", borderRadius: 10 }}>MANAGED ONLY</span>}
+          {!p.owned && <span style={{ fontSize: 10, color: "#e2e8f0", background: "#161d2a", padding: "4px 12px", borderRadius: 10 }}>MANAGED ONLY</span>}
         </div>
 
         <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 10, padding: "14px 20px", marginBottom: 18, display: "flex", gap: 28, flexWrap: "wrap", alignItems: "center" }}>
-          {p.email && <div><div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>INBOX</div><div style={{ color: "#f6c90e", fontSize: 12 }}>{p.email}</div></div>}
-          <div><div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>TYPE</div><div style={{ color: "#9ca3af", fontSize: 12, textTransform: "capitalize" }}>{p.type}</div></div>
-          <div><div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>TARGET</div><div style={{ color: "#9ca3af", fontSize: 12 }}>{fmt(monthlyTarget)}/mo</div></div>
-          <div><div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>COLLECTED</div><div style={{ color: collected >= monthlyTarget ? "#22c55e" : "#ef4444", fontSize: 12 }}>{fmt(collected)}</div></div>
+          {p.email && <div><div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>INBOX</div><div style={{ color: "#f6c90e", fontSize: 12 }}>{p.email}</div></div>}
+          <div><div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>TYPE</div><div style={{ color: "#e2e8f0", fontSize: 12, textTransform: "capitalize" }}>{p.type}</div></div>
+          <div><div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>TARGET</div><div style={{ color: "#e2e8f0", fontSize: 12 }}>{fmt(monthlyTarget)}/mo</div></div>
+          <div><div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>COLLECTED</div><div style={{ color: collected >= monthlyTarget ? "#22c55e" : "#ef4444", fontSize: 12 }}>{fmt(collected)}</div></div>
           <div style={{ marginLeft: "auto" }}>
             <select value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)}
               style={{ background: "#161d2a", border: "none", color: "#f1f5f9", fontSize: 12, borderRadius: 7, padding: "4px 10px", cursor: "pointer" }}>
@@ -863,14 +1157,14 @@ export default function EstateOS() {
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
                       <span style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{t.name}</span>
-                      <span style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>{t.unit}</span>
+                      <span style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>{t.unit}</span>
                     </div>
                     {t.email && <div style={{ fontSize: 11, color: "#2563eb", marginBottom: 5 }}>{t.email}</div>}
                     <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
                       {t.flags.map((f, fi) => (
                         <span key={fi} style={{ fontSize: 9, padding: "2px 8px", borderRadius: 10, background: "#111827", color: FLAG_COLORS[f] || "#9ca3af", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{f}</span>
                       ))}
-                      <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 10, background: "#111827", color: "#374151", fontFamily: "'DM Mono',monospace" }}>
+                      <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 10, background: "#111827", color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>
                         {t.depositType === "manual" ? "MANUAL" : t.depositType === "cheque" ? "CHEQUE" : "AUTO"}
                       </span>
                     </div>
@@ -879,7 +1173,7 @@ export default function EstateOS() {
                     <div style={{ fontSize: 22, fontFamily: "'DM Mono',monospace", color: status === "paid" ? "#22c55e" : status === "partial" ? "#f97316" : "#ef4444", fontWeight: 700 }}>
                       {paid != null ? fmt(paid) : "NOT PAID"}
                     </div>
-                    <div style={{ fontSize: 11, color: "#374151" }}>of {fmt(t.rent)}</div>
+                    <div style={{ fontSize: 11, color: "#ffffff" }}>of {fmt(t.rent)}</div>
                     <span style={{ fontSize: 10, marginTop: 4, padding: "2px 9px", borderRadius: 20, display: "inline-block", background: status === "paid" ? "#0d2b1a" : status === "partial" ? "#2a1200" : "#2a0000", color: status === "paid" ? "#86efac" : status === "partial" ? "#fed7aa" : "#fca5a5", fontFamily: "'DM Mono',monospace" }}>
                       {status.toUpperCase()}
                     </span>
@@ -893,7 +1187,7 @@ export default function EstateOS() {
                     const s = getPaymentStatus(t, m);
                     return (
                       <div key={m} title={`${m}: ${fmt(t.payments[m])}`}
-                        style={{ width: 26, height: 26, borderRadius: 6, background: s === "paid" ? "#0d2b1a" : s === "partial" ? "#2a1200" : t.payments[m] === undefined ? "#0a0d12" : "#2a0000", border: m === selectedMonth ? "2px solid #f6c90e" : "1px solid #161d2a", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 7, color: "#4b5563", cursor: "default", fontFamily: "'DM Mono',monospace" }}>
+                        style={{ width: 26, height: 26, borderRadius: 6, background: s === "paid" ? "#0d2b1a" : s === "partial" ? "#2a1200" : t.payments[m] === undefined ? "#0a0d12" : "#2a0000", border: m === selectedMonth ? "2px solid #f6c90e" : "1px solid #161d2a", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 7, color: "#ffffff", cursor: "default", fontFamily: "'DM Mono',monospace" }}>
                         {m.slice(0, 1)}
                       </div>
                     );
@@ -903,7 +1197,7 @@ export default function EstateOS() {
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                   {["rent reminder", "late notice", "partial payment follow-up"].map(type => (
                     <button key={type} onClick={() => draftEmail(p, t, type)}
-                      style={{ fontSize: 10, padding: "4px 11px", borderRadius: 7, border: "1px solid #161d2a", background: "#070a10", color: "#6b7280", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>
+                      style={{ fontSize: 10, padding: "4px 11px", borderRadius: 7, border: "1px solid #161d2a", background: "#070a10", color: "#e2e8f0", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>
                       ✉ {type}
                     </button>
                   ))}
@@ -947,8 +1241,8 @@ export default function EstateOS() {
         <div style={{ flex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
             <span style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 600 }}>{t.name}</span>
-            <span style={{ color: "#374151", fontSize: 10, fontFamily: "'DM Mono',monospace" }}>{t.unit}</span>
-            <span style={{ color: "#4b5563", fontSize: 10 }}>· {p.address}</span>
+            <span style={{ color: "#ffffff", fontSize: 10, fontFamily: "'DM Mono',monospace" }}>{t.unit}</span>
+            <span style={{ color: "#ffffff", fontSize: 10 }}>· {p.address}</span>
             {t.flags.slice(0, 1).map((f, fi) => (
               <span key={fi} style={{ fontSize: 9, color: FLAG_COLORS[f] || "#9ca3af", fontFamily: "'DM Mono',monospace" }}>· {f}</span>
             ))}
@@ -959,25 +1253,25 @@ export default function EstateOS() {
           {/* Outstanding badge — only for unpaid/partial */}
           {status !== "paid" && (
             <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>OUTSTANDING</div>
+              <div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>OUTSTANDING</div>
               <div style={{ fontSize: 15, fontWeight: 700, color: "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(owed)}</div>
             </div>
           )}
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>
+            <div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>
               {status === "paid" ? "PAID" : "RECEIVED"}
             </div>
             <div style={{ fontSize: 15, fontWeight: 700, color: status === "paid" ? "#22c55e" : status === "partial" ? "#f97316" : "#374151", fontFamily: "'DM Mono',monospace" }}>
               {paid != null ? fmt(paid) : "—"}
             </div>
-            <div style={{ fontSize: 10, color: "#374151" }}>of {fmt(t.rent)}</div>
+            <div style={{ fontSize: 10, color: "#ffffff" }}>of {fmt(t.rent)}</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
             <span style={{ fontSize: 10, padding: "2px 9px", borderRadius: 20, background: status === "paid" ? "#0d2b1a" : status === "partial" ? "#2a1200" : "#2a0000", color: status === "paid" ? "#86efac" : status === "partial" ? "#fed7aa" : "#fca5a5", fontFamily: "'DM Mono',monospace" }}>
               {status.toUpperCase()}
             </span>
             <button onClick={() => draftEmail(p, t, status === "paid" ? "rent reminder" : "late notice")}
-              style={{ fontSize: 9, padding: "2px 8px", borderRadius: 5, border: "1px solid #161d2a", background: "none", color: "#4b5563", cursor: "pointer" }}>✉</button>
+              style={{ fontSize: 9, padding: "2px 8px", borderRadius: 5, border: "1px solid #161d2a", background: "none", color: "#ffffff", cursor: "pointer" }}>✉</button>
           </div>
         </div>
       </div>
@@ -1002,7 +1296,7 @@ export default function EstateOS() {
             ["UNPAID TENANTS", unpaidRows.length, outstanding > 0 ? "#ef4444" : "#22c55e", outstanding > 0 ? "#2a0000" : "#0d2b1a"],
           ].map(([l, v, c, bg]) => (
             <div key={l} style={{ background: "#0d1117", border: `1px solid ${bg}`, borderRadius: 12, padding: "16px 20px" }}>
-              <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
+              <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
               <div style={{ fontSize: 22, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
             </div>
           ))}
@@ -1044,14 +1338,14 @@ export default function EstateOS() {
         <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 16, width: "100%", maxWidth: 580, padding: 26, maxHeight: "80vh", overflowY: "auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 14 }}>
             <div style={{ fontSize: 16, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Draft — {emailDraft.type}</div>
-            <button onClick={() => setEmailDraft(null)} style={{ background: "none", border: "none", color: "#4b5563", cursor: "pointer", fontSize: 18 }}>✕</button>
+            <button onClick={() => setEmailDraft(null)} style={{ background: "none", border: "none", color: "#ffffff", cursor: "pointer", fontSize: 18 }}>✕</button>
           </div>
-          <div style={{ fontSize: 11, color: "#374151", marginBottom: 14, fontFamily: "'DM Mono',monospace", lineHeight: 1.7 }}>
+          <div style={{ fontSize: 11, color: "#ffffff", marginBottom: 14, fontFamily: "'DM Mono',monospace", lineHeight: 1.7 }}>
             FROM: {emailDraft.property.email || "altaraymanagement@gmail.com"}<br />
             TO: {emailDraft.tenant.name}{emailDraft.tenant.email ? ` <${emailDraft.tenant.email}>` : " (no email on file)"}
           </div>
           {emailDraft.loading
-            ? <div style={{ color: "#6b7280", textAlign: "center", padding: 40 }}>Drafting...</div>
+            ? <div style={{ color: "#e2e8f0", textAlign: "center", padding: 40 }}>Drafting...</div>
             : <div style={{ background: "#070a10", border: "1px solid #161d2a", borderRadius: 10, padding: 16, fontSize: 13, color: "#e2e8f0", lineHeight: 1.8, whiteSpace: "pre-wrap" }}>{emailDraft.text}</div>}
           {!emailDraft.loading && (
             <div style={{ display: "flex", gap: 10, marginTop: 14 }}>
@@ -1078,7 +1372,7 @@ export default function EstateOS() {
             </div>
           </div>
         ))}
-        {chatLoading && <div style={{ color: "#4b5563", fontSize: 13, padding: "6px 14px" }}>EstateOS is thinking...</div>}
+        {chatLoading && <div style={{ color: "#ffffff", fontSize: 13, padding: "6px 14px" }}>EstateOS is thinking...</div>}
         <div ref={chatEndRef} />
       </div>
       <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
@@ -1092,7 +1386,7 @@ export default function EstateOS() {
       <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
         {["Who hasn't paid in March?", "Draft reminder for Tiffany at 285 Van Order", "List all Always Late tenants", "Which properties renew soon?", "Summarize 43 Ruskin"].map(q => (
           <button key={q} onClick={() => sendChat(q)}
-            style={{ fontSize: 11, padding: "4px 11px", borderRadius: 15, border: "1px solid #161d2a", background: "#0d1117", color: "#6b7280", cursor: "pointer" }}>{q}</button>
+            style={{ fontSize: 11, padding: "4px 11px", borderRadius: 15, border: "1px solid #161d2a", background: "#0d1117", color: "#e2e8f0", cursor: "pointer" }}>{q}</button>
         ))}
       </div>
     </div>
@@ -1300,10 +1594,10 @@ export default function EstateOS() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
                   <div style={{ fontSize: 20, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Cash Flow Statement — {p.address}</div>
-                  <div style={{ fontSize: 12, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>{p.ownership} · {reportMonth}</div>
+                  <div style={{ fontSize: 12, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>{p.ownership} · {reportMonth}</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>NET CASH FLOW</div>
+                  <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>NET CASH FLOW</div>
                   <div style={{ fontSize: 26, fontWeight: 700, color: cf.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(cf.cashflow)}</div>
                 </div>
               </div>
@@ -1315,7 +1609,7 @@ export default function EstateOS() {
                 <div style={{ fontSize: 11, color: "#22c55e", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 14 }}>REVENUE</div>
                 {p.tenants.map((t, i) => (
                   <div key={t.id} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid #0f1a10" }}>
-                    <span style={{ color: "#9ca3af", fontSize: 13 }}>{t.name} ({t.unit})</span>
+                    <span style={{ color: "#e2e8f0", fontSize: 13 }}>{t.name} ({t.unit})</span>
                     <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, color: t.payments[reportMonth] ? "#22c55e" : "#ef4444" }}>{fmt(t.payments[reportMonth] || 0)}</span>
                   </div>
                 ))}
@@ -1324,8 +1618,8 @@ export default function EstateOS() {
                   <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: "#22c55e", fontWeight: 700 }}>{fmt(cf.revenue)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0" }}>
-                  <span style={{ color: "#4b5563", fontSize: 11 }}>Target</span>
-                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#4b5563" }}>{fmt(totalRent)}</span>
+                  <span style={{ color: "#ffffff", fontSize: 11 }}>Target</span>
+                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#ffffff" }}>{fmt(totalRent)}</span>
                 </div>
               </div>
 
@@ -1340,18 +1634,18 @@ export default function EstateOS() {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid #150d00", background: "#0a0800", borderRadius: 4, paddingLeft: 6, marginBottom: 2 }}>
                       <div>
                         <span style={{ color: "#f6c90e", fontSize: 12 }}>Mortgage Payment</span>
-                        <span style={{ color: "#374151", fontSize: 10, fontFamily: "'DM Mono',monospace", marginLeft: 8 }}>{mtg.lender} · {mtg.type}</span>
+                        <span style={{ color: "#ffffff", fontSize: 10, fontFamily: "'DM Mono',monospace", marginLeft: 8 }}>{mtg.lender} · {mtg.type}</span>
                       </div>
                       <div style={{ textAlign: "right" }}>
                         <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, color: "#f6c90e", fontWeight: 700 }}>{fmt(mtg.monthlyPayment)}</div>
-                        <div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace" }}>P: {fmt(mtg.monthlyPrincipal)} · I: {fmt(mtg.monthlyInterest)}</div>
+                        <div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>P: {fmt(mtg.monthlyPrincipal)} · I: {fmt(mtg.monthlyInterest)}</div>
                       </div>
                     </div>
                   );
                 })()}
                 {EXPENSE_CATEGORIES.map(cat => (
                   <div key={cat} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: "1px solid #150d00" }}>
-                    <span style={{ color: "#6b7280", fontSize: 12 }}>{cat}</span>
+                    <span style={{ color: "#e2e8f0", fontSize: 12 }}>{cat}</span>
                     <input type="number" value={exp[cat] || ""} onChange={e => updateExpense(p.id, reportMonth, cat, e.target.value)}
                       placeholder="0.00"
                       style={{ width: 90, background: "#070a10", border: "1px solid #1e293b", borderRadius: 6, padding: "3px 7px", color: exp[cat] ? "#f1f5f9" : "#374151", fontSize: 12, fontFamily: "'DM Mono',monospace", textAlign: "right" }} />
@@ -1367,13 +1661,13 @@ export default function EstateOS() {
             {/* Cash Flow + YTD */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 16 }}>
               <div style={{ background: "#0d1117", border: `1px solid ${cf.cashflow >= 0 ? "#0d2b1a" : "#2a0000"}`, borderRadius: 12, padding: "18px 22px" }}>
-                <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>CASH FLOW — {reportMonth}</div>
+                <div style={{ fontSize: 11, color: "#e2e8f0", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>CASH FLOW — {reportMonth}</div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                  <span style={{ color: "#6b7280", fontSize: 13 }}>Revenue</span>
+                  <span style={{ color: "#e2e8f0", fontSize: 13 }}>Revenue</span>
                   <span style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace" }}>{fmt(cf.revenue)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-                  <span style={{ color: "#6b7280", fontSize: 13 }}>Expenses</span>
+                  <span style={{ color: "#e2e8f0", fontSize: 13 }}>Expenses</span>
                   <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace" }}>({fmt(cf.expenses)})</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #1e293b", paddingTop: 10 }}>
@@ -1382,13 +1676,13 @@ export default function EstateOS() {
                 </div>
               </div>
               <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "18px 22px" }}>
-                <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>YTD (Jan–Mar 2026)</div>
+                <div style={{ fontSize: 11, color: "#e2e8f0", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>YTD (Jan–Mar 2026)</div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                  <span style={{ color: "#6b7280", fontSize: 13 }}>Revenue</span>
+                  <span style={{ color: "#e2e8f0", fontSize: 13 }}>Revenue</span>
                   <span style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace" }}>{fmt(ytd.revenue)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-                  <span style={{ color: "#6b7280", fontSize: 13 }}>Expenses</span>
+                  <span style={{ color: "#e2e8f0", fontSize: 13 }}>Expenses</span>
                   <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace" }}>({fmt(ytd.expenses)})</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #1e293b", paddingTop: 10 }}>
@@ -1403,16 +1697,16 @@ export default function EstateOS() {
         {/* ── BY CORPORATION VIEW ── */}
         {reportView === "corp" && (
           <div>
-            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 16 }}>CASH FLOW BY CORPORATION — {reportMonth}</div>
+            <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 16 }}>CASH FLOW BY CORPORATION — {reportMonth}</div>
             {corpData.map(corp => (
               <div key={corp.id} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "18px 22px", marginBottom: 12 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{corp.name}</div>
-                    <div style={{ fontSize: 11, color: "#374151", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{corp.properties.length} properties</div>
+                    <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{corp.properties.length} properties</div>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>NET CASH FLOW</div>
+                    <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>NET CASH FLOW</div>
                     <div style={{ fontSize: 20, fontWeight: 700, color: corp.cashflow >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(corp.cashflow)}</div>
                   </div>
                 </div>
@@ -1422,7 +1716,7 @@ export default function EstateOS() {
                   const pcf = getPropertyCashflow(pid, reportMonth);
                   return (
                     <div key={pid} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderTop: "1px solid #0f1520" }}>
-                      <span style={{ color: "#6b7280", fontSize: 13 }}>{prop.address}</span>
+                      <span style={{ color: "#e2e8f0", fontSize: 13 }}>{prop.address}</span>
                       <div style={{ display: "flex", gap: 20 }}>
                         <span style={{ color: "#22c55e", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>{fmt(pcf.revenue)}</span>
                         <span style={{ color: "#f97316", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>({fmt(pcf.expenses)})</span>
@@ -1432,7 +1726,7 @@ export default function EstateOS() {
                   );
                 })}
                 <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 0", borderTop: "1px solid #1e293b", marginTop: 4 }}>
-                  <span style={{ color: "#9ca3af", fontSize: 12, fontWeight: 600 }}>Totals</span>
+                  <span style={{ color: "#e2e8f0", fontSize: 12, fontWeight: 600 }}>Totals</span>
                   <div style={{ display: "flex", gap: 20 }}>
                     <span style={{ color: "#22c55e", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>{fmt(corp.revenue)}</span>
                     <span style={{ color: "#f97316", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>({fmt(corp.expenses)})</span>
@@ -1452,16 +1746,16 @@ export default function EstateOS() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginBottom: 16 }}>
                 {[["TOTAL REVENUE", fmt(portfolioRev), "#22c55e"], ["TOTAL EXPENSES", fmt(portfolioExp), "#f97316"], ["NET CASH FLOW", fmt(portfolioCF), portfolioCF >= 0 ? "#22c55e" : "#ef4444"]].map(([l, v, c]) => (
                   <div key={l} style={{ background: "#070a10", borderRadius: 10, padding: "14px 18px" }}>
-                    <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
+                    <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
                     <div style={{ fontSize: 22, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
                   </div>
                 ))}
               </div>
             </div>
-            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 12 }}>ALL PROPERTIES</div>
+            <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 12 }}>ALL PROPERTIES</div>
             <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, overflow: "hidden" }}>
               <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "10px 18px", borderBottom: "1px solid #161d2a" }}>
-                {["PROPERTY","REVENUE","EXPENSES","CASH FLOW"].map(h => <div key={h} style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
+                {["PROPERTY","REVENUE","EXPENSES","CASH FLOW"].map(h => <div key={h} style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
               </div>
               {PORTFOLIO.map((prop, i) => {
                 const pcf = getPropertyCashflow(prop.id, reportMonth);
@@ -1469,7 +1763,7 @@ export default function EstateOS() {
                   <div key={prop.id} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "11px 18px", borderBottom: i < PORTFOLIO.length - 1 ? "1px solid #0f1520" : "none", background: i % 2 === 0 ? "#0a0e16" : "#0d1117" }}>
                     <div>
                       <span style={{ color: "#e2e8f0", fontSize: 13 }}>{prop.address}</span>
-                      {!prop.owned && <span style={{ fontSize: 9, color: "#374151", background: "#161d2a", padding: "1px 5px", borderRadius: 6, marginLeft: 6, fontFamily: "'DM Mono',monospace" }}>MGD</span>}
+                      {!prop.owned && <span style={{ fontSize: 9, color: "#ffffff", background: "#161d2a", padding: "1px 5px", borderRadius: 6, marginLeft: 6, fontFamily: "'DM Mono',monospace" }}>MGD</span>}
                     </div>
                     <div style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{fmt(pcf.revenue)}</div>
                     <div style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>({fmt(pcf.expenses)})</div>
@@ -1742,7 +2036,7 @@ export default function EstateOS() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
           <div>
             <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>T776 — Rental Income</div>
-            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>CRA Statement of Real Estate Rentals</div>
+            <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>CRA Statement of Real Estate Rentals</div>
           </div>
           <select value={taxYear} onChange={e => setTaxYear(e.target.value)}
             style={{ background: "#0d1117", border: "1px solid #161d2a", color: "#f1f5f9", fontSize: 13, borderRadius: 8, padding: "6px 12px" }}>
@@ -1783,7 +2077,7 @@ export default function EstateOS() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }}>
                 {[["PROPERTY", p.address], ["OWNER / CORP", own.corp], ["% OWNERSHIP", own.pct + "%"], ["CO-OWNER", own.coowner || "N/A"]].map(([l, v]) => (
                   <div key={l}>
-                    <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 4 }}>{l}</div>
+                    <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 4 }}>{l}</div>
                     <div style={{ fontSize: 13, color: "#f1f5f9", fontWeight: 600 }}>{v}</div>
                   </div>
                 ))}
@@ -1798,7 +2092,7 @@ export default function EstateOS() {
               </div>
               {MONTHS.filter(m => ytd.monthlyRevenue?.[m] > 0).map((m, i) => (
                 <div key={m} style={{ display: "grid", gridTemplateColumns: "160px 1fr 130px", padding: "8px 18px", borderBottom: "1px solid #0f1520", background: i % 2 === 0 ? "#0a0e16" : "#0d1117" }}>
-                  <div style={{ color: "#4b5563", fontSize: 11, fontFamily: "'DM Mono',monospace" }}>{m}</div>
+                  <div style={{ color: "#ffffff", fontSize: 11, fontFamily: "'DM Mono',monospace" }}>{m}</div>
                   <div style={{ color: "#d1fae5", fontSize: 12 }}>Rent Collected</div>
                   <div style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{fmt(ytd.monthlyRevenue[m])}</div>
                 </div>
@@ -1817,7 +2111,7 @@ export default function EstateOS() {
                 <div style={{ fontSize: 10, color: "#f97316", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>EXPENSES — VENDOR DETAIL</div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 130px 130px 160px", padding: "8px 18px", background: "#060809", borderBottom: "1px solid #161d2a" }}>
-                {["CATEGORY","FULL AMOUNT","YOUR SHARE","CRA LINE"].map(h => <div key={h} style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
+                {["CATEGORY","FULL AMOUNT","YOUR SHARE","CRA LINE"].map(h => <div key={h} style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
               </div>
               {EXPENSE_CATEGORIES.map((cat, i) => {
                 const raw = ytd.expTotals[cat] || 0;
@@ -1828,7 +2122,7 @@ export default function EstateOS() {
                     <div style={{ color: raw > 0 ? "#e2e8f0" : "#374151", fontSize: 13 }}>{cat}</div>
                     <div style={{ color: raw > 0 ? "#f97316" : "#1f2937", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{raw > 0 ? fmt(raw) : "—"}</div>
                     <div style={{ color: raw > 0 ? "#f97316" : "#1f2937", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{raw > 0 ? fmt(raw * own.pct / 100) : "—"}</div>
-                    <div style={{ color: "#4b5563", fontSize: 11, fontFamily: "'DM Mono',monospace" }}>{lineLabel}</div>
+                    <div style={{ color: "#ffffff", fontSize: 11, fontFamily: "'DM Mono',monospace" }}>{lineLabel}</div>
                   </div>
                 );
               })}
@@ -1840,7 +2134,7 @@ export default function EstateOS() {
                 <div style={{ fontSize: 10, color: "#818cf8", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>CRA T776 — CONSOLIDATED LINES</div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 130px 130px", padding: "8px 18px", background: "#060809", borderBottom: "1px solid #161d2a" }}>
-                {["CRA LINE","DESCRIPTION","FULL AMOUNT","YOUR SHARE"].map(h => <div key={h} style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
+                {["CRA LINE","DESCRIPTION","FULL AMOUNT","YOUR SHARE"].map(h => <div key={h} style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
               </div>
               {(() => {
                 const lines = buildT776Lines(ytd);
@@ -1853,7 +2147,7 @@ export default function EstateOS() {
                     return (
                       <div key={item.line} style={{ display: "grid", gridTemplateColumns: "120px 1fr 130px 130px", padding: "10px 18px", borderBottom: "1px solid #0f1520", background: item.note ? "#1a1500" : i % 2 === 0 ? "#0a0e16" : "#0d1117", opacity: item.amount > 0 ? 1 : 0.4 }}>
                         <div style={{ color: item.note ? "#f59e0b" : "#4b5563", fontSize: 11, fontFamily: "'DM Mono',monospace" }}>{item.note ? "NOTE" : `Line ${item.line}`}</div>
-                        <div style={{ color: item.note ? "#f59e0b" : item.amount > 0 ? "#e2e8f0" : "#374151", fontSize: 13 }}>{item.cra}{item.note && <span style={{ color: "#6b7280", fontSize: 10 }}> — not deductible</span>}</div>
+                        <div style={{ color: item.note ? "#f59e0b" : item.amount > 0 ? "#e2e8f0" : "#374151", fontSize: 13 }}>{item.cra}{item.note && <span style={{ color: "#e2e8f0", fontSize: 10 }}> — not deductible</span>}</div>
                         <div style={{ color: item.note ? "#6b7280" : item.amount > 0 ? "#f97316" : "#1f2937", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{item.amount > 0 ? fmt(item.amount) : "—"}</div>
                         <div style={{ color: item.note ? "#6b7280" : item.amount > 0 ? "#f97316" : "#1f2937", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{item.amount > 0 && !item.note ? fmt(item.amount * own.pct / 100) : "—"}</div>
                       </div>
@@ -1861,7 +2155,7 @@ export default function EstateOS() {
                   })}
                   <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 130px 130px", padding: "12px 18px", borderTop: "2px solid #1e293b", background: "#0a0e16" }}>
                     <div></div>
-                    <div style={{ color: "#9ca3af", fontWeight: 700, fontSize: 13 }}>Total Deductible Expenses</div>
+                    <div style={{ color: "#e2e8f0", fontWeight: 700, fontSize: 13 }}>Total Deductible Expenses</div>
                     <div style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{fmt(totalExpD)}</div>
                     <div style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{fmt(totalExpD * own.pct / 100)}</div>
                   </div>
@@ -1885,17 +2179,17 @@ export default function EstateOS() {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: "#f1f5f9" }}>{corp.name}</div>
-                    <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{corp.properties.length} properties · Tax Year {taxYear}</div>
+                    <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{corp.properties.length} properties · Tax Year {taxYear}</div>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>NET RENTAL INCOME</div>
+                    <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>NET RENTAL INCOME</div>
                     <div style={{ fontSize: 20, fontWeight: 700, color: corp.netIncome >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(corp.netIncome)}</div>
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 14 }}>
                   {[["GROSS INCOME", fmt(corp.revenue), "#22c55e"], ["TOTAL EXPENSES", fmt(corp.totalExp), "#f97316"], ["NET INCOME", fmt(corp.netIncome), corp.netIncome >= 0 ? "#22c55e" : "#ef4444"]].map(([l, v, c]) => (
                     <div key={l} style={{ background: "#070a10", borderRadius: 8, padding: "10px 14px" }}>
-                      <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 4 }}>{l}</div>
+                      <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 4 }}>{l}</div>
                       <div style={{ fontSize: 16, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
                     </div>
                   ))}
@@ -1906,7 +2200,7 @@ export default function EstateOS() {
                   const craRef = T776_CRA_MAP[cat];
                   return (
                     <div key={cat} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderTop: "1px solid #0f1520" }}>
-                      <span style={{ color: "#6b7280", fontSize: 12 }}>{cat} <span style={{ color: "#374151", fontSize: 10 }}>{craRef?.line ? `→ Line ${craRef.line}` : "non-deductible"}</span></span>
+                      <span style={{ color: "#e2e8f0", fontSize: 12 }}>{cat} <span style={{ color: "#ffffff", fontSize: 10 }}>{craRef?.line ? `→ Line ${craRef.line}` : "non-deductible"}</span></span>
                       <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{fmt(raw)}</span>
                     </div>
                   );
@@ -1919,10 +2213,10 @@ export default function EstateOS() {
         {/* ── ALL PROPERTIES T776 ── */}
         {taxView === "all" && (
           <div>
-            <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 12 }}>ALL OWNED PROPERTIES — TAX YEAR {taxYear}</div>
+            <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 12 }}>ALL OWNED PROPERTIES — TAX YEAR {taxYear}</div>
             <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, overflow: "hidden" }}>
               <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr", padding: "10px 18px", borderBottom: "1px solid #161d2a", background: "#060809" }}>
-                {["PROPERTY","OWNERSHIP","GROSS INCOME","EXPENSES","NET INCOME"].map(h => <div key={h} style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
+                {["PROPERTY","OWNERSHIP","GROSS INCOME","EXPENSES","NET INCOME"].map(h => <div key={h} style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>{h}</div>)}
               </div>
               {ownedProps.map((prop, i) => {
                 const own = OWNERSHIP_MAP[prop.id] || { corp: prop.ownership, pct: 100 };
@@ -1933,9 +2227,9 @@ export default function EstateOS() {
                   <div key={prop.id} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr", padding: "11px 18px", borderBottom: i < ownedProps.length - 1 ? "1px solid #0f1520" : "none", background: i % 2 === 0 ? "#0a0e16" : "#0d1117" }}>
                     <div>
                       <div style={{ color: "#e2e8f0", fontSize: 13 }}>{prop.address}</div>
-                      <div style={{ color: "#374151", fontSize: 10, fontFamily: "'DM Mono',monospace" }}>{own.corp}</div>
+                      <div style={{ color: "#ffffff", fontSize: 10, fontFamily: "'DM Mono',monospace" }}>{own.corp}</div>
                     </div>
-                    <div style={{ color: "#6b7280", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>{own.pct}%</div>
+                    <div style={{ color: "#e2e8f0", fontSize: 12, fontFamily: "'DM Mono',monospace" }}>{own.pct}%</div>
                     <div style={{ color: "#22c55e", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>{fmt(ytd.revenue)}</div>
                     <div style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 13 }}>({fmt(totalE)})</div>
                     <div style={{ color: net >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 600 }}>{fmt(net)}</div>
@@ -1958,110 +2252,230 @@ export default function EstateOS() {
 
   // ── MORTGAGES TAB ────────────────────────────────────────────────────────────
   const MortgagesTab = () => {
-    const knownMortgages = Object.entries(MORTGAGE_DATA);
-    const totalBalance = knownMortgages.reduce((s, [, m]) => s + m.balanceDec2025, 0);
-    const totalInterest2025 = knownMortgages.reduce((s, [, m]) => s + m.interestPaid2025, 0);
-    const totalPrincipal2025 = knownMortgages.reduce((s, [, m]) => s + m.principalPaid2025, 0);
-    const totalMonthlyPayment = knownMortgages.reduce((s, [, m]) => s + m.monthlyPayment, 0);
-    const totalMonthlyPrincipal = knownMortgages.reduce((s, [, m]) => s + m.monthlyPrincipal, 0);
+    const [section, setSection] = useState("first");
+    const entries = Object.entries(MORTGAGE_DATA);
+    const totalBalance1st = entries.reduce((s, [, m]) => s + (m.balance || 0), 0);
+    const totalMonthly1st = entries.reduce((s, [, m]) => s + (m.monthlyPayment || 0), 0);
+    const totalBalance2nd = SECOND_MORTGAGES.reduce((s, m) => s + m.amount, 0);
+    const totalMonthly2nd = SECOND_MORTGAGES.reduce((s, m) => s + m.monthly, 0);
+    const totalBalanceLOC = LINES_OF_CREDIT.reduce((s, l) => s + l.balance, 0);
+    const totalMonthlyLOC = LINES_OF_CREDIT.reduce((s, l) => s + l.monthly, 0);
+    const grandTotalDebt = totalBalance1st + totalBalance2nd + totalBalanceLOC;
+    const grandTotalMonthly = totalMonthly1st + totalMonthly2nd + totalMonthlyLOC;
 
-    const colStyle = (color, bold) => ({ fontFamily: "'DM Mono',monospace", fontSize: 13, color: color || "#9ca3af", fontWeight: bold ? 700 : 400, padding: "13px 14px", borderBottom: "1px solid #0d1117", whiteSpace: "nowrap" });
-    const headStyle = { fontFamily: "'DM Mono',monospace", fontSize: 10, color: "#4b5563", letterSpacing: 1.5, padding: "10px 14px", textAlign: "left", borderBottom: "2px solid #161d2a", whiteSpace: "nowrap" };
+    const headStyle = { fontFamily: "'DM Mono',monospace", fontSize: 10, color: "#ffffff", letterSpacing: 1.5, padding: "10px 14px", textAlign: "left", borderBottom: "2px solid #161d2a", whiteSpace: "nowrap" };
+    const cell = (color, bold, right) => ({ fontFamily: "'DM Mono',monospace", fontSize: 12, color: color || "#ffffff", fontWeight: bold ? 700 : 400, padding: "11px 14px", borderBottom: "1px solid #0d1117", whiteSpace: "nowrap", textAlign: right ? "right" : "left" });
+
+    const today = new Date();
+    function renewalColor(maturity) {
+      if (!maturity || maturity === "—") return "#ffffff";
+      const d = new Date(maturity);
+      if (isNaN(d)) return "#ffffff";
+      const days = Math.floor((d - today) / 86400000);
+      if (days < 0) return "#ef4444";
+      if (days < 90) return "#f97316";
+      if (days < 180) return "#f6c90e";
+      return "#22c55e";
+    }
 
     return (
       <div style={{ padding: 24 }}>
-        <div style={{ marginBottom: 24 }}>
-          <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Mortgages</div>
-          <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>Annual statements · Real data from lenders</div>
+        <div style={{ marginBottom: 20 }}>
+          <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Mortgages & Debt</div>
+          <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>All properties — 1st mortgages, 2nd mortgages, lines of credit</div>
         </div>
 
-        {/* Summary cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12, marginBottom: 28 }}>
+        {/* Portfolio summary */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }}>
           {[
-            ["BALANCE DEC 2025", fmt(totalBalance), "#ef4444"],
-            ["MONTHLY PAYMENT", fmt(totalMonthlyPayment), "#f6c90e"],
-            ["MONTHLY PRINCIPAL", fmt(totalMonthlyPrincipal), "#22c55e"],
-            ["INTEREST PAID 2025", fmt(totalInterest2025), "#f97316"],
-            ["PRINCIPAL PAID 2025", fmt(totalPrincipal2025), "#22c55e"],
+            ["TOTAL DEBT", fmt(grandTotalDebt), "#ef4444"],
+            ["1ST MORTGAGES", fmt(totalBalance1st), "#f97316"],
+            ["2ND MORTGAGES", fmt(totalBalance2nd), "#f6c90e"],
+            ["MONTHLY PAYMENTS", fmt(grandTotalMonthly), "#818cf8"],
           ].map(([l, v, c]) => (
             <div key={l} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "14px 16px" }}>
-              <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
+              <div style={{ fontSize: 9, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
             </div>
           ))}
         </div>
 
-        {/* Main table */}
-        <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, overflow: "hidden", marginBottom: 20 }}>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr style={{ background: "#070a10" }}>
-                  <th style={headStyle}>PROPERTY</th>
-                  <th style={headStyle}>LENDER</th>
-                  <th style={headStyle}>TYPE</th>
-                  <th style={{ ...headStyle, textAlign: "right" }}>BALANCE</th>
-                  <th style={{ ...headStyle, textAlign: "right" }}>PAYMENT/MO</th>
-                  <th style={{ ...headStyle, textAlign: "right" }}>PRINCIPAL/MO</th>
-                  <th style={{ ...headStyle, textAlign: "right" }}>INTEREST/MO</th>
-                  <th style={{ ...headStyle, textAlign: "right" }}>RATE</th>
-                  <th style={{ ...headStyle, textAlign: "right" }}>PRINCIPAL 2025</th>
-                  <th style={headStyle}>RENEWAL</th>
-                </tr>
-              </thead>
-              <tbody>
-                {knownMortgages.map(([propId, m], i) => {
-                  const prop = PORTFOLIO.find(p => p.id === propId);
-                  const rowBg = i % 2 === 0 ? "#0d1117" : "#0a0d12";
-                  return (
-                    <tr key={propId} style={{ background: rowBg }}>
-                      <td style={{ ...colStyle("#f1f5f9", true), paddingLeft: 16 }}>
-                        <div>{prop?.address}</div>
-                        <div style={{ fontSize: 10, color: "#374151", fontWeight: 400, marginTop: 2 }}>{m.mortgagee}</div>
-                      </td>
-                      <td style={colStyle("#9ca3af")}>{m.lender}</td>
-                      <td style={colStyle("#6b7280")}>{m.type}</td>
-                      <td style={{ ...colStyle("#ef4444", true), textAlign: "right" }}>{fmt(m.balanceDec2025)}</td>
-                      <td style={{ ...colStyle("#f6c90e", true), textAlign: "right" }}>{fmt(m.monthlyPayment)}</td>
-                      <td style={{ ...colStyle("#22c55e", true), textAlign: "right" }}>{fmt(m.monthlyPrincipal)}</td>
-                      <td style={{ ...colStyle("#f97316"), textAlign: "right" }}>{fmt(m.monthlyInterest)}</td>
-                      <td style={{ ...colStyle("#818cf8", true), textAlign: "right" }}>{m.rateEnd}%</td>
-                      <td style={{ ...colStyle("#22c55e"), textAlign: "right" }}>{fmt(m.principalPaid2025)}</td>
-                      <td style={colStyle("#4b5563")}>{m.maturity}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-              <tfoot>
-                <tr style={{ background: "#f6c90e" }}>
-                  <td style={{ padding: "12px 14px 12px 16px", fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 700, color: "#000" }} colSpan={3}>TOTALS</td>
-                  <td style={{ padding: "12px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalBalance)}</td>
-                  <td style={{ padding: "12px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthlyPayment)}</td>
-                  <td style={{ padding: "12px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthlyPrincipal)}</td>
-                  <td colSpan={4} style={{ padding: "12px 14px" }}></td>
-                </tr>
-              </tfoot>
-            </table>
+        {/* Section tabs */}
+        <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
+          {[["first", `1ST MORTGAGES (${entries.length})`], ["second", `2ND MORTGAGES (${SECOND_MORTGAGES.length})`], ["loc", `LINES OF CREDIT (${LINES_OF_CREDIT.length})`]].map(([id, label]) => (
+            <button key={id} onClick={() => setSection(id)}
+              style={{ padding: "7px 16px", borderRadius: 8, border: `1px solid ${section === id ? "#f6c90e" : "#1e293b"}`, background: section === id ? "#f6c90e22" : "#0d1117", color: section === id ? "#f6c90e" : "#ffffff", fontFamily: "'DM Mono',monospace", fontSize: 11, cursor: "pointer", fontWeight: section === id ? 700 : 400 }}>
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* 1ST MORTGAGES TABLE */}
+        {section === "first" && (
+          <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, overflow: "hidden" }}>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ background: "#070a10" }}>
+                    <th style={headStyle}>PROPERTY</th>
+                    <th style={headStyle}>LENDER</th>
+                    <th style={headStyle}>TYPE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>BALANCE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>RATE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>MONTHLY</th>
+                    <th style={headStyle}>ACCOUNT</th>
+                    <th style={headStyle}>RENEWAL</th>
+                    <th style={headStyle}>NOTES</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {entries.map(([propId, m], i) => {
+                    const prop = PORTFOLIO.find(p => p.id === propId);
+                    const rc = renewalColor(m.maturity);
+                    return (
+                      <tr key={propId} style={{ background: i % 2 === 0 ? "#0d1117" : "#0a0d12" }}>
+                        <td style={{ ...cell("#ffffff", true), paddingLeft: 16 }}>
+                          {prop?.address || propId.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
+                        </td>
+                        <td style={cell("#ffffff")}>{m.lender}</td>
+                        <td style={cell("#818cf8")}>{m.type}</td>
+                        <td style={{ ...cell("#ef4444", true), textAlign: "right" }}>{m.balance ? fmt(m.balance) : "—"}</td>
+                        <td style={{ ...cell("#818cf8", true), textAlign: "right" }}>{m.rate ? m.rate.toFixed(2) + "%" : "VAR"}</td>
+                        <td style={{ ...cell("#f6c90e", true), textAlign: "right" }}>{fmt(m.monthlyPayment)}</td>
+                        <td style={cell("#ffffff")}><div style={{ fontSize: 10 }}>{m.account}</div></td>
+                        <td style={{ ...cell(rc, true) }}>{m.maturity}</td>
+                        <td style={{ ...cell("#ffffff"), maxWidth: 220, whiteSpace: "normal", fontSize: 10 }}>{m.note}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr style={{ background: "#f6c90e" }}>
+                    <td colSpan={3} style={{ padding: "11px 14px 11px 16px", fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 700, color: "#000" }}>TOTALS — {entries.length} PROPERTIES</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalBalance1st)}</td>
+                    <td></td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthly1st)}</td>
+                    <td colSpan={3}></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Rate change notes */}
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 }}>
-          {knownMortgages.filter(([, m]) => m.note).map(([propId, m]) => {
-            const prop = PORTFOLIO.find(p => p.id === propId);
-            return (
-              <div key={propId} style={{ background: "#0d0d1a", border: "1px solid #1e1b4b", borderRadius: 8, padding: "8px 14px", fontSize: 11, color: "#818cf8", fontFamily: "'DM Mono',monospace" }}>
-                <span style={{ color: "#6366f1", fontWeight: 700 }}>{prop?.address}: </span>{m.note}
+        {/* 2ND MORTGAGES TABLE */}
+        {section === "second" && (
+          <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, overflow: "hidden" }}>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ background: "#070a10" }}>
+                    <th style={headStyle}>PROPERTY</th>
+                    <th style={headStyle}>LENDER</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>AMOUNT</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>RATE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>MONTHLY</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>ANNUAL</th>
+                    <th style={headStyle}>PAYMENT TYPE</th>
+                    <th style={headStyle}>MATURITY</th>
+                    <th style={headStyle}>NOTES</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SECOND_MORTGAGES.map((m, i) => {
+                    const rc = renewalColor(m.maturity);
+                    return (
+                      <tr key={i} style={{ background: i % 2 === 0 ? "#0d1117" : "#0a0d12" }}>
+                        <td style={{ ...cell("#ffffff", true), paddingLeft: 16 }}>{m.property}</td>
+                        <td style={cell("#ffffff")}>{m.lender}</td>
+                        <td style={{ ...cell("#ef4444", true), textAlign: "right" }}>{fmt(m.amount)}</td>
+                        <td style={{ ...cell("#818cf8", true), textAlign: "right" }}>{m.rate}%</td>
+                        <td style={{ ...cell("#f6c90e", true), textAlign: "right" }}>{m.monthly > 0 ? fmt(m.monthly) : "—"}</td>
+                        <td style={{ ...cell("#f97316"), textAlign: "right" }}>{m.annual > 0 ? fmt(m.annual) : "—"}</td>
+                        <td style={cell("#ffffff")}>{m.paymentType}</td>
+                        <td style={{ ...cell(rc, true) }}>{m.maturity}</td>
+                        <td style={{ ...cell("#ffffff"), maxWidth: 200, whiteSpace: "normal", fontSize: 10 }}>{m.note}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr style={{ background: "#f6c90e" }}>
+                    <td colSpan={2} style={{ padding: "11px 14px 11px 16px", fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 700, color: "#000" }}>TOTALS — {SECOND_MORTGAGES.length} 2ND MORTGAGES</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalBalance2nd)}</td>
+                    <td></td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthly2nd)}</td>
+                    <td colSpan={4}></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* LINES OF CREDIT TABLE */}
+        {section === "loc" && (
+          <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, overflow: "hidden" }}>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ background: "#070a10" }}>
+                    <th style={headStyle}>NAME</th>
+                    <th style={headStyle}>BANK</th>
+                    <th style={headStyle}>PROPERTY / NOTE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>BALANCE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>LIMIT</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>AVAILABLE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>RATE</th>
+                    <th style={{ ...headStyle, textAlign: "right" }}>MONTHLY</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {LINES_OF_CREDIT.map((l, i) => {
+                    const available = l.limit - l.balance;
+                    return (
+                      <tr key={i} style={{ background: i % 2 === 0 ? "#0d1117" : "#0a0d12" }}>
+                        <td style={{ ...cell("#ffffff", true), paddingLeft: 16 }}>{l.name}</td>
+                        <td style={cell("#ffffff")}>{l.bank}</td>
+                        <td style={cell("#ffffff")}><div style={{ fontSize: 10 }}>{l.property}</div></td>
+                        <td style={{ ...cell("#ef4444", true), textAlign: "right" }}>{fmt(l.balance)}</td>
+                        <td style={{ ...cell("#ffffff"), textAlign: "right" }}>{fmt(l.limit)}</td>
+                        <td style={{ ...cell(available > 0 ? "#22c55e" : "#ef4444", true), textAlign: "right" }}>{fmt(available)}</td>
+                        <td style={{ ...cell("#818cf8", true), textAlign: "right" }}>{l.rate > 0 ? l.rate.toFixed(2) + "%" : "0%"}</td>
+                        <td style={{ ...cell("#f6c90e", true), textAlign: "right" }}>{l.monthly > 0 ? fmt(l.monthly) : "—"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr style={{ background: "#f6c90e" }}>
+                    <td colSpan={3} style={{ padding: "11px 14px 11px 16px", fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 700, color: "#000" }}>TOTALS — {LINES_OF_CREDIT.length} LINES</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalBalanceLOC)}</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(LINES_OF_CREDIT.reduce((s, l) => s + l.limit, 0))}</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(LINES_OF_CREDIT.reduce((s, l) => s + (l.limit - l.balance), 0))}</td>
+                    <td></td>
+                    <td style={{ padding: "11px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthlyLOC)}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Renewal alerts */}
+        <div style={{ marginTop: 20 }}>
+          <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>⚠ RENEWAL ALERTS</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {[...entries.filter(([, m]) => renewalColor(m.maturity) === "#ef4444" || renewalColor(m.maturity) === "#f97316").map(([id, m]) => ({
+              label: PORTFOLIO.find(p => p.id === id)?.address || id, maturity: m.maturity, color: renewalColor(m.maturity)
+            })),
+            ...SECOND_MORTGAGES.filter(m => renewalColor(m.maturity) === "#ef4444" || renewalColor(m.maturity) === "#f97316").map(m => ({
+              label: `${m.property} (${m.lender})`, maturity: m.maturity, color: renewalColor(m.maturity)
+            }))].map((a, i) => (
+              <div key={i} style={{ background: a.color + "15", border: `1px solid ${a.color}40`, borderRadius: 8, padding: "6px 12px", fontSize: 11, color: a.color, fontFamily: "'DM Mono',monospace" }}>
+                {a.label} · {a.maturity}
               </div>
-            );
-          })}
-        </div>
-
-        {/* Properties without statements */}
-        <div style={{ background: "#0d1117", border: "1px dashed #1e293b", borderRadius: 12, padding: "16px 20px" }}>
-          <div style={{ fontSize: 11, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 6 }}>STATEMENTS NOT YET UPLOADED</div>
-          <div style={{ fontSize: 11, color: "#1f2937", fontFamily: "'DM Mono',monospace", lineHeight: 1.8 }}>
-            43 Ruskin · 401 Southwood · 164 Kirkpatrick · 232 Van Order · 32 Holland · 285 Van Order · 82 Hamilton · 293 Van Order
+            ))}
           </div>
         </div>
       </div>
@@ -2076,7 +2490,7 @@ export default function EstateOS() {
         {[
           { id: "dashboard", label: "Dashboard" },
           { id: "rent", label: "Rent Check" },
-          { id: "cashflow", label: "💰 Cash Flow" },
+          { id: "cashflow", label: "Cash Flow" },
           { id: "vacancies", label: "Vacancies" },
           { id: "reports", label: "Reports" },
           { id: "t776", label: "T776 Tax" },
@@ -2094,7 +2508,7 @@ export default function EstateOS() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {tab === "dashboard" && <Dashboard />}
         {tab === "rent" && <RentCheck />}
-        {tab === "cashflow" && <CashFlowBoard getPropertyCashflow={getPropertyCashflow} />}
+        {tab === "cashflow" && <CashFlowBoard getPropertyCashflow={getPropertyCashflow} expenses={expenses} />}
         {tab === "vacancies" && <VacanciesTab vacancies={VACANCIES} setEmailDraft={setEmailDraft} />}
         {tab === "reports" && <MonthlyReports />}
         {tab === "t776" && <T776Tab />}
@@ -2110,8 +2524,8 @@ export default function EstateOS() {
 }
 
 // ── CASH FLOW BOARD ────────────────────────────────────────────────────────────
-function CashFlowBoard({ getPropertyCashflow }) {
-  const [month, setMonth] = React.useState(CURRENT_MONTH);
+function CashFlowBoard({ getPropertyCashflow, expenses }) {
+  const [month, setMonth] = useState(CURRENT_MONTH);
 
   const rows = PORTFOLIO.map(p => {
     const cf = getPropertyCashflow(p.id, month);
@@ -2137,7 +2551,7 @@ function CashFlowBoard({ getPropertyCashflow }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
         <div>
           <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Cash Flow Board</div>
-          <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>All properties · Revenue minus expenses & mortgage</div>
+          <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>All properties · Revenue minus expenses & mortgage</div>
         </div>
         <select value={month} onChange={e => setMonth(e.target.value)}
           style={{ background: "#0d1117", border: "1px solid #161d2a", color: "#f1f5f9", fontSize: 13, borderRadius: 8, padding: "6px 12px" }}>
@@ -2154,7 +2568,7 @@ function CashFlowBoard({ getPropertyCashflow }) {
           { label: "NET CASH FLOW", value: fmt(totalNet), color: totalNet >= 0 ? "#22c55e" : "#ef4444", border: totalNet >= 0 ? "#0d2b1a" : "#2a0000" },
         ].map(c => (
           <div key={c.label} style={{ background: "#0d1117", border: `1px solid ${c.border}`, borderRadius: 12, padding: "16px 18px" }}>
-            <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{c.label}</div>
+            <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{c.label}</div>
             <div style={{ fontSize: 22, fontWeight: 700, color: c.color, fontFamily: "'DM Mono',monospace" }}>{c.value}</div>
           </div>
         ))}
@@ -2164,7 +2578,7 @@ function CashFlowBoard({ getPropertyCashflow }) {
       <div style={{ display: "flex", gap: 10, marginBottom: 18 }}>
         <div style={{ background: "#052010", border: "1px solid #0d2b1a", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#22c55e", fontFamily: "'DM Mono',monospace" }}>✓ {positive} positive</div>
         <div style={{ background: "#200505", border: "1px solid #2a0000", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#ef4444", fontFamily: "'DM Mono',monospace" }}>✗ {negative} negative</div>
-        {neutral > 0 && <div style={{ background: "#0d1117", border: "1px solid #1e293b", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#374151", fontFamily: "'DM Mono',monospace" }}>— {neutral} no data</div>}
+        {neutral > 0 && <div style={{ background: "#0d1117", border: "1px solid #1e293b", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>— {neutral} no data</div>}
       </div>
 
       {/* Property grid */}
@@ -2173,7 +2587,7 @@ function CashFlowBoard({ getPropertyCashflow }) {
           const isPos = net > 0;
           const isNeg = net < 0;
           const borderColor = isPos ? "#0d2b1a" : isNeg ? "#2a0000" : "#161d2a";
-          const netColor = isPos ? "#22c55e" : isNeg ? "#ef4444" : "#374151";
+          const netColor = isPos ? "#22c55e" : isNeg ? "#ef4444" : "#ffffff";
           const glowBg = isPos ? "#052010" : isNeg ? "#150000" : "#0d1117";
           const hasNoData = revenue === 0 && expenses === 0 && mortgage === 0;
 
@@ -2182,19 +2596,19 @@ function CashFlowBoard({ getPropertyCashflow }) {
               {/* Address + ownership */}
               <div style={{ marginBottom: 12 }}>
                 <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9", fontFamily: "'Playfair Display',serif" }}>{p.address}</div>
-                <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{p.ownership}</div>
+                <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{p.ownership}</div>
               </div>
 
               {/* Revenue row */}
               <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #0f1a10" }}>
-                <span style={{ color: "#4b5563", fontSize: 12 }}>Revenue</span>
+                <span style={{ color: "#ffffff", fontSize: 12 }}>Revenue</span>
                 <span style={{ color: revenue > 0 ? "#22c55e" : "#374151", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>{revenue > 0 ? fmt(revenue) : "—"}</span>
               </div>
 
               {/* Mortgage row — only if applicable */}
               {mortgage > 0 && (
                 <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #0f1400" }}>
-                  <span style={{ color: "#4b5563", fontSize: 12 }}>Mortgage</span>
+                  <span style={{ color: "#ffffff", fontSize: 12 }}>Mortgage</span>
                   <span style={{ color: "#f6c90e", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>({fmt(mortgage)})</span>
                 </div>
               )}
@@ -2202,23 +2616,23 @@ function CashFlowBoard({ getPropertyCashflow }) {
               {/* Other expenses row */}
               {expenses > 0 && (
                 <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #150d00" }}>
-                  <span style={{ color: "#4b5563", fontSize: 12 }}>Expenses</span>
+                  <span style={{ color: "#ffffff", fontSize: 12 }}>Expenses</span>
                   <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>({fmt(expenses)})</span>
                 </div>
               )}
 
               {/* Net cash flow — big number */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, background: glowBg, borderRadius: 8, padding: "8px 10px" }}>
-                <span style={{ color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>NET CASH FLOW</span>
+                <span style={{ color: "#e2e8f0", fontSize: 11, fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>NET CASH FLOW</span>
                 <span style={{ color: netColor, fontFamily: "'DM Mono',monospace", fontSize: 18, fontWeight: 700 }}>
                   {hasNoData ? "—" : (isPos ? "+" : "") + fmt(net)}
                 </span>
               </div>
 
               {/* Target rent note */}
-              <div style={{ marginTop: 8, fontSize: 10, color: "#1f2937", fontFamily: "'DM Mono',monospace", textAlign: "right" }}>
+              <div style={{ marginTop: 8, fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", textAlign: "right" }}>
                 Target: {fmt(targetRent)}/mo · {p.tenants.length} unit{p.tenants.length !== 1 ? "s" : ""}
-                {!p.owned && <span style={{ color: "#374151", marginLeft: 6 }}>· managed only</span>}
+                {!p.owned && <span style={{ color: "#f97316", marginLeft: 6 }}>· managed only</span>}
               </div>
             </div>
           );
@@ -2227,18 +2641,18 @@ function CashFlowBoard({ getPropertyCashflow }) {
 
       {/* Portfolio total row */}
       <div style={{ marginTop: 20, background: "#0a0d14", border: `1px solid ${totalNet >= 0 ? "#0d2b1a" : "#2a0000"}`, borderRadius: 14, padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div style={{ fontSize: 13, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>PORTFOLIO TOTAL — {month}</div>
+        <div style={{ fontSize: 13, color: "#e2e8f0", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>PORTFOLIO TOTAL — {month}</div>
         <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>REVENUE</div>
+            <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>REVENUE</div>
             <div style={{ fontSize: 16, color: "#22c55e", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{fmt(totalRev)}</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>EXPENSES</div>
+            <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>EXPENSES</div>
             <div style={{ fontSize: 16, color: "#f97316", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>({fmt(totalExp)})</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>NET</div>
+            <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>NET</div>
             <div style={{ fontSize: 24, color: totalNet >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{totalNet >= 0 ? "+" : ""}{fmt(totalNet)}</div>
           </div>
         </div>
@@ -2418,10 +2832,10 @@ function VacanciesTab({ vacancies, setEmailDraft }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{v.address}</div>
-              <div style={{ fontSize: 12, color: "#6b7280", marginTop: 2 }}>{v.unit}</div>
+              <div style={{ fontSize: 12, color: "#e2e8f0", marginTop: 2 }}>{v.unit}</div>
             </div>
             <div style={{ fontSize: 18, fontWeight: 700, color: "#f6c90e", fontFamily: "'DM Mono',monospace" }}>
-              ${v.price.toLocaleString()}<span style={{ fontSize: 11, color: "#6b7280", fontWeight: 400 }}>{v.type === "rooms" ? "/room" : "/mo"}</span>
+              ${v.price.toLocaleString()}<span style={{ fontSize: 11, color: "#e2e8f0", fontWeight: 400 }}>{v.type === "rooms" ? "/room" : "/mo"}</span>
             </div>
           </div>
         </div>
@@ -2439,15 +2853,15 @@ function VacanciesTab({ vacancies, setEmailDraft }) {
             {[["🛏", v.type === "rooms" ? "Rooms (shared)" : `${v.beds} Bed / ${v.baths} Bath`], ["🔌", v.utilities], ["🚗", v.parking || "No parking"], ["📋", v.type === "apartment" ? "Apartment" : v.type === "house" ? "Whole House" : "Student Rooms"]].map(([icon, label]) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <span style={{ fontSize: 13 }}>{icon}</span>
-                <span style={{ fontSize: 12, color: "#9ca3af" }}>{label}</span>
+                <span style={{ fontSize: 12, color: "#e2e8f0" }}>{label}</span>
               </div>
             ))}
           </div>
-          <div style={{ fontSize: 12, color: "#4b5563", lineHeight: 1.5, marginBottom: 12, fontStyle: "italic" }}>{v.notes}</div>
+          <div style={{ fontSize: 12, color: "#ffffff", lineHeight: 1.5, marginBottom: 12, fontStyle: "italic" }}>{v.notes}</div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={() => copyListingText(v)} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>📋 COPY</button>
-            <button onClick={() => { const d = generateListingEmail(v); setEmailDraft({ to: "", subject: d.subject, body: d.body }); }} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>✉ EMAIL</button>
-            {v.driveFolder && <button onClick={() => window.open(v.driveFolder, "_blank")} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>📁 PHOTOS</button>}
+            <button onClick={() => copyListingText(v)} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#e2e8f0", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>📋 COPY</button>
+            <button onClick={() => { const d = generateListingEmail(v); setEmailDraft({ to: "", subject: d.subject, body: d.body }); }} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#e2e8f0", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>✉ EMAIL</button>
+            {v.driveFolder && <button onClick={() => window.open(v.driveFolder, "_blank")} style={{ flex: 1, padding: "7px 0", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 8, color: "#e2e8f0", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>📁 PHOTOS</button>}
             <button onClick={() => generateListingPDF(v)} style={{ flex: 1, padding: "7px 0", background: "#ef444420", border: "1px solid #ef444440", borderRadius: 8, color: "#f87171", fontSize: 11, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>↓ PDF</button>
           </div>
         </div>
@@ -2460,7 +2874,7 @@ function VacanciesTab({ vacancies, setEmailDraft }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 22 }}>
         <div>
           <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Available Units</div>
-          <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>{vacancies.length} units · ${totalRevenuePotential.toLocaleString()}/mo potential revenue</div>
+          <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>{vacancies.length} units · ${totalRevenuePotential.toLocaleString()}/mo potential revenue</div>
         </div>
         <button onClick={() => generateAllListingsPDF(vacancies)} style={{ padding: "9px 18px", background: "#f6c90e", border: "none", borderRadius: 8, color: "#000", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", fontWeight: 700 }}>↓ ALL LISTINGS PDF</button>
       </div>
@@ -2473,9 +2887,9 @@ function VacanciesTab({ vacancies, setEmailDraft }) {
           ["TOTAL UNITS",  vacancies.length, "#f6c90e", "$" + totalRevenuePotential.toLocaleString() + "/mo"],
         ].map(([label, count, color, sub]) => (
           <div key={label} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "14px 18px" }}>
-            <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{label}</div>
+            <div style={{ fontSize: 10, color: "#ffffff", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{label}</div>
             <div style={{ fontSize: 28, fontWeight: 700, color, fontFamily: "'DM Mono',monospace" }}>{count}</div>
-            <div style={{ fontSize: 11, color: "#6b7280", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{sub}</div>
+            <div style={{ fontSize: 11, color: "#e2e8f0", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{sub}</div>
           </div>
         ))}
       </div>
@@ -2491,7 +2905,7 @@ function VacanciesTab({ vacancies, setEmailDraft }) {
           <div key={month} style={{ marginBottom: 32 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
               <div style={{ background: "#f6c90e", color: "#000", fontSize: 11, fontFamily: "'DM Mono',monospace", letterSpacing: 2, padding: "4px 12px", borderRadius: 20, fontWeight: 700 }}>{month.toUpperCase()}</div>
-              <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace" }}>{units.length} {units.length === 1 ? "unit" : "units"} · ${units.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo potential</div>
+              <div style={{ fontSize: 11, color: "#ffffff", fontFamily: "'DM Mono',monospace" }}>{units.length} {units.length === 1 ? "unit" : "units"} · ${units.reduce((s,v)=>s+v.price,0).toLocaleString()}/mo potential</div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 14 }}>
               {units.map(v => <VacancyCard key={v.id} v={v} />)}
