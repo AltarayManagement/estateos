@@ -12,9 +12,9 @@ const PORTFOLIO = [
     ownership: "AwesomeJVDeals & Marshall",
     owned: true, type: "duplex",
     tenants: [
-      { id: "vikki", unit: "Unit 1", name: "Vikki Langelier", email: "vikkimed@outlook.com", rent: 2250, flags: [], depositType: "auto",
+      { id: "vikki", unit: "Unit 1", name: "Vikki Langelier", email: "vikkimed@outlook.com", rent: 2250, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 2250, "Feb 2026": 2250, "Mar 2026": 2250, "Apr 2026": 2250 } },
-      { id: "micheal", unit: "Unit 2", name: "Micheal", email: "", rent: 1875, flags: [], depositType: "auto",
+      { id: "micheal", unit: "Unit 2", name: "Micheal", email: "", rent: 1875, flags: [], depositType: "auto", leaseEnd: "May 1, 2026", lastIncrease: null,
         payments: { "Jan 2026": 1875, "Feb 2026": 1875, "Mar 2026": 1875, "Apr 2026": 1875 } },
     ]
   },
@@ -26,9 +26,9 @@ const PORTFOLIO = [
     ownership: "AwesomeJVDeals & Marshall",
     owned: true, type: "duplex",
     tenants: [
-      { id: "tyson", unit: "Unit 1", name: "Tyson", email: "", rent: 1800, flags: [], depositType: "auto",
+      { id: "tyson", unit: "Unit 1", name: "Tyson", email: "", rent: 1800, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800, "Apr 2026": 1800 } },
-      { id: "tj", unit: "Unit 2", name: "TJ", email: "", rent: 1800, flags: ["Deposit Cheque"], depositType: "cheque",
+      { id: "tj", unit: "Unit 2", name: "TJ", email: "", rent: 1800, flags: ["Deposit Cheque"], depositType: "cheque", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800, "Apr 2026": 1800 } },
     ]
   },
@@ -40,9 +40,9 @@ const PORTFOLIO = [
     ownership: "Altaray Property & Waxwing",
     owned: true, type: "duplex",
     tenants: [
-      { id: "sue", unit: "Unit 1", name: "Sue Hadley", email: "", rent: 2300, flags: [], depositType: "auto",
+      { id: "sue", unit: "Unit 1", name: "Sue Hadley", email: "", rent: 2300, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2300, "Feb 2026": 2300, "Mar 2026": 2300, "Apr 2026": 2300 } },
-      { id: "dwaine", unit: "Unit 2", name: "Dwaine Archer", email: "", rent: 2101.25, flags: [], depositType: "auto",
+      { id: "dwaine", unit: "Unit 2", name: "Dwaine Archer", email: "", rent: 2101.25, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2101.32, "Feb 2026": 2101.32, "Mar 2026": 2101.25, "Apr 2026": 2101.25 } },
     ]
   },
@@ -54,9 +54,9 @@ const PORTFOLIO = [
     ownership: "AwesomeJVDeals & Sal",
     owned: true, type: "duplex",
     tenants: [
-      { id: "lovpreet", unit: "Unit 1", name: "Lovepreet Kaur", email: "lpkaur381@gmail.com", rent: 2100, flags: [], depositType: "auto",
+      { id: "lovpreet", unit: "Unit 1", name: "Lovepreet Kaur", email: "lpkaur381@gmail.com", rent: 2100, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2100, "Feb 2026": 2100, "Mar 2026": 2100 } },
-      { id: "amarjeet", unit: "Unit 2", name: "Amarjeet Singh", email: "", rent: 1800, flags: [], depositType: "auto",
+      { id: "amarjeet", unit: "Unit 2", name: "Amarjeet Singh", email: "", rent: 1800, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800, "Apr 2026": 1800 } },
     ]
   },
@@ -68,9 +68,9 @@ const PORTFOLIO = [
     ownership: "1000203074 Ontario Inc.",
     owned: true, type: "duplex",
     tenants: [
-      { id: "andrew-r", unit: "Unit 1", name: "Andrew Reynolds", email: "", rent: 2200, flags: [], depositType: "auto",
+      { id: "andrew-r", unit: "Unit 1", name: "Andrew Reynolds", email: "", rent: 2200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2200, "Feb 2026": 2200, "Mar 2026": 2200, "Apr 2026": 2200 } },
-      { id: "robert", unit: "Unit 2", name: "Robert Howick", email: "", rent: 2100, flags: ["⚠ Partial Feb"], depositType: "auto",
+      { id: "robert", unit: "Unit 2", name: "Robert Howick", email: "", rent: 2100, flags: ["⚠ Partial Feb"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2100, "Feb 2026": 1050, "Mar 2026": 2100, "Apr 2026": 2100 },
         notes: { "Feb 2026": "Partial — paid $1,050 of $2,100" } },
     ]
@@ -83,11 +83,11 @@ const PORTFOLIO = [
     ownership: "1000203074 Ontario Inc.",
     owned: true, type: "duplex",
     tenants: [
-      { id: "brianna", unit: "Unit 1", name: "Brianna Annesley", email: "brianna.annesley@gmail.com", rent: 900, flags: ["Always Late"], depositType: "auto",
+      { id: "brianna", unit: "Unit 1", name: "Brianna Annesley", email: "brianna.annesley@gmail.com", rent: 900, flags: ["Always Late"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: {} },
-      { id: "shannon", unit: "Unit 2", name: "Shannon", email: "", rent: 900, flags: [], depositType: "auto",
+      { id: "shannon", unit: "Unit 2", name: "Shannon", email: "", rent: 900, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 900, "Feb 2026": 900, "Mar 2026": 900, "Apr 2026": 900 } },
-      { id: "michelle", unit: "Unit 2b", name: "Michelle McDonell", email: "", rent: 900, flags: [], depositType: "auto",
+      { id: "michelle", unit: "Unit 2b", name: "Michelle McDonell", email: "", rent: 900, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 900, "Feb 2026": 900, "Mar 2026": 900, "Apr 2026": 900 } },
     ]
   },
@@ -99,9 +99,9 @@ const PORTFOLIO = [
     ownership: "2771051 Ontario Inc.",
     owned: true, type: "duplex",
     tenants: [
-      { id: "molly", unit: "Unit 1", name: "Molly Brant", email: "", rent: 2000, flags: ["Check Bank Acc"], depositType: "auto",
+      { id: "molly", unit: "Unit 1", name: "Molly Brant", email: "", rent: 2000, flags: ["Check Bank Acc"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2000, "Feb 2026": 2000, "Mar 2026": 2000, "Apr 2026": 2000 } },
-      { id: "candice", unit: "Unit 2", name: "Candice", email: "", rent: 1486.25, flags: ["Check Bank Acc"], depositType: "auto",
+      { id: "candice", unit: "Unit 2", name: "Candice", email: "", rent: 1486.25, flags: ["Check Bank Acc"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1486.25, "Feb 2026": 1486.25, "Mar 2026": 1486.25, "Apr 2026": 1486.25 } },
     ]
   },
@@ -113,9 +113,9 @@ const PORTFOLIO = [
     ownership: "2771051 Ontario Inc.",
     owned: true, type: "duplex",
     tenants: [
-      { id: "gabriela", unit: "Unit 1", name: "Gabriela Storring", email: "", rent: 2350, flags: [], depositType: "auto",
+      { id: "gabriela", unit: "Unit 1", name: "Gabriela Storring", email: "Gabriela.storring@gmail.com", rent: 2350, flags: [], depositType: "auto", leaseEnd: "Jun 30, 2026", lastIncrease: null,
         payments: { "Jan 2026": 2350, "Feb 2026": 2350, "Mar 2026": 2350, "Apr 2026": 2350 } },
-      { id: "mike-h", unit: "Unit 2", name: "Mike Harnden", email: "", rent: 1800, flags: [], depositType: "auto",
+      { id: "mike-h", unit: "Unit 1", name: "Caleb Desfomes-Guen", email: "calebdesfonges38@gmail.com", rent: 2350, flags: [], depositType: "auto", leaseEnd: "Jun 30, 2026", lastIncrease: null,
         payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800, "Apr 2026": 1800 } },
     ]
   },
@@ -127,11 +127,14 @@ const PORTFOLIO = [
     ownership: "2771051 Ontario Inc.",
     owned: true, type: "duplex",
     tenants: [
-      { id: "farzia", unit: "Unit 1", name: "Farzia", email: "", rent: 2100, flags: ["Email Sent"], depositType: "auto",
+      { id: "farzia", unit: "Unit 1", name: "Farzia", email: "", rent: 2100, flags: ["Email Sent"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2100, "Feb 2026": 2100, "Mar 2026": 2100, "Apr 2026": 2100 } },
-      { id: "khemraj", unit: "Unit 2", name: "Khemraj Dahal", email: "", rent: 1896.25, flags: ["⚠ Last Month??"], depositType: "auto",
+      { id: "khemraj", unit: "Unit 2", name: "Khemraj Dahal", email: "", rent: 1896.25, flags: ["⚠ Last Month??"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1896.25, "Feb 2026": 1896.25, "Mar 2026": null },
         notes: { "Mar 2026": "Last month?? — needs urgent follow-up" } },
+      { id: "kirkpatrick-basement", unit: "Basement", name: "Karanjit Singh", email: "karanjit0895@gmail.com", rent: 1700, flags: ["New Tenant"], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 1700 },
+        notes: { "Mar 2026": "Move-in Mar 2026 — paid $3,500 via e-transfer ($1,700 first + $1,700 last + $100 key deposit). Referred by Robert." } },
     ]
   },
   {
@@ -142,10 +145,10 @@ const PORTFOLIO = [
     ownership: "Altaray Property Svc Ltd.",
     owned: true, type: "duplex",
     tenants: [
-      { id: "carolina", unit: "Unit 1", name: "Carolina Castro", email: "", rent: 2100, flags: [], depositType: "auto",
+      { id: "carolina", unit: "Unit 1", name: "Carolina Castro", email: "", rent: 2100, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2100, "Feb 2026": 2100, "Mar 2026": 2050 },
         notes: { "Mar 2026": "Paid $2,050 — $50 short" } },
-      { id: "tiffany", unit: "Unit 2", name: "Tiffany", email: "", rent: 1800, flags: ["Always Late"], depositType: "auto",
+      { id: "tiffany", unit: "Unit 2", name: "Tiffany", email: "", rent: 1800, flags: ["Always Late"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1800, "Feb 2026": null, "Mar 2026": null },
         notes: { "Mar 2026": "Payments on 3rd Jan & 6th — irregular timing" } },
     ]
@@ -158,15 +161,15 @@ const PORTFOLIO = [
     ownership: "AwesomeJVDeals & Veronica",
     owned: true, type: "rooming",
     tenants: [
-      { id: "colby", unit: "Room", name: "Colby", email: "colby.04.bennett@gmail.com", rent: 850, flags: ["Manual Deposit"], depositType: "manual",
+      { id: "colby", unit: "Room", name: "Colby", email: "colby.04.bennett@gmail.com", rent: 850, flags: ["Manual Deposit"], depositType: "manual", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 850, "Feb 2026": 850, "Mar 2026": 850, "Apr 2026": 850 } },
-      { id: "virginia", unit: "Room", name: "Virginia Grace", email: "virginiagracegrd@gmail.com", rent: 770, flags: ["Manual Deposit"], depositType: "manual",
+      { id: "virginia", unit: "Room", name: "Virginia Grace", email: "virginiagracegrd@gmail.com", rent: 770, flags: ["Manual Deposit"], depositType: "manual", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 770, "Feb 2026": 770, "Mar 2026": 770 } },
-      { id: "andrew-c", unit: "Room", name: "Andrew", email: "anguyen6421@gmail.com", rent: 750, flags: ["Manual Deposit"], depositType: "manual",
+      { id: "andrew-c", unit: "Room", name: "Andrew", email: "anguyen6421@gmail.com", rent: 750, flags: ["Manual Deposit"], depositType: "manual", leaseEnd: "Jul 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "benusha", unit: "Room", name: "Benusha", email: "barafern@hotmail.com", rent: 800, flags: ["Manual Deposit"], depositType: "manual",
+      { id: "benusha", unit: "Room", name: "Benusha", email: "barafern@hotmail.com", rent: 800, flags: ["Manual Deposit"], depositType: "manual", leaseEnd: "Apr 30, 2026", lastIncrease: null,
         payments: { "Jan 2026": 800, "Feb 2026": 800, "Mar 2026": 800, "Apr 2026": 800 } },
-      { id: "ezekiel", unit: "Room", name: "Ezekiel Adusi", email: "ezekieladusi@gmail.com", rent: 860, flags: ["Manual Deposit"], depositType: "manual",
+      { id: "ezekiel", unit: "Room", name: "Ezekiel Adusi", email: "ezekieladusi@gmail.com", rent: 860, flags: ["Manual Deposit"], depositType: "manual", leaseEnd: "Aug 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 860, "Feb 2026": 860, "Mar 2026": 860, "Apr 2026": 860 } },
     ]
   },
@@ -178,18 +181,18 @@ const PORTFOLIO = [
     ownership: "René & Veronica (50%)",
     owned: true, type: "rooming",
     tenants: [
-      { id: "theresia", unit: "Room", name: "Theresia Verena", email: "", rent: 760, flags: [], depositType: "auto",
+      { id: "theresia", unit: "Room", name: "Theresia Verena", email: "", rent: 760, flags: [], depositType: "auto", leaseEnd: "Aug 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 760, "Feb 2026": 760, "Mar 2026": 760, "Apr 2026": 760 } },
-      { id: "moussa", unit: "Room", name: "Moussa", email: "", rent: 760, flags: [], depositType: "auto",
+      { id: "moussa", unit: "Room", name: "Moussa", email: "", rent: 760, flags: [], depositType: "auto", leaseEnd: "Aug 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 760, "Feb 2026": 760, "Mar 2026": 760, "Apr 2026": 760 } },
-      { id: "daniel", unit: "Room", name: "Daniel Mortime", email: "", rent: 750, flags: [], depositType: "auto",
+      { id: "daniel", unit: "Room", name: "Daniel Mortime", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: "Aug 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "mostarina", unit: "Room", name: "Mostarina Begum", email: "mostarina_bizlee@yahoo.com", rent: 700, flags: [], depositType: "auto",
+      { id: "mostarina", unit: "Room", name: "Mostarina Begum", email: "mostarina_bizlee@yahoo.com", rent: 700, flags: [], depositType: "auto", leaseEnd: "Aug 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 700, "Feb 2026": 700, "Mar 2026": 700 } },
-      { id: "pouriya", unit: "Room", name: "Pouriya", email: "", rent: 750, flags: ["Email Sent Jan 2nd"], depositType: "auto",
+      { id: "pouriya", unit: "Room", name: "Pouriya", email: "", rent: 750, flags: ["Email Sent Jan 2nd"], depositType: "auto", leaseEnd: "Aug 31, 2025", lastIncrease: null,
         payments: { "Jan 2026": 700, "Feb 2026": null, "Mar 2026": 750, "Apr 2026": 750 },
         notes: { "Feb 2026": "Email sent Jan 2nd — awaiting payment" } },
-      { id: "max", unit: "Room", name: "Max", email: "", rent: 600, flags: [], depositType: "auto",
+      { id: "max", unit: "Room", name: "Max", email: "", rent: 600, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Mar 2026": 600, "Apr 2026": 600 } },
     ]
   },
@@ -201,10 +204,10 @@ const PORTFOLIO = [
     ownership: "René",
     owned: true, type: "duplex",
     tenants: [
-      { id: "samar", unit: "Unit 1", name: "Samar Basnet", email: "", rent: 2250, flags: ["Late Notice"], depositType: "auto",
+      { id: "samar", unit: "Unit 1", name: "Samar Basnet", email: "", rent: 2250, flags: ["Late Notice"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2250, "Feb 2026": 2250, "Mar 2026": null, "Apr 2026": 2250 },
         notes: { "Mar 2026": "Said he would be late" } },
-      { id: "niomi", unit: "Unit 2", name: "Naomi Lawrence", email: "remystacks@gmail.com", rent: 1795, flags: [], depositType: "auto",
+      { id: "niomi", unit: "Unit 2", name: "Naomi Lawrence", email: "remystacks@gmail.com", rent: 1795, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 1795, "Feb 2026": 1795, "Mar 2026": 1795 } },
     ]
   },
@@ -216,18 +219,18 @@ const PORTFOLIO = [
     ownership: "Unknown",
     owned: true, type: "rooming",
     tenants: [
-      { id: "jack-o", unit: "Room", name: "Jack O'Neil", email: "", rent: 750, flags: [], depositType: "auto",
+      { id: "jack-o", unit: "Room", name: "Jack O'Neil", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 500, "Apr 2026": 750 },
         notes: { "Mar 2026": "Paid $500 — short $250" } },
-      { id: "dominique", unit: "Room", name: "Dominique", email: "", rent: 750, flags: [], depositType: "auto",
+      { id: "dominique", unit: "Room", name: "Dominique", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 750, "Feb 2026": null, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "diego", unit: "Room", name: "Diego", email: "", rent: 800, flags: [], depositType: "auto",
-        payments: { "Jan 2026": 800, "Feb 2026": 800, "Mar 2026": 800, "Apr 2026": 800 } },
-      { id: "eria", unit: "Room", name: "Eria", email: "", rent: 750, flags: [], depositType: "auto",
+      { id: "diego", unit: "Room", name: "Diego", email: "", rent: 800, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
+        payments: { "Jan 2026": 800, "Feb 2026": 800, "Mar 2026": 800 } },
+      { id: "eria", unit: "Room", name: "Eria", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "layla", unit: "Room", name: "Layla", email: "", rent: 750, flags: [], depositType: "auto",
-        payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "rohit", unit: "Room", name: "Rohit Choudhary", email: "rohitc@gmail.com", rent: 650, flags: [], depositType: "auto",
+      { id: "layla", unit: "Room", name: "Layla", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
+        payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750 } },
+      { id: "rohit", unit: "Room", name: "Rohit Choudhary", email: "rohitc@gmail.com", rent: 650, flags: [], depositType: "auto", leaseEnd: "Apr 30, 2026", lastIncrease: null,
         payments: { "Jan 2026": 650, "Feb 2026": 650, "Mar 2026": 650 } },
     ]
   },
@@ -239,14 +242,14 @@ const PORTFOLIO = [
     ownership: "Unknown",
     owned: true, type: "multi",
     tenants: [
-      { id: "kim", unit: "Unit 1", name: "Kim Lambert", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "alexander-b", unit: "Unit 2", name: "Alexander Babiak", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "ky", unit: "Unit 3", name: "Ky", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "ethan", unit: "Unit 4", name: "Ethan Alexander Williamson", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200 } },
-      { id: "aleksander", unit: "Unit 5", name: "Aleksander Oliver Guy", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "sebastien", unit: "Unit 6", name: "Sebastien McBride", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "taylor", unit: "Unit 7", name: "Taylor James Plicarpo", email: "", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
-      { id: "jack-w", unit: "Unit 8", name: "Jack David Wood", email: "jackwood@gmail.com", rent: 1200, flags: [], depositType: "auto", payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "kim", unit: "Unit 1", name: "Kim Lambert", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "alexander-b", unit: "Unit 2", name: "Alexander Babiak", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "ky", unit: "Unit 3", name: "Ky", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "ethan", unit: "Unit 4", name: "Ethan Alexander Williamson", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200 } },
+      { id: "aleksander", unit: "Unit 5", name: "Aleksander Oliver Guy", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "sebastien", unit: "Unit 6", name: "Sebastien McBride", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "taylor", unit: "Unit 7", name: "Taylor James Plicarpo", email: "", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
+      { id: "jack-w", unit: "Unit 8", name: "Jack David Wood", email: "jackwood@gmail.com", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200, "Apr 2026": 1200 } },
     ]
   },
   {
@@ -257,12 +260,12 @@ const PORTFOLIO = [
     ownership: "Managed Only",
     owned: false, type: "rooming",
     tenants: [
-      { id: "zoel", unit: "Unit 1", name: "Zoel Staffing", email: "", rent: 800, flags: [], depositType: "auto", payments: { "Jan 2026": 800, "Feb 2026": 800, "Mar 2026": 800 } },
-      { id: "lily", unit: "Unit 1", name: "Lily Carthy", email: "", rent: 750, flags: [], depositType: "auto", payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "isabella", unit: "Unit 1", name: "Isabella Day", email: "", rent: 750, flags: [], depositType: "auto", payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "faraz", unit: "Unit 1", name: "Faraz Ughratdar", email: "", rent: 750, flags: [], depositType: "auto", payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 770 } },
-      { id: "issah", unit: "Unit 2", name: "Issah Hardi", email: "", rent: 750, flags: [], depositType: "auto", payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
-      { id: "chimaobi", unit: "Unit 2", name: "Chimaobi Ekeleme", email: "", rent: 700, flags: [], depositType: "auto", payments: { "Jan 2026": 700, "Feb 2026": 700, "Mar 2026": 700, "Apr 2026": 700 } },
+      { id: "zoel", unit: "Unit 1", name: "Zoel Staffing", email: "", rent: 800, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 800, "Feb 2026": 800, "Mar 2026": 800 } },
+      { id: "lily", unit: "Unit 1", name: "Lily Carthy", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
+      { id: "isabella", unit: "Unit 1", name: "Isabella Day", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
+      { id: "faraz", unit: "Unit 1", name: "Faraz Ughratdar", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 770 } },
+      { id: "issah", unit: "Unit 2", name: "Issah Hardi", email: "", rent: 750, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 750, "Feb 2026": 750, "Mar 2026": 750, "Apr 2026": 750 } },
+      { id: "chimaobi", unit: "Unit 2", name: "Chimaobi Ekeleme", email: "", rent: 700, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 700, "Feb 2026": 700, "Mar 2026": 700, "Apr 2026": 700 } },
     ]
   },
   {
@@ -273,8 +276,8 @@ const PORTFOLIO = [
     ownership: "Managed Only",
     owned: false, type: "duplex",
     tenants: [
-      { id: "kristen", unit: "Unit 1", name: "Kristen", email: "", rent: 2200, flags: [], depositType: "auto", payments: { "Jan 2026": 2200, "Feb 2026": 2200, "Mar 2026": 2200, "Apr 2026": 2200 } },
-      { id: "kaili", unit: "Unit 2", name: "Kaili Wang", email: "", rent: 1800, flags: [], depositType: "auto", payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800, "Apr 2026": 1800 } },
+      { id: "kristen", unit: "Unit 1", name: "Kristen", email: "", rent: 2200, flags: [], depositType: "auto", leaseEnd: "Jun 30, 2026", lastIncrease: null, payments: { "Jan 2026": 2200, "Feb 2026": 2200, "Mar 2026": 2200 } },
+      { id: "kaili", unit: "Unit 2", name: "Kaili Wang", email: "", rent: 1800, flags: [], depositType: "auto", leaseEnd: "Aug 31, 2026", lastIncrease: null, payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800, "Apr 2026": 1800 } },
     ]
   },
   {
@@ -285,13 +288,81 @@ const PORTFOLIO = [
     ownership: "Managed Only",
     owned: false, type: "duplex",
     tenants: [
-      { id: "kriti", unit: "Unit 1", name: "Kriti Panta", email: "", rent: 2400, flags: [], depositType: "auto", payments: { "Jan 2026": 2400, "Feb 2026": 2400, "Mar 2026": 2400, "Apr 2026": 2400 } },
+      { id: "kriti", unit: "Unit 1", name: "Kriti Panta", email: "", rent: 2400, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null, payments: { "Jan 2026": 2400, "Feb 2026": 2400, "Mar 2026": 2400 } },
+    ]
+  },
+  {
+    id: "246-adelaide",
+    address: "246 Adelaide St.",
+    bank: "TD", account: "",
+    email: "altaraymanagement@gmail.com",
+    ownership: "René (35%)",
+    owned: false, type: "multi",
+    tenants: [
+      { id: "abigail-c", unit: "Unit 5", name: "Abigail Collins", email: "abigail.amelia556@outlook.com", rent: 1800, flags: [], depositType: "auto", leaseEnd: "Jun 30, 2026", lastIncrease: null,
+        payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800 } },
+      { id: "charles-c", unit: "Unit 5", name: "Charles Collins", email: "charlie_collin@hotmail.com", rent: 1800, flags: [], depositType: "auto", leaseEnd: "Jun 30, 2026", lastIncrease: null,
+        payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800 } },
+      { id: "sid-m", unit: "Unit 16", name: "Sid Markova", email: "sidthesaltykid@gmail.com", rent: 1500, flags: [], depositType: "auto", leaseEnd: "May 31, 2026", lastIncrease: null,
+        payments: { "Jan 2026": 1500, "Feb 2026": 1500, "Mar 2026": 1500 } },
+      { id: "tatiana-c", unit: "Unit 2", name: "Tatiana Carpio Aguiln", email: "tcarpio1993@gmail.com", rent: 1800, flags: [], depositType: "auto", leaseEnd: "Jul 31, 2026", lastIncrease: null,
+        payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800 } },
+      { id: "jaselyn-c", unit: "Unit 2", name: "Jaselyn Carpio Aguiln", email: "joselyncv31@gmail.com", rent: 1800, flags: [], depositType: "auto", leaseEnd: "Jul 31, 2026", lastIncrease: null,
+        payments: { "Jan 2026": 1800, "Feb 2026": 1800, "Mar 2026": 1800 } },
+      { id: "madison-a", unit: "Unit 13", name: "Madison Anderson", email: "madie_20@icloud.com", rent: 922.50, flags: ["60 Day Notice — Leaving Apr 30"], depositType: "auto", leaseEnd: "Apr 30, 2026", lastIncrease: null,
+        payments: { "Mar 2026": 922.50 } },
+      { id: "emma-p", unit: "Unit 13", name: "Emma Pigeon", email: "emmapigeon04@gmail.com", rent: 922.50, flags: ["60 Day Notice — Leaving Apr 30"], depositType: "auto", leaseEnd: "Apr 30, 2026", lastIncrease: null,
+        payments: { "Mar 2026": 922.50 } },
+      { id: "zach-b", unit: "Unit 3", name: "Zachary Ball", email: "zach.ball@hotmail.com", rent: 1700, flags: ["Looking for roommate"], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Feb 2026": 1700, "Mar 2026": 1700 } },
+      { id: "jenan-m", unit: "Unit 4", name: "Jenan Mansour Mazraeh", email: "", rent: 1850, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 1850 } },
+      { id: "sarah-b", unit: "Unit 7", name: "Sarah Barrette", email: "", rent: 1379.05, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Feb 2026": 1379.05 } },
+      { id: "marie-k", unit: "Unit 8", name: "Marie Sara Jasmine Kendall", email: "", rent: 1626.03, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Feb 2026": 1626.03 } },
+      { id: "nenshu-b", unit: "Unit 9", name: "Nenshu Bharodia", email: "", rent: 2250, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 2250 } },
+      { id: "saurabh-v", unit: "Unit 11", name: "Saurabh Kamlakar Vaidya", email: "", rent: 900, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 900 } },
+      { id: "tray-a", unit: "Unit 12", name: "Tray", email: "", rent: 900, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 900 } },
+      { id: "clara-a", unit: "Unit 14", name: "Clara Emily Asiedu", email: "", rent: 900, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 900 } },
+      { id: "kaitlin-k", unit: "Unit 15", name: "Kaitlin Kawzenuk", email: "", rent: 591.21, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 591.21 } },
+      { id: "michael-ant", unit: "Unit 15", name: "Michael Anthofer", email: "", rent: 591.21, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 591.21 } },
+    ]
+  },
+  {
+    id: "63-hill",
+    address: "63 Hill St.",
+    bank: "TD", account: "",
+    email: "altaraymanagement@gmail.com",
+    ownership: "Managed Only — until Apr 30, 2026",
+    owned: false, type: "rooming",
+    tenants: [
+      { id: "aiden-w", unit: "Room", name: "Aiden Witt", email: "aiden_witt@outlook.com", rent: 1200, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Jan 2026": 1200, "Feb 2026": 1200, "Mar 2026": 1200 } },
+      { id: "erik-h", unit: "Room", name: "Erik Husband", email: "", rent: 1150, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Mar 2026": 1150 } },
+      { id: "george-k", unit: "Room", name: "George Kenzie", email: "", rent: 1050, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: {} },
+      { id: "andrew-g", unit: "Room", name: "Andrew Gurdon", email: "", rent: 1250, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Jan 2026": 1250, "Feb 2026": 1250 } },
+      { id: "trinity-s", unit: "Room 5", name: "Trinity Smith", email: "trinity6650@gmail.com", rent: 1150, flags: ["⚠ LTB HEARING Mar 17", "No Pay Nov/Dec 2025"], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: { "Jan 2026": null, "Feb 2026": null, "Mar 2026": null },
+        notes: { "Mar 2026": "LTB-L-108073-25 — Hearing Mar 17, 2026. Has not paid Nov/Dec 2025. Lawyer: Tonya Brown (brownlawnotary.com)" } },
+      { id: "nicholas-h", unit: "Room", name: "Nicholas Husband", email: "nicholas_husband@icloud.com", rent: 1150, flags: [], depositType: "auto", leaseEnd: null, lastIncrease: null,
+        payments: {} },
     ]
   },
 ];
 
 const MONTHS = ["Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
 const CURRENT_MONTH = "Mar 2026";
+const LEASE_FOLDER = "https://drive.google.com/drive/folders/1ZC_rrkiRVBOn1R28iljpQpVJVXQa0PBS";
 
 const FLAG_COLORS = {
   "Always Late": "#ef4444",
@@ -379,6 +450,15 @@ const MORTGAGE_DATA = {
     monthlyPrincipal: 695.06, monthlyInterest: 1616.25,
     note: "Rate dropped from 4.9% to 3.9% in 2025. Renewal May 2027."
   },
+  "43-ruskin": {
+    lender: "CIBC", loanNum: "003449245", type: "Variable Flex", bank: "CIBC",
+    balanceJan2025: 329899.42, balanceDec2025: 329899.42,
+    principalPaid2025: 0, interestPaid2025: 14978.76,
+    monthlyPayment: 1248.23, rateStart: 4.950, rateEnd: 3.950,
+    maturity: "Mar 5, 2026", mortgagee: "2771051 Ontario Inc.",
+    monthlyPrincipal: 0, monthlyInterest: 1248.23,
+    note: "⚠️ MATURITY Mar 5, 2026 — renewal required NOW. Rate 4.95% → 3.95%. No principal paid in 2025. Deferred interest $2,622.17."
+  },
 };
 
 // ─── ALTARAY LOGO ─────────────────────────────────────────────────────────────
@@ -394,6 +474,12 @@ export default function EstateOS() {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(CURRENT_MONTH);
   const [filterOwned, setFilterOwned] = useState("all");
+  const [tenantMeta, setTenantMeta] = useState(() => {
+    // keyed by tenant id: { leaseEnd, lastIncrease }
+    const init = {};
+    PORTFOLIO.forEach(p => p.tenants.forEach(t => { init[t.id] = { leaseEnd: t.leaseEnd || "", lastIncrease: t.lastIncrease || "" }; }));
+    return init;
+  });
   const [chatMessages, setChatMessages] = useState([
     { role: "assistant", content: "Good morning. I'm your EstateOS co-worker. I have full visibility into all 18 properties and 50+ tenants across Altaray's portfolio. What do you need?" }
   ]);
@@ -528,6 +614,19 @@ export default function EstateOS() {
 
   useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [chatMessages]);
 
+  // Auto-refresh: hourly on 1st & 2nd of month, otherwise daily
+  useEffect(() => {
+    const scheduleRefresh = () => {
+      const now = new Date();
+      const day = now.getDate();
+      const isHighFreqDay = day === 1 || day === 2;
+      const intervalMs = isHighFreqDay ? 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
+      return setInterval(() => { window.location.reload(); }, intervalMs);
+    };
+    const timer = scheduleRefresh();
+    return () => clearInterval(timer);
+  }, []);
+
   const filteredPortfolio = PORTFOLIO.filter(p =>
     filterOwned === "all" ? true : filterOwned === "owned" ? p.owned : !p.owned
   );
@@ -636,21 +735,25 @@ export default function EstateOS() {
           const paidCount = p.tenants.filter(t => getPaymentStatus(t, CURRENT_MONTH) === "paid").length;
           const hasIssues = paidCount < p.tenants.length || p.tenants.some(t => t.flags.length > 0);
           return (
-            <div key={p.id} onClick={() => { setSelectedProperty(p); setTab("property"); }}
-              style={{ background: "#0d1117", border: `1px solid ${hasIssues ? "#2a1800" : "#161d2a"}`, borderRadius: 12, padding: "16px 18px", cursor: "pointer" }}
+            <div key={p.id}
+              style={{ background: "#0d1117", border: `1px solid ${hasIssues ? "#2a1800" : "#161d2a"}`, borderRadius: 12, padding: "16px 18px", cursor: "default" }}
               onMouseEnter={e => e.currentTarget.style.borderColor = "#f6c90e"}
               onMouseLeave={e => e.currentTarget.style.borderColor = hasIssues ? "#2a1800" : "#161d2a"}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+
+              {/* Address header — clickable to property detail */}
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, cursor: "pointer" }}
+                onClick={() => { setSelectedProperty(p); setTab("property"); }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: "#f1f5f9" }}>{p.address}</div>
                 {!p.owned && <span style={{ fontSize: 9, color: "#4b5563", background: "#161d2a", padding: "2px 7px", borderRadius: 8, fontFamily: "'DM Mono',monospace" }}>MANAGED</span>}
               </div>
               <div style={{ fontSize: 11, color: "#374151", marginBottom: 8, fontFamily: "'DM Mono',monospace" }}>{p.ownership}</div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
                 <span style={{ fontSize: 11, color: "#4b5563" }}>{p.tenants.length} tenants</span>
                 <span style={{ fontSize: 11, color: paidCount === p.tenants.length ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace" }}>{paidCount}/{p.tenants.length} paid</span>
               </div>
-              {p.email && <div style={{ fontSize: 10, color: "#1e3a5f", marginTop: 6, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.email}</div>}
-              <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap" }}>
+
+              {/* Receipt buttons */}
+              <div style={{ display: "flex", gap: 6, marginBottom: 12, flexWrap: "wrap" }}>
                 {p.tenants.map(t => (
                   <button key={t.id} onClick={e => { e.stopPropagation(); setReceiptModal({ property: p, tenant: t }); }}
                     style={{ fontSize: 10, padding: "3px 8px", borderRadius: 8, border: "1px solid #1e3a5f", background: "#070a10", color: "#4b8ab0", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>
@@ -658,6 +761,59 @@ export default function EstateOS() {
                   </button>
                 ))}
               </div>
+
+              {/* Lease + Rent Increase section */}
+              <div style={{ borderTop: "1px solid #161d2a", paddingTop: 10 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 2 }}>LEASE & RENT INCREASE</div>
+                  <a href={LEASE_FOLDER} target="_blank" rel="noreferrer"
+                    style={{ fontSize: 10, padding: "2px 9px", borderRadius: 7, border: "1px solid #1e3a1e", background: "#070a10", color: "#22c55e", cursor: "pointer", fontFamily: "'DM Mono',monospace", textDecoration: "none" }}>
+                    📄 Leases
+                  </a>
+                </div>
+                {p.tenants.map(t => {
+                  const meta = tenantMeta[t.id] || {};
+                  const leaseVal = meta.leaseEnd || "";
+                  // Colour-code: expired = red, within 60 days = orange, ok = dimmed
+                  let leaseColor = "#374151";
+                  if (leaseVal) {
+                    const d = new Date(leaseVal);
+                    const now = new Date("2026-03-04");
+                    const daysLeft = Math.floor((d - now) / 86400000);
+                    if (daysLeft < 0) leaseColor = "#ef4444";
+                    else if (daysLeft < 60) leaseColor = "#f97316";
+                    else leaseColor = "#22c55e";
+                  }
+                  return (
+                    <div key={t.id} style={{ marginBottom: 8, background: "#070a10", borderRadius: 8, padding: "8px 10px" }}>
+                      <div style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, marginBottom: 6 }}>{t.name} <span style={{ color: "#374151", fontWeight: 400 }}>· {t.unit}</span></div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+                        <div>
+                          <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 3 }}>LEASE END</div>
+                          <input
+                            type="text"
+                            placeholder="e.g. Jun 30, 2026"
+                            value={leaseVal}
+                            onChange={e => setTenantMeta(prev => ({ ...prev, [t.id]: { ...prev[t.id], leaseEnd: e.target.value } }))}
+                            style={{ width: "100%", background: "#0d1117", border: `1px solid ${leaseVal ? leaseColor + "60" : "#1e293b"}`, borderRadius: 6, padding: "4px 7px", color: leaseVal ? leaseColor : "#374151", fontSize: 11, fontFamily: "'DM Mono',monospace", boxSizing: "border-box" }}
+                          />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 3 }}>LAST INCREASE</div>
+                          <input
+                            type="text"
+                            placeholder="e.g. Jan 2025"
+                            value={meta.lastIncrease || ""}
+                            onChange={e => setTenantMeta(prev => ({ ...prev, [t.id]: { ...prev[t.id], lastIncrease: e.target.value } }))}
+                            style={{ width: "100%", background: "#0d1117", border: "1px solid #1e293b", borderRadius: 6, padding: "4px 7px", color: meta.lastIncrease ? "#818cf8" : "#374151", fontSize: 11, fontFamily: "'DM Mono',monospace", boxSizing: "border-box" }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
             </div>
           );
         })}
@@ -765,6 +921,68 @@ export default function EstateOS() {
     const [month, setMonth] = useState(CURRENT_MONTH);
     let expected = 0, collected = 0;
     PORTFOLIO.forEach(p => p.tenants.forEach(t => { expected += t.rent; collected += t.payments[month] || 0; }));
+    const outstanding = expected - collected;
+
+    // Flatten all tenants across portfolio, attach property ref
+    const allRows = [];
+    PORTFOLIO.forEach(p => p.tenants.forEach(t => {
+      const paid = t.payments[month] ?? null;
+      const owed = paid == null ? t.rent : Math.max(0, t.rent - paid);
+      const status = getPaymentStatus(t, month);
+      allRows.push({ p, t, paid, owed, status });
+    }));
+
+    // Sort: missing first (by owed desc), then partial (by owed desc), then paid
+    const order = { missing: 0, partial: 1, paid: 2 };
+    allRows.sort((a, b) => {
+      if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
+      return b.owed - a.owed; // within same group, largest outstanding first
+    });
+
+    const unpaidRows = allRows.filter(r => r.status !== "paid");
+    const paidRows = allRows.filter(r => r.status === "paid");
+
+    const RowItem = ({ p, t, paid, owed, status }) => (
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 14px", marginBottom: 4, background: "#0d1117", borderLeft: `3px solid ${status === "paid" ? "#166534" : status === "partial" ? "#c2410c" : "#dc2626"}`, borderRadius: 8 }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+            <span style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 600 }}>{t.name}</span>
+            <span style={{ color: "#374151", fontSize: 10, fontFamily: "'DM Mono',monospace" }}>{t.unit}</span>
+            <span style={{ color: "#4b5563", fontSize: 10 }}>· {p.address}</span>
+            {t.flags.slice(0, 1).map((f, fi) => (
+              <span key={fi} style={{ fontSize: 9, color: FLAG_COLORS[f] || "#9ca3af", fontFamily: "'DM Mono',monospace" }}>· {f}</span>
+            ))}
+          </div>
+          {t.notes?.[month] && <div style={{ fontSize: 10, color: "#d97706", marginTop: 2 }}>📝 {t.notes[month]}</div>}
+        </div>
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          {/* Outstanding badge — only for unpaid/partial */}
+          {status !== "paid" && (
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>OUTSTANDING</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(owed)}</div>
+            </div>
+          )}
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>
+              {status === "paid" ? "PAID" : "RECEIVED"}
+            </div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: status === "paid" ? "#22c55e" : status === "partial" ? "#f97316" : "#374151", fontFamily: "'DM Mono',monospace" }}>
+              {paid != null ? fmt(paid) : "—"}
+            </div>
+            <div style={{ fontSize: 10, color: "#374151" }}>of {fmt(t.rent)}</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+            <span style={{ fontSize: 10, padding: "2px 9px", borderRadius: 20, background: status === "paid" ? "#0d2b1a" : status === "partial" ? "#2a1200" : "#2a0000", color: status === "paid" ? "#86efac" : status === "partial" ? "#fed7aa" : "#fca5a5", fontFamily: "'DM Mono',monospace" }}>
+              {status.toUpperCase()}
+            </span>
+            <button onClick={() => draftEmail(p, t, status === "paid" ? "rent reminder" : "late notice")}
+              style={{ fontSize: 9, padding: "2px 8px", borderRadius: 5, border: "1px solid #161d2a", background: "none", color: "#4b5563", cursor: "pointer" }}>✉</button>
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <div style={{ padding: 24 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
@@ -774,50 +992,46 @@ export default function EstateOS() {
             {MONTHS.map(m => <option key={m}>{m}</option>)}
           </select>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginBottom: 22 }}>
-          {[["EXPECTED", fmt(expected), "#f6c90e"], ["COLLECTED", fmt(collected), "#22c55e"], ["OUTSTANDING", fmt(expected - collected), "#ef4444"]].map(([l, v, c]) => (
-            <div key={l} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "18px 22px" }}>
-              <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 8 }}>{l}</div>
+
+        {/* Summary cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }}>
+          {[
+            ["EXPECTED", fmt(expected), "#f6c90e", "#2a2000"],
+            ["COLLECTED", fmt(collected), "#22c55e", "#0d2b1a"],
+            ["OUTSTANDING", fmt(outstanding), "#ef4444", "#2a0000"],
+            ["UNPAID TENANTS", unpaidRows.length, outstanding > 0 ? "#ef4444" : "#22c55e", outstanding > 0 ? "#2a0000" : "#0d2b1a"],
+          ].map(([l, v, c, bg]) => (
+            <div key={l} style={{ background: "#0d1117", border: `1px solid ${bg}`, borderRadius: 12, padding: "16px 20px" }}>
+              <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
               <div style={{ fontSize: 22, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
             </div>
           ))}
         </div>
-        {PORTFOLIO.map(p => {
-          const pExp = p.tenants.reduce((s, t) => s + t.rent, 0);
-          const pColl = p.tenants.reduce((s, t) => s + (t.payments[month] || 0), 0);
-          return (
-            <div key={p.id} style={{ marginBottom: 14 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", padding: "0 2px", marginBottom: 6 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#d1d5db" }}>{p.address}</span>
-                  {!p.owned && <span style={{ fontSize: 9, color: "#374151", background: "#161d2a", padding: "1px 6px", borderRadius: 7 }}>MANAGED</span>}
-                </div>
-                <span style={{ fontSize: 12, fontFamily: "'DM Mono',monospace", color: pColl >= pExp ? "#22c55e" : "#ef4444" }}>{fmt(pColl)} / {fmt(pExp)}</span>
-              </div>
-              {p.tenants.map(t => {
-                const status = getPaymentStatus(t, month);
-                const paid = t.payments[month];
-                return (
-                  <div key={t.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 13px", marginBottom: 3, background: "#0d1117", borderLeft: `3px solid ${status === "paid" ? "#166534" : status === "partial" ? "#c2410c" : "#dc2626"}`, borderRadius: 7 }}>
-                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                      <span style={{ color: "#e2e8f0", fontSize: 13 }}>{t.name}</span>
-                      <span style={{ color: "#374151", fontSize: 10 }}>{t.unit}</span>
-                      {t.flags.slice(0, 1).map((f, fi) => <span key={fi} style={{ fontSize: 9, color: FLAG_COLORS[f] || "#9ca3af" }}>· {f}</span>)}
-                    </div>
-                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                      <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 12, color: status === "paid" ? "#22c55e" : status === "partial" ? "#f97316" : "#ef4444" }}>
-                        {paid != null ? fmt(paid) : "MISSING"}
-                      </span>
-                      <span style={{ fontSize: 10, color: "#374151" }}>/ {fmt(t.rent)}</span>
-                      <button onClick={() => draftEmail(p, t, status === "paid" ? "rent reminder" : "late notice")}
-                        style={{ fontSize: 9, padding: "2px 7px", borderRadius: 5, border: "1px solid #161d2a", background: "none", color: "#4b5563", cursor: "pointer" }}>✉</button>
-                    </div>
-                  </div>
-                );
-              })}
+
+        {/* UNPAID / PARTIAL section */}
+        {unpaidRows.length > 0 && (
+          <div style={{ marginBottom: 24 }}>
+            <div style={{ fontSize: 10, color: "#ef4444", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10, display: "flex", alignItems: "center", gap: 10 }}>
+              OUTSTANDING — {unpaidRows.length} TENANT{unpaidRows.length !== 1 ? "S" : ""}
+              <span style={{ color: "#ef4444", fontWeight: 700 }}>{fmt(outstanding)}</span>
             </div>
-          );
-        })}
+            {unpaidRows.map(({ p, t, paid, owed, status }) => (
+              <RowItem key={t.id} p={p} t={t} paid={paid} owed={owed} status={status} />
+            ))}
+          </div>
+        )}
+
+        {/* PAID section */}
+        {paidRows.length > 0 && (
+          <div>
+            <div style={{ fontSize: 10, color: "#22c55e", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>
+              PAID — {paidRows.length} TENANT{paidRows.length !== 1 ? "S" : ""}
+            </div>
+            {paidRows.map(({ p, t, paid, owed, status }) => (
+              <RowItem key={t.id} p={p} t={t} paid={paid} owed={owed} status={status} />
+            ))}
+          </div>
+        )}
       </div>
     );
   };
@@ -940,7 +1154,7 @@ export default function EstateOS() {
     const ruskin = data["43-ruskin"];
     ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
       ruskin[m] = { ...BLANK_MONTH(),
-        "Mortgage Principal": 1783.11, "Mortgage Interest": 420.00,
+        "Mortgage Principal": 0, "Mortgage Interest": 1248.23,
         "Property Taxes": 364.60, "Insurance": 128.00, "Utilities": 400.00 };
     });
     ruskin["Feb 2026"]["Mortgage Principal"] = 1248.23;
@@ -1118,6 +1332,23 @@ export default function EstateOS() {
               {/* EXPENSES */}
               <div style={{ background: "#0d1117", border: "1px solid #2a1200", borderRadius: 12, padding: "18px 20px" }}>
                 <div style={{ fontSize: 11, color: "#f97316", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 14 }}>EXPENSES</div>
+                {/* Mortgage payment row */}
+                {(() => {
+                  const mtg = MORTGAGE_DATA[p.id];
+                  if (!mtg) return null;
+                  return (
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid #150d00", background: "#0a0800", borderRadius: 4, paddingLeft: 6, marginBottom: 2 }}>
+                      <div>
+                        <span style={{ color: "#f6c90e", fontSize: 12 }}>Mortgage Payment</span>
+                        <span style={{ color: "#374151", fontSize: 10, fontFamily: "'DM Mono',monospace", marginLeft: 8 }}>{mtg.lender} · {mtg.type}</span>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, color: "#f6c90e", fontWeight: 700 }}>{fmt(mtg.monthlyPayment)}</div>
+                        <div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace" }}>P: {fmt(mtg.monthlyPrincipal)} · I: {fmt(mtg.monthlyInterest)}</div>
+                      </div>
+                    </div>
+                  );
+                })()}
                 {EXPENSE_CATEGORIES.map(cat => (
                   <div key={cat} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: "1px solid #150d00" }}>
                     <span style={{ color: "#6b7280", fontSize: 12 }}>{cat}</span>
@@ -1731,6 +1962,11 @@ export default function EstateOS() {
     const totalBalance = knownMortgages.reduce((s, [, m]) => s + m.balanceDec2025, 0);
     const totalInterest2025 = knownMortgages.reduce((s, [, m]) => s + m.interestPaid2025, 0);
     const totalPrincipal2025 = knownMortgages.reduce((s, [, m]) => s + m.principalPaid2025, 0);
+    const totalMonthlyPayment = knownMortgages.reduce((s, [, m]) => s + m.monthlyPayment, 0);
+    const totalMonthlyPrincipal = knownMortgages.reduce((s, [, m]) => s + m.monthlyPrincipal, 0);
+
+    const colStyle = (color, bold) => ({ fontFamily: "'DM Mono',monospace", fontSize: 13, color: color || "#9ca3af", fontWeight: bold ? 700 : 400, padding: "13px 14px", borderBottom: "1px solid #0d1117", whiteSpace: "nowrap" });
+    const headStyle = { fontFamily: "'DM Mono',monospace", fontSize: 10, color: "#4b5563", letterSpacing: 1.5, padding: "10px 14px", textAlign: "left", borderBottom: "2px solid #161d2a", whiteSpace: "nowrap" };
 
     return (
       <div style={{ padding: 24 }}>
@@ -1739,92 +1975,94 @@ export default function EstateOS() {
           <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>Annual statements · Real data from lenders</div>
         </div>
 
-        {/* Portfolio mortgage summary */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginBottom: 28 }}>
+        {/* Summary cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12, marginBottom: 28 }}>
           {[
-            ["TOTAL BALANCE (Dec 31, 2025)", fmt(totalBalance), "#ef4444"],
+            ["BALANCE DEC 2025", fmt(totalBalance), "#ef4444"],
+            ["MONTHLY PAYMENT", fmt(totalMonthlyPayment), "#f6c90e"],
+            ["MONTHLY PRINCIPAL", fmt(totalMonthlyPrincipal), "#22c55e"],
             ["INTEREST PAID 2025", fmt(totalInterest2025), "#f97316"],
             ["PRINCIPAL PAID 2025", fmt(totalPrincipal2025), "#22c55e"],
           ].map(([l, v, c]) => (
-            <div key={l} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "16px 20px" }}>
-              <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 8 }}>{l}</div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
+            <div key={l} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 12, padding: "14px 16px" }}>
+              <div style={{ fontSize: 9, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{l}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
             </div>
           ))}
         </div>
 
-        {/* Individual mortgage cards */}
-        {knownMortgages.map(([propId, m]) => {
-          const prop = PORTFOLIO.find(p => p.id === propId);
-          const own = OWNERSHIP_MAP[propId];
-          const equityPct = ((m.balanceDec2025 / (m.balanceJan2025)) * 100).toFixed(1);
-          return (
-            <div key={propId} style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, padding: "22px 26px", marginBottom: 18 }}>
-              {/* Header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
-                <div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: "#f1f5f9" }}>{prop?.address}</div>
-                  <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 4 }}>
-                    {m.lender} · Loan #{m.loanNum} · {m.type}
-                  </div>
-                  <div style={{ fontSize: 11, color: "#6b7280", marginTop: 2 }}>{own?.corp} · {own?.pct}% owned · Mortgagee: {m.mortgagee}</div>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>BALANCE DEC 31, 2025</div>
-                  <div style={{ fontSize: 24, fontWeight: 700, color: "#ef4444", fontFamily: "'DM Mono',monospace" }}>{fmt(m.balanceDec2025)}</div>
-                  <div style={{ fontSize: 11, color: "#4b5563", marginTop: 2 }}>Renewal: {m.maturity}</div>
-                </div>
-              </div>
+        {/* Main table */}
+        <div style={{ background: "#0d1117", border: "1px solid #161d2a", borderRadius: 14, overflow: "hidden", marginBottom: 20 }}>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ background: "#070a10" }}>
+                  <th style={headStyle}>PROPERTY</th>
+                  <th style={headStyle}>LENDER</th>
+                  <th style={headStyle}>TYPE</th>
+                  <th style={{ ...headStyle, textAlign: "right" }}>BALANCE</th>
+                  <th style={{ ...headStyle, textAlign: "right" }}>PAYMENT/MO</th>
+                  <th style={{ ...headStyle, textAlign: "right" }}>PRINCIPAL/MO</th>
+                  <th style={{ ...headStyle, textAlign: "right" }}>INTEREST/MO</th>
+                  <th style={{ ...headStyle, textAlign: "right" }}>RATE</th>
+                  <th style={{ ...headStyle, textAlign: "right" }}>PRINCIPAL 2025</th>
+                  <th style={headStyle}>RENEWAL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {knownMortgages.map(([propId, m], i) => {
+                  const prop = PORTFOLIO.find(p => p.id === propId);
+                  const rowBg = i % 2 === 0 ? "#0d1117" : "#0a0d12";
+                  return (
+                    <tr key={propId} style={{ background: rowBg }}>
+                      <td style={{ ...colStyle("#f1f5f9", true), paddingLeft: 16 }}>
+                        <div>{prop?.address}</div>
+                        <div style={{ fontSize: 10, color: "#374151", fontWeight: 400, marginTop: 2 }}>{m.mortgagee}</div>
+                      </td>
+                      <td style={colStyle("#9ca3af")}>{m.lender}</td>
+                      <td style={colStyle("#6b7280")}>{m.type}</td>
+                      <td style={{ ...colStyle("#ef4444", true), textAlign: "right" }}>{fmt(m.balanceDec2025)}</td>
+                      <td style={{ ...colStyle("#f6c90e", true), textAlign: "right" }}>{fmt(m.monthlyPayment)}</td>
+                      <td style={{ ...colStyle("#22c55e", true), textAlign: "right" }}>{fmt(m.monthlyPrincipal)}</td>
+                      <td style={{ ...colStyle("#f97316"), textAlign: "right" }}>{fmt(m.monthlyInterest)}</td>
+                      <td style={{ ...colStyle("#818cf8", true), textAlign: "right" }}>{m.rateEnd}%</td>
+                      <td style={{ ...colStyle("#22c55e"), textAlign: "right" }}>{fmt(m.principalPaid2025)}</td>
+                      <td style={colStyle("#4b5563")}>{m.maturity}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr style={{ background: "#f6c90e" }}>
+                  <td style={{ padding: "12px 14px 12px 16px", fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 700, color: "#000" }} colSpan={3}>TOTALS</td>
+                  <td style={{ padding: "12px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalBalance)}</td>
+                  <td style={{ padding: "12px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthlyPayment)}</td>
+                  <td style={{ padding: "12px 14px", fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 700, color: "#000", textAlign: "right" }}>{fmt(totalMonthlyPrincipal)}</td>
+                  <td colSpan={4} style={{ padding: "12px 14px" }}></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
 
-              {/* Key metrics grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10, marginBottom: 16 }}>
-                {[
-                  ["MONTHLY PAYMENT", fmt(m.monthlyPayment), "#f1f5f9"],
-                  ["MONTHLY PRINCIPAL", fmt(m.monthlyPrincipal), "#22c55e"],
-                  ["MONTHLY INTEREST", fmt(m.monthlyInterest), "#f97316"],
-                  ["INTEREST RATE", m.rateEnd + "%", "#818cf8"],
-                  ["PRINCIPAL PAID 2025", fmt(m.principalPaid2025), "#22c55e"],
-                ].map(([l, v, c]) => (
-                  <div key={l} style={{ background: "#070a10", borderRadius: 8, padding: "10px 12px" }}>
-                    <div style={{ fontSize: 9, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1.5, marginBottom: 5 }}>{l}</div>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
-                  </div>
-                ))}
+        {/* Rate change notes */}
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 }}>
+          {knownMortgages.filter(([, m]) => m.note).map(([propId, m]) => {
+            const prop = PORTFOLIO.find(p => p.id === propId);
+            return (
+              <div key={propId} style={{ background: "#0d0d1a", border: "1px solid #1e1b4b", borderRadius: 8, padding: "8px 14px", fontSize: 11, color: "#818cf8", fontFamily: "'DM Mono',monospace" }}>
+                <span style={{ color: "#6366f1", fontWeight: 700 }}>{prop?.address}: </span>{m.note}
               </div>
+            );
+          })}
+        </div>
 
-              {/* 2025 annual summary */}
-              <div style={{ background: "#070a10", borderRadius: 10, padding: "14px 16px", marginBottom: 12 }}>
-                <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 10 }}>2025 ANNUAL STATEMENT SUMMARY</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
-                  {[
-                    ["Opening Balance (Jan 1)", fmt(m.balanceJan2025), "#9ca3af"],
-                    ["Total Interest Paid", fmt(m.interestPaid2025), "#f97316"],
-                    ["Total Principal Paid", fmt(m.principalPaid2025), "#22c55e"],
-                    ["Closing Balance (Dec 31)", fmt(m.balanceDec2025), "#ef4444"],
-                  ].map(([l, v, c]) => (
-                    <div key={l}>
-                      <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", marginBottom: 3 }}>{l}</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: c, fontFamily: "'DM Mono',monospace" }}>{v}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Rate info & note */}
-              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                <div style={{ background: "#0d0d1a", border: "1px solid #1e1b4b", borderRadius: 6, padding: "6px 12px", fontSize: 11, color: "#818cf8", fontFamily: "'DM Mono',monospace" }}>
-                  Rate Jan 1: {m.rateStart}% → Dec 31: {m.rateEnd}%
-                </div>
-                {m.note && <div style={{ fontSize: 11, color: "#4b5563", fontStyle: "italic" }}>{m.note}</div>}
-              </div>
-            </div>
-          );
-        })}
-
-        {/* Placeholder for properties without uploaded statements */}
-        <div style={{ background: "#0d1117", border: "1px dashed #1e293b", borderRadius: 14, padding: "20px 26px", textAlign: "center" }}>
-          <div style={{ fontSize: 13, color: "#374151", marginBottom: 6 }}>More properties have mortgages not yet uploaded</div>
-          <div style={{ fontSize: 11, color: "#1f2937", fontFamily: "'DM Mono',monospace" }}>Upload annual statements for 43 Ruskin · 401 Southwood · 164 Kirkpatrick · 232 Van Order · 32 Holland · 285 Van Order · 82 Hamilton · 293 Van Order</div>
+        {/* Properties without statements */}
+        <div style={{ background: "#0d1117", border: "1px dashed #1e293b", borderRadius: 12, padding: "16px 20px" }}>
+          <div style={{ fontSize: 11, color: "#374151", fontFamily: "'DM Mono',monospace", letterSpacing: 1, marginBottom: 6 }}>STATEMENTS NOT YET UPLOADED</div>
+          <div style={{ fontSize: 11, color: "#1f2937", fontFamily: "'DM Mono',monospace", lineHeight: 1.8 }}>
+            43 Ruskin · 401 Southwood · 164 Kirkpatrick · 232 Van Order · 32 Holland · 285 Van Order · 82 Hamilton · 293 Van Order
+          </div>
         </div>
       </div>
     );
@@ -1838,11 +2076,11 @@ export default function EstateOS() {
         {[
           { id: "dashboard", label: "Dashboard" },
           { id: "rent", label: "Rent Check" },
-          { id: "vacancies", label: "🔑 Vacancies" },
+          { id: "cashflow", label: "💰 Cash Flow" },
+          { id: "vacancies", label: "Vacancies" },
           { id: "reports", label: "Reports" },
           { id: "t776", label: "T776 Tax" },
           { id: "mortgages", label: "Mortgages" },
-          { id: "property", label: selectedProperty?.address || "Property", disabled: !selectedProperty },
           { id: "chat", label: "AI Co-worker" },
         ].map(t => (
           <button key={t.id} onClick={() => !t.disabled && setTab(t.id)} disabled={t.disabled}
@@ -1856,6 +2094,7 @@ export default function EstateOS() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {tab === "dashboard" && <Dashboard />}
         {tab === "rent" && <RentCheck />}
+        {tab === "cashflow" && <CashFlowBoard getPropertyCashflow={getPropertyCashflow} />}
         {tab === "vacancies" && <VacanciesTab vacancies={VACANCIES} setEmailDraft={setEmailDraft} />}
         {tab === "reports" && <MonthlyReports />}
         {tab === "t776" && <T776Tab />}
@@ -1866,6 +2105,144 @@ export default function EstateOS() {
 
       <EmailModal />
       <ReceiptModal />
+    </div>
+  );
+}
+
+// ── CASH FLOW BOARD ────────────────────────────────────────────────────────────
+function CashFlowBoard({ getPropertyCashflow }) {
+  const [month, setMonth] = React.useState(CURRENT_MONTH);
+
+  const rows = PORTFOLIO.map(p => {
+    const cf = getPropertyCashflow(p.id, month);
+    const mtg = MORTGAGE_DATA[p.id];
+    const mortgage = mtg ? mtg.monthlyPayment : 0;
+    const totalExp = cf.expenses + mortgage;
+    const net = cf.revenue - totalExp;
+    const targetRent = p.tenants.reduce((s, t) => s + t.rent, 0);
+    return { p, revenue: cf.revenue, expenses: cf.expenses, mortgage, totalExp, net, targetRent };
+  });
+
+  const totalRev = rows.reduce((s, r) => s + r.revenue, 0);
+  const totalExp = rows.reduce((s, r) => s + r.totalExp, 0);
+  const totalMtg = rows.reduce((s, r) => s + r.mortgage, 0);
+  const totalNet = totalRev - totalExp;
+  const positive = rows.filter(r => r.net > 0).length;
+  const negative = rows.filter(r => r.net < 0).length;
+  const neutral = rows.filter(r => r.net === 0).length;
+
+  return (
+    <div style={{ padding: 24 }}>
+      {/* Header */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
+        <div>
+          <div style={{ fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f6c90e" }}>Cash Flow Board</div>
+          <div style={{ fontSize: 11, color: "#4b5563", fontFamily: "'DM Mono',monospace", marginTop: 3 }}>All properties · Revenue minus expenses & mortgage</div>
+        </div>
+        <select value={month} onChange={e => setMonth(e.target.value)}
+          style={{ background: "#0d1117", border: "1px solid #161d2a", color: "#f1f5f9", fontSize: 13, borderRadius: 8, padding: "6px 12px" }}>
+          {MONTHS.map(m => <option key={m}>{m}</option>)}
+        </select>
+      </div>
+
+      {/* Portfolio summary cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 24 }}>
+        {[
+          { label: "TOTAL REVENUE", value: fmt(totalRev), color: "#22c55e", border: "#0d2b1a" },
+          { label: "TOTAL EXPENSES", value: fmt(totalExp), color: "#f97316", border: "#2a1200" },
+          { label: "MORTGAGE PMTS", value: fmt(totalMtg), color: "#f6c90e", border: "#2a2000" },
+          { label: "NET CASH FLOW", value: fmt(totalNet), color: totalNet >= 0 ? "#22c55e" : "#ef4444", border: totalNet >= 0 ? "#0d2b1a" : "#2a0000" },
+        ].map(c => (
+          <div key={c.label} style={{ background: "#0d1117", border: `1px solid ${c.border}`, borderRadius: 12, padding: "16px 18px" }}>
+            <div style={{ fontSize: 10, color: "#4b5563", fontFamily: "'DM Mono',monospace", letterSpacing: 2, marginBottom: 6 }}>{c.label}</div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: c.color, fontFamily: "'DM Mono',monospace" }}>{c.value}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Status badges */}
+      <div style={{ display: "flex", gap: 10, marginBottom: 18 }}>
+        <div style={{ background: "#052010", border: "1px solid #0d2b1a", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#22c55e", fontFamily: "'DM Mono',monospace" }}>✓ {positive} positive</div>
+        <div style={{ background: "#200505", border: "1px solid #2a0000", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#ef4444", fontFamily: "'DM Mono',monospace" }}>✗ {negative} negative</div>
+        {neutral > 0 && <div style={{ background: "#0d1117", border: "1px solid #1e293b", borderRadius: 20, padding: "4px 14px", fontSize: 11, color: "#374151", fontFamily: "'DM Mono',monospace" }}>— {neutral} no data</div>}
+      </div>
+
+      {/* Property grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12 }}>
+        {rows.map(({ p, revenue, expenses, mortgage, totalExp, net, targetRent }) => {
+          const isPos = net > 0;
+          const isNeg = net < 0;
+          const borderColor = isPos ? "#0d2b1a" : isNeg ? "#2a0000" : "#161d2a";
+          const netColor = isPos ? "#22c55e" : isNeg ? "#ef4444" : "#374151";
+          const glowBg = isPos ? "#052010" : isNeg ? "#150000" : "#0d1117";
+          const hasNoData = revenue === 0 && expenses === 0 && mortgage === 0;
+
+          return (
+            <div key={p.id} style={{ background: "#0d1117", border: `1px solid ${borderColor}`, borderRadius: 14, padding: "16px 18px", position: "relative" }}>
+              {/* Address + ownership */}
+              <div style={{ marginBottom: 12 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9", fontFamily: "'Playfair Display',serif" }}>{p.address}</div>
+                <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace", marginTop: 2 }}>{p.ownership}</div>
+              </div>
+
+              {/* Revenue row */}
+              <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #0f1a10" }}>
+                <span style={{ color: "#4b5563", fontSize: 12 }}>Revenue</span>
+                <span style={{ color: revenue > 0 ? "#22c55e" : "#374151", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>{revenue > 0 ? fmt(revenue) : "—"}</span>
+              </div>
+
+              {/* Mortgage row — only if applicable */}
+              {mortgage > 0 && (
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #0f1400" }}>
+                  <span style={{ color: "#4b5563", fontSize: 12 }}>Mortgage</span>
+                  <span style={{ color: "#f6c90e", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>({fmt(mortgage)})</span>
+                </div>
+              )}
+
+              {/* Other expenses row */}
+              {expenses > 0 && (
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #150d00" }}>
+                  <span style={{ color: "#4b5563", fontSize: 12 }}>Expenses</span>
+                  <span style={{ color: "#f97316", fontFamily: "'DM Mono',monospace", fontSize: 12 }}>({fmt(expenses)})</span>
+                </div>
+              )}
+
+              {/* Net cash flow — big number */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, background: glowBg, borderRadius: 8, padding: "8px 10px" }}>
+                <span style={{ color: "#6b7280", fontSize: 11, fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>NET CASH FLOW</span>
+                <span style={{ color: netColor, fontFamily: "'DM Mono',monospace", fontSize: 18, fontWeight: 700 }}>
+                  {hasNoData ? "—" : (isPos ? "+" : "") + fmt(net)}
+                </span>
+              </div>
+
+              {/* Target rent note */}
+              <div style={{ marginTop: 8, fontSize: 10, color: "#1f2937", fontFamily: "'DM Mono',monospace", textAlign: "right" }}>
+                Target: {fmt(targetRent)}/mo · {p.tenants.length} unit{p.tenants.length !== 1 ? "s" : ""}
+                {!p.owned && <span style={{ color: "#374151", marginLeft: 6 }}>· managed only</span>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Portfolio total row */}
+      <div style={{ marginTop: 20, background: "#0a0d14", border: `1px solid ${totalNet >= 0 ? "#0d2b1a" : "#2a0000"}`, borderRadius: 14, padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ fontSize: 13, color: "#6b7280", fontFamily: "'DM Mono',monospace", letterSpacing: 1 }}>PORTFOLIO TOTAL — {month}</div>
+        <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>REVENUE</div>
+            <div style={{ fontSize: 16, color: "#22c55e", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{fmt(totalRev)}</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>EXPENSES</div>
+            <div style={{ fontSize: 16, color: "#f97316", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>({fmt(totalExp)})</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 10, color: "#374151", fontFamily: "'DM Mono',monospace" }}>NET</div>
+            <div style={{ fontSize: 24, color: totalNet >= 0 ? "#22c55e" : "#ef4444", fontFamily: "'DM Mono',monospace", fontWeight: 700 }}>{totalNet >= 0 ? "+" : ""}{fmt(totalNet)}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -2129,4 +2506,3 @@ function VacanciesTab({ vacancies, setEmailDraft }) {
     </div>
   );
 }
-
