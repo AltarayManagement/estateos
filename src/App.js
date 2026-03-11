@@ -569,6 +569,29 @@ const LINES_OF_CREDIT = [
 ];
 
 // ─── ALTARAY LOGO ─────────────────────────────────────────────────────────────
+
+// ── PAYOUT CONFIG ────────────────────────────────────────────────────
+// Properties Altaray owns outright — excluded from owner payout tab
+const NO_PAYOUT_IDS = ["787-downing", "913-uxbridge", "30-barbara", "661-milford"];
+
+// Management fee rate per property + whether HST applies to the fee
+const MGMT_RATES = {
+    "28-toronto":     { rate: 0.05, hst: false },
+    "1241-johnson":   { rate: 0.08, hst: false },
+    "246-adelaide":   { rate: 0.06, hst: true  },
+    "152-calderwood": { rate: 0.07, hst: false },
+    "315-portsmouth": { rate: 0.07, hst: false },
+    "311-portsmouth": { rate: 0.07, hst: false },
+    "63-hill":        { rate: 0.05, hst: false },
+    "886-larchwood":  { rate: 0.07, hst: false },
+};
+
+// Other expenses per property per month (repairs, etc.)
+// Update as needed: { amount: 0, description: "" }
+const OTHER_EXPENSES = {
+    // Example:
+    // "152-calderwood": { "Mar 2026": { amount: 250.00, description: "Plumbing repair" } },
+};
 // Replace this URL with the direct Google Drive image link
 const ALTARAY_LOGO_URL = ""; // e.g. https://drive.google.com/uc?export=view&id=FILE_ID
 
