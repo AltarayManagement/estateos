@@ -11,7 +11,7 @@ const PORTFOLIO = [
     email: "787downing@gmail.com",
     ownership: "AwesomeJVDeals & Marshall",
     owned: true, type: "duplex",
-    tenants: [
+    tenants: [h
       { id: "vikki", unit: "Unit 1", name: "Vikki Langelier", email: "vikkimed@outlook.com", rent: 2250, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 2250, "Feb 2026": 2250, "Mar 2026": 2250, "Apr 2026": 2250 } },
       { id: "micheal", unit: "Unit 2", name: "Micheal", email: "", rent: 1875, flags: [], depositType: "auto", leaseEnd: "May 1, 2026", lastIncrease: null,
@@ -129,9 +129,6 @@ const PORTFOLIO = [
     tenants: [
       { id: "farzia", unit: "Unit 1", name: "Farzia", email: "", rent: 2100, flags: ["Email Sent"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Jan 2026": 2100, "Feb 2026": 2100, "Mar 2026": 2100, "Apr 2026": 2100 } },
-      { id: "khemraj", unit: "Unit 2", name: "Khemraj Dahal", email: "", rent: 1896.25, flags: ["⚠ Last Month??"], depositType: "auto", leaseEnd: null, lastIncrease: null,
-        payments: { "Jan 2026": 1896.25, "Feb 2026": 1896.25, "Mar 2026": null },
-        notes: { "Mar 2026": "Last month?? — needs urgent follow-up" } },
       { id: "kirkpatrick-basement", unit: "Unit 2", name: "Karanjit Singh", email: "karanjit0895@gmail.com", rent: 1700, flags: ["Move-in Today ✅"], depositType: "auto", leaseEnd: null, lastIncrease: null,
         payments: { "Mar 2026": 1700 },
         notes: { "Mar 2026": "Move-in Mar 5, 2026 — paid $3,500 via e-transfer: $1,700 first month + $1,700 last month deposit + $100 key deposit." } },
