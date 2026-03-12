@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // ─── COMPLETE PORTFOLIO DATA ───────────────────────────────────────────────────
 // 541 Palace Road removed — no longer owned (as of March 2026)
