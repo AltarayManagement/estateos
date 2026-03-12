@@ -571,7 +571,7 @@ const LINES_OF_CREDIT = [
 // ─── ALTARAY LOGO ─────────────────────────────────────────────────────────────
 
 // ── PAYOUT CONFIG ────────────────────────────────────────────────────
-// Properties Altaray owns outright — excluded from owner payout tab
+// Properties Altaray owns outright — excluded from Management Payout tab
 const NO_PAYOUT_IDS = ["787-downing", "913-uxbridge", "30-barbara", "661-milford"];
 
 // Management fee rate per property + whether HST applies to the fee
@@ -599,7 +599,7 @@ const LOGO_HTML = ALTARAY_LOGO_URL
   ? `<img src="${ALTARAY_LOGO_URL}" style="height:60px;object-fit:contain" alt="Altaray Property Services" />`
   : `<div style="font-size:24px;font-weight:900;letter-spacing:2px;color:#111;font-family:Georgia,serif">ALTARAY<span style="color:#c8a900">▲</span></div><div style="font-size:9px;letter-spacing:4px;color:#666;margin-top:2px">PROPERTY SERVICES</div>`;
 
-// ── OWNER PAYOUT TAB ─────────────────────────────────────────────────
+// ── Management Payout TAB ─────────────────────────────────────────────────
 function OwnerPayout({ selectedMonth }) {
     const [sentMap, setSentMap] = React.useState({});
     const HST_RATE = 0.13;
@@ -645,7 +645,7 @@ function OwnerPayout({ selectedMonth }) {
                   otherExp.amount > 0 ? `Other Expenses: ${fmt(otherExp.amount)}  (${otherExp.description})` : null,
                   ``,
                   `────────────────────────────`,
-                  `OWNER PAYOUT:          ${fmt(payout)}`,
+                  `Management Payout:          ${fmt(payout)}`,
                   ``,
                   `Please e-transfer ${fmt(payout)} to: ${prop.email}`,
                   `Bank: ${prop.bank}   Acct: ${prop.account}`,
@@ -653,7 +653,7 @@ function OwnerPayout({ selectedMonth }) {
                   `Thank you,`,
                   `Altaray Property Services`,
                 ].filter(Boolean).join("\n");
-          const subject = `Owner Payout — ${prop.address} — ${selectedMonth}`;
+          const subject = `Management Payout — ${prop.address} — ${selectedMonth}`;
           const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(prop.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
           window.open(url, "_blank");
           setSentMap(p => ({ ...p, [prop.id]: today }));
@@ -664,7 +664,7 @@ function OwnerPayout({ selectedMonth }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 28 }}>
         <div>
             <div style={{ fontSize: 10, letterSpacing: 3, color: "#f5c842", textTransform: "uppercase" }}>Altaray Property Services</div>
-            <h2 style={{ margin: "4px 0 2px", fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f5c842" }}>Owner Payouts — {selectedMonth}</h2>
+            <h2 style={{ margin: "4px 0 2px", fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f5c842" }}>Management Payouts — {selectedMonth}</h2>
             <div style={{ fontSize: 11, color: "#6b7280" }}>Generated: {today} · {rows.length} properties</div>
   </div>
           <div style={{ textAlign: "right" }}>
@@ -1957,7 +1957,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
   };
 
   // ── export default function EstateOS() {
-MODULE ──────────────────────────────────────────────────────────
+// MODULE ──────────────────────────────────────────────────────────
   // T776 CRA lines in order — we bundle your vendor categories into these
   const T776_LINES = [
     { line: "8141", cra: "Gross rental income",              type: "income" },
@@ -2666,7 +2666,7 @@ MODULE ────────────────────────�
           { id: "cashflow", label: "Cash Flow" },
           { id: "vacancies", label: "Vacancies" },
           { id: "reports", label: "Reports" },
-          { id: "payout", label: "Owner Payout" },
+          { id: "payout", label: "Management Payout" },
           { id: "t776", label: "T776 Tax" },
           { id: "mortgages", label: "Mortgages" },
           { id: "chat", label: "AI Co-worker" },
