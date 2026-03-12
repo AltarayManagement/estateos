@@ -599,6 +599,155 @@ const LOGO_HTML = ALTARAY_LOGO_URL
   ? `<img src="${ALTARAY_LOGO_URL}" style="height:60px;object-fit:contain" alt="Altaray Property Services" />`
   : `<div style="font-size:24px;font-weight:900;letter-spacing:2px;color:#111;font-family:Georgia,serif">ALTARAY<span style="color:#c8a900">▲</span></div><div style="font-size:9px;letter-spacing:4px;color:#666;margin-top:2px">PROPERTY SERVICES</div>`;
 
+// ── OWNER PAYOUT TAB ─────────────────────────────────────────────────
+function OwnerPayout({ selectedMonth }) {
+    const [sentMap, setSentMap] = React.useState({});
+    const HST_RATE = 0.13;
+    const fmt = (n) => `$${Number(n || 0).toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    const today = new Date().toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" });
+  
+    const payoutProps = PORTFOLIO.filter(p => !NO_PAYOUT_IDS.includes(p.id));
+  
+    const rows = payoutProps.map(prop => {
+          const tenants = prop.tenants.map(t => ({
+                  name: t.name, unit: t.unit,
+                  paid: t.payments?.[selectedMonth] ?? null,
+                  rent: t.rent,
+          }));
+          const rentalIncome = tenants.reduce((s, t) => s + (t.paid ?? 0), 0);
+          const cfg     = MGMT_RATES[prop.id] ?? { rate: 0.07, hst: false };
+          const mgmtFee = rentalIncome * cfg.rate;
+          const hst     = cfg.hst ? mgmtFee * HST_RATE : 0;
+          const otherExp = OTHER_EXPENSES[prop.id]?.[selectedMonth] ?? { amount: 0, description: "" };
+          const payout  = rentalIncome - mgmtFee - hst - otherExp.amount;
+          return { prop, tenants, rentalIncome, cfg, mgmtFee, hst, otherExp, payout };
+    });
+  
+    const totalPayout = rows.reduce((s, r) => s + r.payout, 0);
+  
+    const openEmail = (r) => {
+          const { prop, tenants, rentalIncome, mgmtFee, hst, otherExp, payout, cfg } = r;
+          const tenantLines = tenants.map(t =>
+                  `  ${t.name} (${t.unit}): ${t.paid != null ? fmt(t.paid) : "NOT RECEIVED"}${t.paid != null && t.paid < t.rent ? " PARTIAL" : ""}`
+                                              ).join("\n");
+          const body = [
+                  `OWNER STATEMENT — ${prop.address}`,
+                  `Period: ${selectedMonth}   |   Issued: ${today}`,
+                  `Owner: ${prop.ownership}`,
+                  ``,
+                  `RENTAL INCOME`,
+                  tenantLines,
+                  `Total Rental Income:   ${fmt(rentalIncome)}`,
+                  ``,
+                  `DEDUCTIONS`,
+                  `Management Fee (${(cfg.rate * 100).toFixed(0)}%): ${fmt(mgmtFee)}`,
+                  cfg.hst ? `HST on Mgmt Fee (13%): ${fmt(hst)}` : null,
+                  otherExp.amount > 0 ? `Other Expenses: ${fmt(otherExp.amount)}  (${otherExp.description})` : null,
+                  ``,
+                  `────────────────────────────`,
+                  `OWNER PAYOUT:          ${fmt(payout)}`,
+                  ``,
+                  `Please e-transfer ${fmt(payout)} to: ${prop.email}`,
+                  `Bank: ${prop.bank}   Acct: ${prop.account}`,
+                  ``,
+                  `Thank you,`,
+                  `Altaray Property Services`,
+                ].filter(Boolean).join("\n");
+          const subject = `Owner Payout — ${prop.address} — ${selectedMonth}`;
+          const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(prop.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          window.open(url, "_blank");
+          setSentMap(p => ({ ...p, [prop.id]: today }));
+    };
+  
+    return (
+          <div style={{ padding: "24px 32px", fontFamily: "'DM Mono',monospace", color: "#fff", maxWidth: 900 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 28 }}>
+        <div>
+            <div style={{ fontSize: 10, letterSpacing: 3, color: "#f5c842", textTransform: "uppercase" }}>Altaray Property Services</div>
+            <h2 style={{ margin: "4px 0 2px", fontSize: 24, fontFamily: "'Playfair Display',serif", color: "#f5c842" }}>Owner Payouts — {selectedMonth}</h2>
+            <div style={{ fontSize: 11, color: "#6b7280" }}>Generated: {today} · {rows.length} properties</div>
+  </div>
+          <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: 10, color: "#6b7280", letterSpacing: 2 }}>TOTAL PAYABLE</div>
+            <div style={{ fontSize: 28, color: "#22c55e", fontWeight: 700 }}>{fmt(totalPayout)}</div>
+  </div>
+  </div>
+  
+{rows.map(r => {
+          const { prop, tenants, rentalIncome, cfg, mgmtFee, hst, otherExp, payout } = r;
+          const sent = sentMap[prop.id];
+          return (
+                      <div key={prop.id} style={{ background: "#0d1117", border: "1px solid #1e2a3a", borderRadius: 12, marginBottom: 20, overflow: "hidden" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#111827", padding: "13px 20px", borderBottom: "1px solid #1e2a3a" }}>
+              <div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#f5c842" }}>{prop.address}</div>
+                  <div style={{ fontSize: 11, color: "#6b7280", marginTop: 2 }}>{prop.ownership} · {prop.email}</div>
+  </div>
+                <div style={{ textAlign: "right" }}>
+                <div style={{ fontSize: 10, color: "#6b7280", letterSpacing: 1 }}>PAYOUT</div>
+                  <div style={{ fontSize: 20, color: "#22c55e", fontWeight: 700 }}>{fmt(payout)}</div>
+  </div>
+  </div>
+  
+            <div style={{ display: "flex" }}>
+              <div style={{ flex: 1, padding: "16px 20px", borderRight: "1px solid #1e2a3a" }}>
+                <div style={{ fontSize: 10, color: "#f5c842", letterSpacing: 2, marginBottom: 8 }}>RENTAL INCOME</div>
+{tenants.map((t, i) => (
+                    <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "5px 0", borderBottom: "1px solid #111827" }}>
+                    <span style={{ color: "#e2e8f0" }}>{t.name} <span style={{ color: "#6b7280" }}>({t.unit})</span></span>
+                      <span style={{ color: t.paid == null ? "#ef4444" : t.paid < t.rent ? "#f97316" : "#22c55e", fontWeight: 600 }}>
+{t.paid == null ? "NOT RECEIVED" : fmt(t.paid)}{t.paid != null && t.paid < t.rent ? " PARTIAL" : ""}
+</span>
+  </div>
+                  ))}
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, fontSize: 13, fontWeight: 700 }}>
+                  <span style={{ color: "#6b7280" }}>Total Rental Income</span>
+                                      <span style={{ color: "#22c55e" }}>{fmt(rentalIncome)}</span>
+                    </div>
+                    </div>
+                    
+              <div style={{ width: 280, padding: "16px 20px" }}>
+                <div style={{ fontSize: 10, color: "#f5c842", letterSpacing: 2, marginBottom: 8 }}>DEDUCTIONS</div>
+                                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "5px 0", borderBottom: "1px solid #111827" }}>
+                  <span style={{ color: "#6b7280" }}>Rate</span>
+                                      <span style={{ color: "#e2e8f0" }}>{(cfg.rate * 100).toFixed(0)}%{cfg.hst ? " + HST" : ""}</span>
+                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "5px 0", borderBottom: "1px solid #111827" }}>
+                  <span style={{ color: "#6b7280" }}>Management Fee</span>
+                                      <span style={{ color: "#f97316" }}>({fmt(mgmtFee)})</span>
+                    </div>
+{cfg.hst && (
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "5px 0", borderBottom: "1px solid #111827" }}>
+                    <span style={{ color: "#6b7280" }}>HST (13%)</span>
+                      <span style={{ color: "#f97316" }}>({fmt(hst)})</span>
+  </div>
+                  )}
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "5px 0", borderBottom: "1px solid #111827" }}>
+                  <span style={{ color: "#6b7280" }}>Other Expenses{otherExp.description ? ` — ${otherExp.description}` : ""}</span>
+                                      <span style={{ color: otherExp.amount > 0 ? "#f97316" : "#4b5563" }}>{otherExp.amount > 0 ? `(${fmt(otherExp.amount)})` : "—"}</span>
+                    </div>
+                                    <div style={{ borderTop: "1px solid #2a3a4a", marginTop: 10, paddingTop: 10 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 700, marginBottom: 6 }}>
+                    <span style={{ color: "#6b7280" }}>Payout</span>
+                                        <span style={{ color: "#22c55e" }}>{fmt(payout)}</span>
+                    </div>
+                                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", marginBottom: 10 }}>
+                    <span style={{ color: "#6b7280" }}>Date Paid</span>
+                                        <span style={{ color: sent ? "#22c55e" : "#4b5563", fontSize: 11 }}>{sent || "—"}</span>
+                    </div>
+                                      <button onClick={() => openEmail(r)} style={{ width: "100%", padding: "10px 0", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 700, letterSpacing: 1, background: sent ? "#14532d" : "#1d4ed8", color: "#fff" }}>
+{sent ? "✓ EMAIL SENT" : "📧 EMAIL OWNER"}
+</button>
+  </div>
+  </div>
+  </div>
+  </div>
+          );
+})}
+</div>
+    );
+}
+
 export default function EstateOS() {
   const [tab, setTab] = useState("dashboard");
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -1807,7 +1956,8 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
     );
   };
 
-  // ── T776 TAX MODULE ──────────────────────────────────────────────────────────
+  // ── export default function EstateOS() {
+MODULE ──────────────────────────────────────────────────────────
   // T776 CRA lines in order — we bundle your vendor categories into these
   const T776_LINES = [
     { line: "8141", cra: "Gross rental income",              type: "income" },
@@ -2516,6 +2666,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
           { id: "cashflow", label: "Cash Flow" },
           { id: "vacancies", label: "Vacancies" },
           { id: "reports", label: "Reports" },
+          { id: "payout", label: "Owner Payout" },
           { id: "t776", label: "T776 Tax" },
           { id: "mortgages", label: "Mortgages" },
           { id: "chat", label: "AI Co-worker" },
@@ -2535,6 +2686,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
         {tab === "vacancies" && <VacanciesTab vacancies={VACANCIES} setEmailDraft={setEmailDraft} />}
         {tab === "reports" && <MonthlyReports />}
         {tab === "t776" && <T776Tab />}
+{tab === "payout" && <OwnerPayout selectedMonth={selectedMonth} />}
         {tab === "mortgages" && <MortgagesTab />}
         {tab === "property" && <PropertyDetail />}
         {tab === "chat" && <AIChat />}
