@@ -359,6 +359,15 @@ const PORTFOLIO = [
         payments: {} },
     ]
   },
+  {
+        id: "886-larchwood",
+        address: "886 Larchwood",
+        bank: "TD", account: "",
+        email: "altaraymanagement@gmail.com",
+        ownership: "Managed Only",
+        owned: false, type: "rooming",
+        tenants: []
+  },
 ];
 
 const MONTHS = ["Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
@@ -572,7 +581,7 @@ const LINES_OF_CREDIT = [
 
 // ── PAYOUT CONFIG ────────────────────────────────────────────────────
 // Properties Altaray owns outright — excluded from Management Payout tab
-const NO_PAYOUT_IDS = ["787-downing", "913-uxbridge", "30-barbara", "661-milford"];
+const NO_PAYOUT_IDS = ["787-downing","913-uxbridge","30-barbara","661-milford","82-hamilton","293-van-order","213-colborne","32-holland","43-ruskin","401-southwood","164-kirkpatrick","232-van-order","285-van-order"];
 
 // Management fee rate per property + whether HST applies to the fee
 const MGMT_RATES = {
