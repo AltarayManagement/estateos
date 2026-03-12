@@ -11,7 +11,7 @@ const PORTFOLIO = [
     email: "787downing@gmail.com",
     ownership: "AwesomeJVDeals & Marshall",
     owned: true, type: "duplex",
-    tenants: [h
+    tenants: [
       { id: "vikki", unit: "Unit 1", name: "Vikki Langelier", email: "vikkimed@outlook.com", rent: 2250, flags: [], depositType: "auto", leaseEnd: "", lastIncrease: null,
         payments: { "Jan 2026": 2250, "Feb 2026": 2250, "Mar 2026": 2250, "Apr 2026": 2250 } },
       { id: "micheal", unit: "Unit 2", name: "Micheal", email: "", rent: 1875, flags: [], depositType: "auto", leaseEnd: "May 1, 2026", lastIncrease: null,
