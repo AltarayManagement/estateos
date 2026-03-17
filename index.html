@@ -1,9 +1,9 @@
-X <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EstateOS â Altaray Property Management</title>
+  <title>EstateOS — Altaray Property Management</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -34,12 +34,12 @@ const {
   ResponsiveContainer, PieChart, Pie, Cell, ComposedChart
 } = Recharts;
 
-// ââ Supabase ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Supabase ──────────────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://ctwhmhnsfdvrkrklwvig.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0d2htaG5zZmR2cmtya2x3dmlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTQ0NjgsImV4cCI6MjA4OTI3MDQ2OH0.l6HkD37x3Rd7cXdbI2K3htz9qAa4OqgF1HvdER7BjGc';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ââ Brand âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Brand ─────────────────────────────────────────────────────────────────────
 const C = {
   navy:  '#1B2A4A',
   gold:  '#C9973A',
@@ -56,7 +56,7 @@ const ENTITY_LABELS = {
   '1000203074': '1000203074 Ontario',
   'altaray-svc':'Altaray Services',
   'awesome-jv': 'JV Properties',
-  'rene-masse': 'RenÃ© Masse',
+  'rene-masse': 'René Masse',
 };
 const ENTITY_COLORS = {
   '2771051':    C.navy,
@@ -68,10 +68,10 @@ const ENTITY_COLORS = {
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-// ââ Formatters ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Formatters ────────────────────────────────────────────────────────────────
 const fmtCAD = (v, compact=false) => {
   const n = parseFloat(v);
-  if (isNaN(n)) return 'â';
+  if (isNaN(n)) return '—';
   if (compact && Math.abs(n) >= 1000) {
     return `$${(n/1000).toFixed(1)}k`;
   }
@@ -81,10 +81,10 @@ const fmtCAD = (v, compact=false) => {
     maximumFractionDigits: compact ? 0 : 2,
   }).format(n);
 };
-const fmtDate = (d) => d ? new Date(d + 'T12:00:00').toLocaleDateString('en-CA', {month:'short', day:'numeric', year:'numeric'}) : 'â';
-const fmtPct  = (v) => isNaN(v) ? 'â' : `${(v*100).toFixed(1)}%`;
+const fmtDate = (d) => d ? new Date(d + 'T12:00:00').toLocaleDateString('en-CA', {month:'short', day:'numeric', year:'numeric'}) : '—';
+const fmtPct  = (v) => isNaN(v) ? '—' : `${(v*100).toFixed(1)}%`;
 
-// ââ Data hook âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Data hook ─────────────────────────────────────────────────────────────────
 function useQuery(fetcher, deps=[]) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
@@ -106,7 +106,7 @@ function useQuery(fetcher, deps=[]) {
   return { data: data || [], loading, error };
 }
 
-// ââ UI primitives âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── UI primitives ─────────────────────────────────────────────────────────────
 function Spinner({ size=8 }) {
   return (
     <div className="flex justify-center items-center py-16">
@@ -141,7 +141,7 @@ function KPI({ label, value, sub, accent, icon, trend }) {
         <span className="text-2xl">{icon}</span>
         {trend !== undefined && (
           <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${trend >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-            {trend >= 0 ? 'â²' : 'â¼'} {Math.abs(trend).toFixed(1)}%
+            {trend >= 0 ? '▲' : '▼'} {Math.abs(trend).toFixed(1)}%
           </span>
         )}
       </div>
@@ -166,11 +166,11 @@ function Pill({ status }) {
   return <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${bg} ${fg}`}>{status?.toUpperCase()}</span>;
 }
 
-// ââ TABS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── TABS ──────────────────────────────────────────────────────────────────────
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 // Dashboard Tab
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function DashboardTab() {
   const { data: txns, loading } = useQuery(
     () => sb.from('transactions').select('month,year,entity_id,txn_type,amount,property_id').eq('year', 2025),
@@ -234,11 +234,11 @@ function DashboardTab() {
     <div className="space-y-6">
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <KPI icon="ð°" label="2025 Revenue"  value={fmtCAD(totals.income,true)}   accent={C.green} />
-        <KPI icon="ð¤" label="2025 Expenses" value={fmtCAD(totals.expenses,true)} accent={C.red}   />
-        <KPI icon="ð" label="2025 NOI"      value={fmtCAD(totals.noi,true)}      accent={totals.noi>=0?C.navy:C.red} />
-        <KPI icon="ð " label="Monthly Rent Roll" value={fmtCAD(rentRoll,true)}    accent={C.gold}  sub={`${tenants.length} active tenants`} />
-        <KPI icon="ð" label="Mar Invoices"
+        <KPI icon="💰" label="2025 Revenue"  value={fmtCAD(totals.income,true)}   accent={C.green} />
+        <KPI icon="📤" label="2025 Expenses" value={fmtCAD(totals.expenses,true)} accent={C.red}   />
+        <KPI icon="📊" label="2025 NOI"      value={fmtCAD(totals.noi,true)}      accent={totals.noi>=0?C.navy:C.red} />
+        <KPI icon="🏠" label="Monthly Rent Roll" value={fmtCAD(rentRoll,true)}    accent={C.gold}  sub={`${tenants.length} active tenants`} />
+        <KPI icon="📋" label="Mar Invoices"
           value={`${invStats.paid}/${invStats.total}`}
           accent={invStats.owed>0?C.red:C.green}
           sub={invStats.owed>0?`${fmtCAD(invStats.owed,true)} owing`:'All collected'}
@@ -305,7 +305,7 @@ function DashboardTab() {
         <Card className="p-5">
           <SectionTitle sub="Top mortgages by balance">Mortgage Obligations</SectionTitle>
           <div className="space-y-2 overflow-y-auto max-h-52">
-            {mortgages.length === 0 && <p className="text-xs text-gray-400">Loadingâ¦</p>}
+            {mortgages.length === 0 && <p className="text-xs text-gray-400">Loading…</p>}
             {mortgages.map((m,i) => (
               <div key={i} className="flex items-center justify-between text-sm py-1.5 border-b border-gray-50">
                 <div>
@@ -325,9 +325,9 @@ function DashboardTab() {
   );
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 // Properties Tab
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function PropertiesTab() {
   const [year, setYear] = useState(2025);
 
@@ -423,20 +423,20 @@ function PropertiesTab() {
                         {p.entity_id}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-right font-medium" style={{color:C.green}}>{s.income>0?fmtCAD(s.income):'â'}</td>
-                    <td className="px-4 py-3 text-right" style={{color:C.red}}>{s.expenses>0?fmtCAD(s.expenses):'â'}</td>
+                    <td className="px-4 py-3 text-right font-medium" style={{color:C.green}}>{s.income>0?fmtCAD(s.income):'—'}</td>
+                    <td className="px-4 py-3 text-right" style={{color:C.red}}>{s.expenses>0?fmtCAD(s.expenses):'—'}</td>
                     <td className="px-4 py-3 text-right font-bold" style={{color:noi>=0?C.navy:C.red}}>
-                      {(s.income>0||s.expenses>0)?fmtCAD(noi):'â'}
+                      {(s.income>0||s.expenses>0)?fmtCAD(noi):'—'}
                     </td>
                     <td className="px-4 py-3 text-right text-xs font-medium" style={{color:margin!=null?(margin>=0.2?C.green:margin>=0?C.gold:C.red):'#9CA3AF'}}>
-                      {margin!=null?fmtPct(margin):'â'}
+                      {margin!=null?fmtPct(margin):'—'}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {t.count>0
                         ? <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs font-bold">{t.count}</span>
-                        : <span className="text-gray-300">â</span>}
+                        : <span className="text-gray-300">—</span>}
                     </td>
-                    <td className="px-4 py-3 text-right font-medium" style={{color:C.gold}}>{t.rent>0?fmtCAD(t.rent,true):'â'}</td>
+                    <td className="px-4 py-3 text-right font-medium" style={{color:C.gold}}>{t.rent>0?fmtCAD(t.rent,true):'—'}</td>
                   </tr>
                 );
               })}
@@ -448,9 +448,9 @@ function PropertiesTab() {
   );
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 // Tenants Tab
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function TenantsTab() {
   const [showInactive, setShowInactive] = useState(false);
 
@@ -489,9 +489,9 @@ function TenantsTab() {
     <div className="space-y-4">
       {/* Summary bar */}
       <div className="grid grid-cols-3 gap-4">
-        <KPI icon="ð¥" label="Active Tenants"    value={totals.count}        accent={C.navy} />
-        <KPI icon="ðµ" label="Monthly Rent Roll" value={fmtCAD(totals.roll,true)} accent={C.gold} />
-        <KPI icon="â ï¸" label="Mar 2026 Owing"    value={fmtCAD(totals.owed,true)} accent={totals.owed>0?C.red:C.green} />
+        <KPI icon="👥" label="Active Tenants"    value={totals.count}        accent={C.navy} />
+        <KPI icon="💵" label="Monthly Rent Roll" value={fmtCAD(totals.roll,true)} accent={C.gold} />
+        <KPI icon="⚠️" label="Mar 2026 Owing"    value={fmtCAD(totals.owed,true)} accent={totals.owed>0?C.red:C.green} />
       </div>
 
       <div className="flex items-center justify-between">
@@ -531,15 +531,15 @@ function TenantsTab() {
                       {t.name}
                     </td>
                     <td className="px-4 py-3 text-gray-600 text-xs">{t.property_id?.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">{t.unit||'â'}</td>
+                    <td className="px-4 py-3 text-gray-500 text-xs">{t.unit||'—'}</td>
                     <td className="px-4 py-3 text-right font-semibold" style={{color:C.gold}}>{fmtCAD(t.monthly_rent)}</td>
-                    <td className="px-4 py-3 text-center">{inv ? <Pill status={inv.status}/> : <span className="text-gray-300 text-xs">â</span>}</td>
-                    <td className="px-4 py-3 text-right" style={{color:C.green}}>{inv?.amount_paid>0?fmtCAD(inv.amount_paid):'â'}</td>
+                    <td className="px-4 py-3 text-center">{inv ? <Pill status={inv.status}/> : <span className="text-gray-300 text-xs">—</span>}</td>
+                    <td className="px-4 py-3 text-right" style={{color:C.green}}>{inv?.amount_paid>0?fmtCAD(inv.amount_paid):'—'}</td>
                     <td className="px-4 py-3 text-right font-bold" style={{color:balance>0?C.red:balance===0?C.green:'#9CA3AF'}}>
-                      {balance!=null?fmtCAD(balance):'â'}
+                      {balance!=null?fmtCAD(balance):'—'}
                     </td>
                     <td className="px-4 py-3 text-center"><Pill status={t.is_active?'active':'inactive'} /></td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{t.email||t.phone||'â'}</td>
+                    <td className="px-4 py-3 text-xs text-gray-400">{t.email||t.phone||'—'}</td>
                   </tr>
                 );
               })}
@@ -551,9 +551,9 @@ function TenantsTab() {
   );
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 // Transactions Tab
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function TransactionsTab() {
   const [search,        setSearch]        = useState('');
   const [filterEntity,  setFilterEntity]  = useState('all');
@@ -599,7 +599,7 @@ function TransactionsTab() {
           <input
             className="border border-gray-200 rounded-xl px-3 py-2 text-sm flex-1 min-w-52 focus:outline-none focus:ring-2"
             style={{'--tw-ring-color': C.gold}}
-            placeholder="ð  Search description, property, vendor, categoryâ¦"
+            placeholder="🔍  Search description, property, vendor, category…"
             value={search}
             onChange={e=>setSearch(e.target.value)}
           />
@@ -616,8 +616,8 @@ function TransactionsTab() {
             <option value="expense">Expense</option>
           </select>
           <div className="flex gap-4 text-xs ml-auto font-medium">
-            <span style={{color:C.green}}>â {fmtCAD(summaryInc,true)}</span>
-            <span style={{color:C.red}}>â {fmtCAD(summaryExp,true)}</span>
+            <span style={{color:C.green}}>↑ {fmtCAD(summaryInc,true)}</span>
+            <span style={{color:C.red}}>↓ {fmtCAD(summaryExp,true)}</span>
             <span className="text-gray-400">{filtered.length} rows</span>
           </div>
         </div>
@@ -642,10 +642,10 @@ function TransactionsTab() {
                   <tr key={t.id} className={`border-b border-gray-100 hover:bg-blue-50 transition-colors ${i%2?'bg-gray-50/40':'bg-white'}`}>
                     <td className="px-4 py-2.5 text-gray-400 text-xs whitespace-nowrap">{fmtDate(t.date)}</td>
                     <td className="px-4 py-2.5 font-medium max-w-xs" style={{color:C.navy}} title={t.description}>
-                      <span className="block truncate">{t.description||'â'}</span>
+                      <span className="block truncate">{t.description||'—'}</span>
                     </td>
-                    <td className="px-4 py-2.5 text-gray-500 text-xs">{t.category||'â'}</td>
-                    <td className="px-4 py-2.5 text-gray-500 text-xs">{t.property_id||'â'}</td>
+                    <td className="px-4 py-2.5 text-gray-500 text-xs">{t.category||'—'}</td>
+                    <td className="px-4 py-2.5 text-gray-500 text-xs">{t.property_id||'—'}</td>
                     <td className="px-4 py-2.5">
                       <span className="text-xs px-1.5 py-0.5 rounded font-medium text-white"
                             style={{background:ENTITY_COLORS[t.entity_id]||'#888'}}>
@@ -665,12 +665,12 @@ function TransactionsTab() {
           <div className="flex justify-between items-center px-4 py-3 border-t border-gray-100 text-xs text-gray-500">
             <button disabled={page===0} onClick={()=>setPage(p=>p-1)}
                     className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50 font-medium">
-              â Prev
+              ← Prev
             </button>
             <span>Page {page+1} of {pages}</span>
             <button disabled={(page+1)>=pages} onClick={()=>setPage(p=>p+1)}
                     className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50 font-medium">
-              Next â
+              Next →
             </button>
           </div>
         </Card>
@@ -679,12 +679,12 @@ function TransactionsTab() {
   );
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 // Invoices Tab
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function InvoicesTab() {
-  const [year,  setYear]  = useState(2026);
-  const [month, setMonth] = useState(3);
+  const [year,  setYear]  = useState(2025);
+  const [month, setMonth] = useState(1);
 
   const { data: invoices, loading } = useQuery(
     () => sb.from('v_invoice_dashboard').select('*').eq('period_year',year).eq('period_month',month).order('property_id'),
@@ -739,9 +739,9 @@ function InvoicesTab() {
                       <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{inv.invoice_number}</td>
                       <td className="px-4 py-2.5 font-semibold" style={{color:C.navy}}>{inv.tenant_name}</td>
                       <td className="px-4 py-2.5 text-gray-500 text-xs">{inv.property_id?.replace(/-/g,' ')}</td>
-                      <td className="px-4 py-2.5 text-gray-400 text-xs">{inv.unit||'â'}</td>
+                      <td className="px-4 py-2.5 text-gray-400 text-xs">{inv.unit||'—'}</td>
                       <td className="px-4 py-2.5 text-right font-medium" style={{color:C.gold}}>{fmtCAD(inv.total_amount)}</td>
-                      <td className="px-4 py-2.5 text-right" style={{color:C.green}}>{parseFloat(inv.amount_paid)>0?fmtCAD(inv.amount_paid):'â'}</td>
+                      <td className="px-4 py-2.5 text-right" style={{color:C.green}}>{parseFloat(inv.amount_paid)>0?fmtCAD(inv.amount_paid):'—'}</td>
                       <td className="px-4 py-2.5 text-right font-bold" style={{color:bal>0?C.red:C.green}}>{fmtCAD(bal)}</td>
                       <td className="px-4 py-2.5 text-center"><Pill status={inv.status}/></td>
                       <td className="px-4 py-2.5 text-gray-400 text-xs">{fmtDate(inv.due_date)}</td>
@@ -760,9 +760,9 @@ function InvoicesTab() {
   );
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 // Investors Tab
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function InvestorsTab() {
   const { data: lenders, loading } = useQuery(
     () => sb.from('partner_agreements')
@@ -786,9 +786,9 @@ function InvestorsTab() {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-4">
-        <KPI icon="ð¦" label="Private Lenders"       value={lenders.length}             accent={C.navy} />
-        <KPI icon="ð³" label="Total Debt (2nd Mtg)"  value={fmtCAD(totalPrincipal,true)} accent={C.red} />
-        <KPI icon="ð" label="Monthly Interest Cost" value={fmtCAD(totalMonthly,true)}   accent={C.gold} sub={`$${(totalMonthly*12/1000).toFixed(0)}k/year`} />
+        <KPI icon="🏦" label="Private Lenders"       value={lenders.length}             accent={C.navy} />
+        <KPI icon="💳" label="Total Debt (2nd Mtg)"  value={fmtCAD(totalPrincipal,true)} accent={C.red} />
+        <KPI icon="📅" label="Monthly Interest Cost" value={fmtCAD(totalMonthly,true)}   accent={C.gold} sub={`$${(totalMonthly*12/1000).toFixed(0)}k/year`} />
       </div>
 
       <Card>
@@ -810,10 +810,10 @@ function InvestorsTab() {
             <tbody>
               {lenders.map((l,i) => (
                 <tr key={l.id} className={`border-b border-gray-100 hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'}`}>
-                  <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>{l.partners?.name||'â'}</td>
+                  <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>{l.partners?.name||'—'}</td>
                   <td className="px-4 py-3 text-gray-500 text-xs">{l.property_id?.replace(/-/g,' ')}</td>
                   <td className="px-4 py-3 text-right font-medium">{fmtCAD(l.principal)}</td>
-                  <td className="px-4 py-3 text-right text-gray-600">{l.rate?`${(parseFloat(l.rate)*100).toFixed(1)}%`:'â'}</td>
+                  <td className="px-4 py-3 text-right text-gray-600">{l.rate?`${(parseFloat(l.rate)*100).toFixed(1)}%`:'—'}</td>
                   <td className="px-4 py-3 text-right font-bold" style={{color:C.red}}>{fmtCAD(l.monthly_payment)}</td>
                   <td className="px-4 py-3 text-right text-gray-500">{l.monthly_payment?fmtCAD(parseFloat(l.monthly_payment)*12,true):'-'}</td>
                 </tr>
@@ -849,13 +849,13 @@ function InvestorsTab() {
               <tbody>
                 {equity.map((e,i) => (
                   <tr key={e.id} className={`border-b border-gray-100 hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'}`}>
-                    <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>{e.partners?.name||'â'}</td>
+                    <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>{e.partners?.name||'—'}</td>
                     <td className="px-4 py-3 text-gray-500 text-xs">{e.property_id?.replace(/-/g,' ')}</td>
-                    <td className="px-4 py-3 text-right">{e.ownership_pct?fmtPct(parseFloat(e.ownership_pct)):'â'}</td>
+                    <td className="px-4 py-3 text-right">{e.ownership_pct?fmtPct(parseFloat(e.ownership_pct)):'—'}</td>
                     <td className="px-4 py-3 text-right font-medium" style={{color:C.gold}}>
                       {parseFloat(e.fixed_monthly_payment)>0?fmtCAD(e.fixed_monthly_payment):'TBD'}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 text-xs capitalize">{e.payout_schedule||'â'}</td>
+                    <td className="px-4 py-3 text-gray-500 text-xs capitalize">{e.payout_schedule||'—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -867,19 +867,180 @@ function InvestorsTab() {
   );
 }
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
+// Flips Tab
+// ══════════════════════════════════════════════════════════════════════════════
+function FlipsTab() {
+  const { data: txns, loading } = useQuery(
+    () => sb.from('transactions').select('*').eq('property_id','24-holland').order('date'),
+    []
+  );
+  const { data: props } = useQuery(
+    () => sb.from('properties').select('*').eq('property_type','flip'),
+    []
+  );
+  const [targetPrice, setTargetPrice] = useState(580000);
+
+  const acquisition = useMemo(() =>
+    txns.filter(t=>t.category==='Capital Expenditure').reduce((s,t)=>s+parseFloat(t.amount||0),0), [txns]);
+
+  const carrying = useMemo(() =>
+    txns.filter(t=>t.category!=='Capital Expenditure').reduce((s,t)=>s+parseFloat(t.amount||0),0), [txns]);
+
+  const totalCost = acquisition + carrying;
+  const projectedProfit = targetPrice - totalCost;
+
+  // Monthly breakdown
+  const byMonth = useMemo(() => {
+    const map = {};
+    txns.filter(t=>t.category!=='Capital Expenditure').forEach(t => {
+      const key = `${t.year}-${String(t.month).padStart(2,'0')}`;
+      if (!map[key]) map[key] = { month: key, Mortgage:0, Taxes:0, Utilities:0, Other:0 };
+      const cat = t.category==='Mortgage Interest'?'Mortgage':t.category==='Property Tax'?'Taxes':t.category==='Utilities'?'Utilities':'Other';
+      map[key][cat] = (map[key][cat]||0) + parseFloat(t.amount||0);
+    });
+    return Object.values(map).sort((a,b)=>a.month.localeCompare(b.month));
+  }, [txns]);
+
+  const holdMonths = byMonth.length || 1;
+  const monthlyBurn = carrying / holdMonths;
+
+  if (loading) return <Spinner />;
+
+  return (
+    <div className="space-y-6">
+      {/* Flip property header */}
+      <div className="rounded-2xl p-5 text-white shadow-xl" style={{background:`linear-gradient(135deg, ${C.navy}, #2d4a7a)`}}>
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <div className="text-2xl font-black">🏗️ 24 Holland Cres. — Flip</div>
+            <div className="text-sm mt-1 opacity-75">Kingston, ON · Acquired Jul 2025 · 100% Altaray</div>
+          </div>
+          <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-2">
+            <span className="text-sm opacity-75">Target Sale Price</span>
+            <span className="font-bold text-lg" style={{color:C.gold}}>$</span>
+            <input
+              type="number"
+              value={targetPrice}
+              onChange={e=>setTargetPrice(+e.target.value)}
+              className="bg-transparent border-b border-white/30 text-white font-bold text-lg w-28 text-right focus:outline-none"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* KPIs */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <KPI icon="🏠" label="Acquisition Cost"  value={fmtCAD(acquisition,true)} accent={C.red}    sub="Down payment Jul 2025" />
+        <KPI icon="📅" label="Carrying Costs"    value={fmtCAD(carrying,true)}    accent={C.gold}   sub={`${holdMonths} months held`} />
+        <KPI icon="🔥" label="Monthly Burn"      value={fmtCAD(monthlyBurn,true)} accent={C.purple} sub="Avg/month" />
+        <KPI icon={projectedProfit>=0?'💰':'⚠️'} label="Projected Profit" value={fmtCAD(projectedProfit,true)} accent={projectedProfit>=0?C.green:C.red} sub="At target price" />
+      </div>
+
+      {/* Deal summary */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Card>
+          <div className="px-5 pt-4 pb-2"><SectionTitle sub="Total cost to date">Deal Scorecard</SectionTitle></div>
+          <div className="px-5 pb-5 space-y-3 text-sm">
+            <div className="flex justify-between py-2 border-b border-gray-100">
+              <span className="text-gray-500">Acquisition (down payment)</span>
+              <span className="font-bold" style={{color:C.red}}>{fmtCAD(acquisition)}</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-100">
+              <span className="text-gray-500">Carrying costs to date</span>
+              <span className="font-bold" style={{color:C.gold}}>{fmtCAD(carrying)}</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-100 font-bold">
+              <span>Total Cost In</span>
+              <span style={{color:C.navy}}>{fmtCAD(totalCost)}</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-100">
+              <span className="text-gray-500">Target Sale Price</span>
+              <span className="font-medium">{fmtCAD(targetPrice)}</span>
+            </div>
+            <div className={`flex justify-between py-2 font-black text-base`}>
+              <span>Projected Profit</span>
+              <span style={{color:projectedProfit>=0?C.green:C.red}}>{fmtCAD(projectedProfit)}</span>
+            </div>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="px-5 pt-4 pb-2"><SectionTitle sub="Monthly carrying costs by type">Monthly Burn</SectionTitle></div>
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={byMonth} margin={{top:4,right:16,bottom:4,left:0}}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="month" tick={{fontSize:10}} />
+                <YAxis tick={{fontSize:10}} tickFormatter={v=>`$${(v/1000).toFixed(0)}k`} />
+                <Tooltip formatter={v=>fmtCAD(v)} />
+                <Legend />
+                <Bar dataKey="Mortgage" stackId="a" fill={C.red}    />
+                <Bar dataKey="Taxes"    stackId="a" fill={C.gold}   />
+                <Bar dataKey="Utilities" stackId="a" fill={C.blue}  />
+                <Bar dataKey="Other"    stackId="a" fill={C.purple} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      </div>
+
+      {/* All transactions */}
+      <Card>
+        <div className="px-5 pt-4 pb-2">
+          <SectionTitle sub="All expenses for 24 Holland Cres.">Transaction Ledger</SectionTitle>
+        </div>
+        {txns.length === 0 ? (
+          <div className="px-5 pb-5 text-gray-400 text-sm">No transactions yet. Link expenses to property_id: 24-holland.</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{background:C.navy}} className="text-white">
+                  <th className="px-4 py-3 text-left">Date</th>
+                  <th className="px-4 py-3 text-left">Description</th>
+                  <th className="px-4 py-3 text-left">Category</th>
+                  <th className="px-4 py-3 text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {txns.map((t,i)=>(
+                  <tr key={t.id} className={`border-b border-gray-100 hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'}`}>
+                    <td className="px-4 py-2.5 text-gray-400 text-xs whitespace-nowrap">{t.date}</td>
+                    <td className="px-4 py-2.5" style={{color:C.navy}}>{t.description}</td>
+                    <td className="px-4 py-2.5">
+                      <span className="px-2 py-0.5 rounded-full text-xs font-medium"
+                            style={{background: t.category==='Capital Expenditure'?'#FEE2E2':t.category==='Mortgage Interest'?'#FECACA':t.category==='Property Tax'?'#FEF3C7':'#EDE9FE',
+                                    color:      t.category==='Capital Expenditure'?C.red:t.category==='Mortgage Interest'?C.red:t.category==='Property Tax'?C.gold:C.purple}}>
+                        {t.category}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-bold" style={{color:C.red}}>{fmtCAD(t.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Card>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // Root App
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════════════════════
 function App() {
   const [tab, setTab] = useState('dashboard');
 
   const TABS = [
-    { id:'dashboard',    icon:'ð', label:'Dashboard'    },
-    { id:'properties',   icon:'ð ', label:'Properties'   },
-    { id:'tenants',      icon:'ð¥', label:'Tenants'      },
-    { id:'transactions', icon:'ð', label:'Transactions' },
-    { id:'invoices',     icon:'ð', label:'Invoices'     },
-    { id:'investors',    icon:'ð¦', label:'Investors'    },
+    { id:'dashboard',    icon:'📊', label:'Dashboard'    },
+    { id:'properties',   icon:'🏠', label:'Properties'   },
+    { id:'tenants',      icon:'👥', label:'Tenants'      },
+    { id:'transactions', icon:'📂', label:'Transactions' },
+    { id:'invoices',     icon:'📋', label:'Invoices'     },
+    { id:'investors',    icon:'🏦', label:'Investors'    },
+    { id:'flips',        icon:'🏗️', label:'Flips'        },
   ];
 
   return (
@@ -893,7 +1054,7 @@ function App() {
                    style={{background:C.gold}}>A</div>
               <div>
                 <div className="text-white font-bold text-sm leading-none">Altaray Property Management</div>
-                <div className="text-xs mt-0.5" style={{color:C.gold}}>EstateOS â¢ Live Data</div>
+                <div className="text-xs mt-0.5" style={{color:C.gold}}>EstateOS • Live Data</div>
               </div>
             </div>
             <div className="hidden sm:block text-xs text-gray-400">
@@ -921,12 +1082,13 @@ function App() {
         {tab==='transactions' && <TransactionsTab />}
         {tab==='invoices'     && <InvoicesTab />}
         {tab==='investors'    && <InvestorsTab />}
+        {tab==='flips'        && <FlipsTab />}
       </main>
 
       <footer className="text-center text-xs text-gray-400 py-8">
-        EstateOS Â· Altaray Property Management Ltd. Â·
+        EstateOS · Altaray Property Management Ltd. ·
         <a href="https://supabase.com" className="ml-1 hover:underline" style={{color:C.gold}}>Live Supabase data</a>
-        Â· Auto-refreshes on load
+        · Auto-refreshes on load
       </footer>
     </div>
   );
