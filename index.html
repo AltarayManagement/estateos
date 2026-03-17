@@ -1,16 +1,938 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#070a10" />
-    <title>EstateOS — Altaray Property Services</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { background: #070a10; }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstateOS â Altaray Property Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="https://unpkg.com/recharts@2.8.0/umd/Recharts.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #C9973A; border-radius: 3px; }
+    .tab-active { border-bottom: 3px solid #C9973A; color: #fff; }
+    .tab-inactive { border-bottom: 3px solid transparent; color: #9CA3AF; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spin { animation: spin 0.8s linear infinite; }
+  </style>
+</head>
+<body style="background:#F0F2F7">
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useMemo, useCallback, useRef } = React;
+const { createClient } = window.supabase;
+const {
+  BarChart, Bar, LineChart, Line, AreaChart, Area,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, PieChart, Pie, Cell, ComposedChart
+} = Recharts;
+
+// ââ Supabase ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const SUPABASE_URL = 'https://ctwhmhnsfdvrkrklwvig.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0d2htaG5zZmR2cmtya2x3dmlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTQ0NjgsImV4cCI6MjA4OTI3MDQ2OH0.l6HkD37x3Rd7cXdbI2K3htz9qAa4OqgF1HvdER7BjGc';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ââ Brand âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const C = {
+  navy:  '#1B2A4A',
+  gold:  '#C9973A',
+  green: '#16A34A',
+  red:   '#DC2626',
+  blue:  '#2563EB',
+  purple:'#7C3AED',
+  teal:  '#0891B2',
+  bg:    '#F0F2F7',
+};
+
+const ENTITY_LABELS = {
+  '2771051':    '2771051 Ontario',
+  '1000203074': '1000203074 Ontario',
+  'altaray-svc':'Altaray Services',
+  'awesome-jv': 'JV Properties',
+  'rene-masse': 'RenÃ© Masse',
+};
+const ENTITY_COLORS = {
+  '2771051':    C.navy,
+  '1000203074': C.gold,
+  'altaray-svc':C.green,
+  'awesome-jv': C.purple,
+  'rene-masse': C.teal,
+};
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// ââ Formatters ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const fmtCAD = (v, compact=false) => {
+  const n = parseFloat(v);
+  if (isNaN(n)) return 'â';
+  if (compact && Math.abs(n) >= 1000) {
+    return `$${(n/1000).toFixed(1)}k`;
+  }
+  return new Intl.NumberFormat('en-CA', {
+    style:'currency', currency:'CAD',
+    minimumFractionDigits: compact ? 0 : 2,
+    maximumFractionDigits: compact ? 0 : 2,
+  }).format(n);
+};
+const fmtDate = (d) => d ? new Date(d + 'T12:00:00').toLocaleDateString('en-CA', {month:'short', day:'numeric', year:'numeric'}) : 'â';
+const fmtPct  = (v) => isNaN(v) ? 'â' : `${(v*100).toFixed(1)}%`;
+
+// ââ Data hook âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function useQuery(fetcher, deps=[]) {
+  const [data,    setData]    = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error,   setError]   = useState(null);
+
+  useEffect(() => {
+    let live = true;
+    setLoading(true);
+    setError(null);
+    fetcher().then(({data:d, error:e}) => {
+      if (!live) return;
+      if (e) setError(e.message);
+      else setData(d);
+      setLoading(false);
+    }).catch(e => { if (live) { setError(e.message); setLoading(false); }});
+    return () => { live = false; };
+  }, deps);
+
+  return { data: data || [], loading, error };
+}
+
+// ââ UI primitives âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function Spinner({ size=8 }) {
+  return (
+    <div className="flex justify-center items-center py-16">
+      <div className={`spin rounded-full w-${size} h-${size} border-2 border-transparent`}
+           style={{borderTopColor: C.gold, borderRightColor: C.gold}} />
+    </div>
+  );
+}
+
+function Card({ children, className='' }) {
+  return (
+    <div className={`bg-white rounded-2xl shadow-sm border border-gray-100 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+function SectionTitle({ children, sub }) {
+  return (
+    <div className="mb-4">
+      <h3 className="text-xs font-bold uppercase tracking-widest" style={{color: C.navy}}>{children}</h3>
+      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
+    </div>
+  );
+}
+
+function KPI({ label, value, sub, accent, icon, trend }) {
+  const color = accent || C.gold;
+  return (
+    <Card className="p-5">
+      <div className="flex items-start justify-between mb-3">
+        <span className="text-2xl">{icon}</span>
+        {trend !== undefined && (
+          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${trend >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {trend >= 0 ? 'â²' : 'â¼'} {Math.abs(trend).toFixed(1)}%
+          </span>
+        )}
+      </div>
+      <div className="text-2xl font-black" style={{color}}>{value}</div>
+      <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mt-1">{label}</div>
+      {sub && <div className="text-xs text-gray-400 mt-1">{sub}</div>}
+    </Card>
+  );
+}
+
+function Pill({ status }) {
+  const map = {
+    paid:    ['bg-green-100','text-green-800'],
+    draft:   ['bg-gray-100', 'text-gray-600'],
+    sent:    ['bg-blue-100', 'text-blue-800'],
+    partial: ['bg-amber-100','text-amber-800'],
+    overdue: ['bg-red-100',  'text-red-800'],
+    active:  ['bg-green-100','text-green-800'],
+    inactive:['bg-gray-100', 'text-gray-500'],
+  };
+  const [bg, fg] = map[status] || map.draft;
+  return <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${bg} ${fg}`}>{status?.toUpperCase()}</span>;
+}
+
+// ââ TABS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Dashboard Tab
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function DashboardTab() {
+  const { data: txns, loading } = useQuery(
+    () => sb.from('transactions').select('month,year,entity_id,txn_type,amount,property_id').eq('year', 2025),
+    []
+  );
+  const { data: tenants } = useQuery(
+    () => sb.from('tenants').select('id,monthly_rent,is_active').eq('is_active', true),
+    []
+  );
+  const { data: invoices } = useQuery(
+    () => sb.from('tenant_invoices').select('status,total_amount,amount_paid').eq('period_year',2026).eq('period_month',3),
+    []
+  );
+  const { data: mortgages } = useQuery(
+    () => sb.from('mortgages').select('property_id,lender,monthly_payment,balance').order('balance', {ascending:false}).limit(10),
+    []
+  );
+
+  // Aggregate
+  const totals = useMemo(() => {
+    if (!txns.length) return { income:0, expenses:0, noi:0 };
+    const inc = txns.filter(t => t.txn_type==='income').reduce((s,t)=>s+parseFloat(t.amount||0),0);
+    const exp = txns.filter(t => t.txn_type==='expense').reduce((s,t)=>s+Math.abs(parseFloat(t.amount||0)),0);
+    return { income:inc, expenses:exp, noi:inc-exp };
+  }, [txns]);
+
+  const rentRoll = useMemo(() => tenants.reduce((s,t)=>s+parseFloat(t.monthly_rent||0),0), [tenants]);
+
+  const invStats = useMemo(() => {
+    const paid = invoices.filter(i=>i.status==='paid').length;
+    const owed = invoices.reduce((s,i)=>s+parseFloat(i.total_amount||0)-parseFloat(i.amount_paid||0),0);
+    return { paid, total:invoices.length, owed };
+  }, [invoices]);
+
+  // Monthly chart data
+  const monthly = useMemo(() => {
+    const m = {};
+    MONTHS.forEach((n,i)=> { m[i+1]={name:n,income:0,expenses:0}; });
+    txns.forEach(t => {
+      if (!m[t.month]) return;
+      if (t.txn_type==='income')   m[t.month].income   += parseFloat(t.amount||0);
+      else                          m[t.month].expenses += Math.abs(parseFloat(t.amount||0));
+    });
+    return Object.values(m).map(r=>({...r, noi:r.income-r.expenses}));
+  }, [txns]);
+
+  // Entity pie
+  const entityPie = useMemo(() => {
+    const map = {};
+    txns.filter(t=>t.txn_type==='income').forEach(t=>{
+      map[t.entity_id] = (map[t.entity_id]||0)+parseFloat(t.amount||0);
+    });
+    return Object.entries(map).map(([k,v])=>({name:ENTITY_LABELS[k]||k, value:v, color:ENTITY_COLORS[k]||'#888'}));
+  }, [txns]);
+
+  const margin = {top:4, right:20, left:0, bottom:4};
+
+  if (loading) return <Spinner />;
+
+  return (
+    <div className="space-y-6">
+      {/* KPIs */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <KPI icon="ð°" label="2025 Revenue"  value={fmtCAD(totals.income,true)}   accent={C.green} />
+        <KPI icon="ð¤" label="2025 Expenses" value={fmtCAD(totals.expenses,true)} accent={C.red}   />
+        <KPI icon="ð" label="2025 NOI"      value={fmtCAD(totals.noi,true)}      accent={totals.noi>=0?C.navy:C.red} />
+        <KPI icon="ð " label="Monthly Rent Roll" value={fmtCAD(rentRoll,true)}    accent={C.gold}  sub={`${tenants.length} active tenants`} />
+        <KPI icon="ð" label="Mar Invoices"
+          value={`${invStats.paid}/${invStats.total}`}
+          accent={invStats.owed>0?C.red:C.green}
+          sub={invStats.owed>0?`${fmtCAD(invStats.owed,true)} owing`:'All collected'}
+        />
+      </div>
+
+      {/* Main charts */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        {/* Revenue/Expense bar */}
+        <Card className="p-5 xl:col-span-2">
+          <SectionTitle sub="2025 full year">Monthly Revenue vs Expenses</SectionTitle>
+          <ResponsiveContainer width="100%" height={260}>
+            <ComposedChart data={monthly} margin={margin}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
+              <XAxis dataKey="name" tick={{fontSize:11,fill:'#6B7280'}} axisLine={false} tickLine={false} />
+              <YAxis tickFormatter={v=>`$${(v/1000).toFixed(0)}k`} tick={{fontSize:10,fill:'#9CA3AF'}} axisLine={false} tickLine={false} />
+              <Tooltip formatter={v=>fmtCAD(v)} contentStyle={{border:`1px solid ${C.gold}`,borderRadius:8}} />
+              <Bar dataKey="income"   name="Revenue"  fill={C.green}  radius={[4,4,0,0]} />
+              <Bar dataKey="expenses" name="Expenses" fill={C.red}    radius={[4,4,0,0]} opacity={0.75} />
+              <Line type="monotone" dataKey="noi" name="NOI" stroke={C.gold} strokeWidth={2.5} dot={{r:3,fill:C.gold}} />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </Card>
+
+        {/* Entity pie */}
+        <Card className="p-5">
+          <SectionTitle sub="% of total 2025 income">Revenue by Entity</SectionTitle>
+          <ResponsiveContainer width="100%" height={260}>
+            <PieChart>
+              <Pie data={entityPie} dataKey="value" nameKey="name"
+                   cx="50%" cy="50%" outerRadius={90} innerRadius={45}
+                   paddingAngle={3}>
+                {entityPie.map((e,i)=><Cell key={i} fill={e.color} />)}
+              </Pie>
+              <Tooltip formatter={v=>fmtCAD(v)} />
+              <Legend iconSize={10} formatter={v=><span style={{fontSize:11}}>{v.split(' ')[0]}</span>} />
+            </PieChart>
+          </ResponsiveContainer>
+        </Card>
+      </div>
+
+      {/* NOI trend + mortgage snapshot */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="p-5">
+          <SectionTitle sub="Monthly net operating income 2025">NOI Trend</SectionTitle>
+          <ResponsiveContainer width="100%" height={200}>
+            <AreaChart data={monthly} margin={margin}>
+              <defs>
+                <linearGradient id="noiGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%"  stopColor={C.gold} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={C.gold} stopOpacity={0.02}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
+              <XAxis dataKey="name" tick={{fontSize:11,fill:'#6B7280'}} axisLine={false} tickLine={false} />
+              <YAxis tickFormatter={v=>`$${(v/1000).toFixed(0)}k`} tick={{fontSize:10,fill:'#9CA3AF'}} axisLine={false} tickLine={false} />
+              <Tooltip formatter={v=>fmtCAD(v)} contentStyle={{borderRadius:8}} />
+              <Area type="monotone" dataKey="noi" name="NOI" stroke={C.gold} strokeWidth={2.5} fill="url(#noiGrad)" dot={{r:3}} />
+            </AreaChart>
+          </ResponsiveContainer>
+        </Card>
+
+        {/* Mortgage snapshot */}
+        <Card className="p-5">
+          <SectionTitle sub="Top mortgages by balance">Mortgage Obligations</SectionTitle>
+          <div className="space-y-2 overflow-y-auto max-h-52">
+            {mortgages.length === 0 && <p className="text-xs text-gray-400">Loadingâ¦</p>}
+            {mortgages.map((m,i) => (
+              <div key={i} className="flex items-center justify-between text-sm py-1.5 border-b border-gray-50">
+                <div>
+                  <div className="font-medium text-xs" style={{color:C.navy}}>{m.lender || 'Lender'}</div>
+                  <div className="text-xs text-gray-400">{m.property_id?.replace(/-/g,' ')}</div>
+                </div>
+                <div className="text-right">
+                  <div className="font-bold text-xs" style={{color:C.red}}>{fmtCAD(m.monthly_payment,true)}/mo</div>
+                  <div className="text-xs text-gray-400">{m.balance ? fmtCAD(m.balance,true)+' bal' : ''}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Properties Tab
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function PropertiesTab() {
+  const [year, setYear] = useState(2025);
+
+  const { data: props, loading } = useQuery(
+    () => sb.from('properties').select('id,address,entity_id,city,province').order('address'),
+    []
+  );
+  const { data: txns } = useQuery(
+    () => sb.from('transactions').select('property_id,txn_type,amount').eq('year',year),
+    [year]
+  );
+  const { data: tenants } = useQuery(
+    () => sb.from('tenants').select('property_id,monthly_rent,is_active').eq('is_active',true),
+    []
+  );
+
+  const stats = useMemo(() => {
+    const m = {};
+    txns.forEach(t => {
+      if (!t.property_id) return;
+      if (!m[t.property_id]) m[t.property_id] = {income:0,expenses:0};
+      if (t.txn_type==='income')   m[t.property_id].income   += parseFloat(t.amount||0);
+      else                          m[t.property_id].expenses += Math.abs(parseFloat(t.amount||0));
+    });
+    return m;
+  }, [txns]);
+
+  const tenByProp = useMemo(() => {
+    const m = {};
+    tenants.forEach(t => {
+      if (!m[t.property_id]) m[t.property_id] = {count:0, rent:0};
+      m[t.property_id].count++;
+      m[t.property_id].rent += parseFloat(t.monthly_rent||0);
+    });
+    return m;
+  }, [tenants]);
+
+  // Totals
+  const totals = useMemo(() => {
+    const inc = Object.values(stats).reduce((s,v)=>s+v.income,0);
+    const exp = Object.values(stats).reduce((s,v)=>s+v.expenses,0);
+    return {income:inc, expenses:exp, noi:inc-exp};
+  }, [stats]);
+
+  if (loading) return <Spinner />;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2">
+          {[2024,2025,2026].map(y => (
+            <button key={y} onClick={()=>setYear(y)}
+              className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-all ${y===year?'text-white shadow':'bg-white text-gray-600 hover:bg-gray-50'}`}
+              style={y===year?{background:C.navy}:{border:'1px solid #E5E7EB'}}>
+              {y}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-6 text-sm">
+          <span className="text-gray-500">Revenue: <strong style={{color:C.green}}>{fmtCAD(totals.income,true)}</strong></span>
+          <span className="text-gray-500">Expenses: <strong style={{color:C.red}}>{fmtCAD(totals.expenses,true)}</strong></span>
+          <span className="text-gray-500">NOI: <strong style={{color:totals.noi>=0?C.navy:C.red}}>{fmtCAD(totals.noi,true)}</strong></span>
+        </div>
+      </div>
+
+      <Card>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{background:C.navy}} className="text-white">
+                <th className="px-4 py-3 text-left font-semibold">Property</th>
+                <th className="px-4 py-3 text-left font-semibold text-xs">Entity</th>
+                <th className="px-4 py-3 text-right font-semibold">Revenue</th>
+                <th className="px-4 py-3 text-right font-semibold">Expenses</th>
+                <th className="px-4 py-3 text-right font-semibold">NOI</th>
+                <th className="px-4 py-3 text-right font-semibold">Margin</th>
+                <th className="px-4 py-3 text-center font-semibold">Tenants</th>
+                <th className="px-4 py-3 text-right font-semibold">Mo. Rent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.map((p,i) => {
+                const s = stats[p.id] || {income:0,expenses:0};
+                const noi    = s.income - s.expenses;
+                const margin = s.income > 0 ? noi/s.income : null;
+                const t = tenByProp[p.id] || {count:0,rent:0};
+                return (
+                  <tr key={p.id} className={`border-b border-gray-100 hover:bg-blue-50 transition-colors ${i%2?'bg-gray-50/50':'bg-white'}`}>
+                    <td className="px-4 py-3 font-semibold text-sm" style={{color:C.navy}}>{p.address || p.id}</td>
+                    <td className="px-4 py-3">
+                      <span className="text-xs px-2 py-0.5 rounded-full text-white font-medium"
+                            style={{background: ENTITY_COLORS[p.entity_id]||'#888'}}>
+                        {p.entity_id}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-right font-medium" style={{color:C.green}}>{s.income>0?fmtCAD(s.income):'â'}</td>
+                    <td className="px-4 py-3 text-right" style={{color:C.red}}>{s.expenses>0?fmtCAD(s.expenses):'â'}</td>
+                    <td className="px-4 py-3 text-right font-bold" style={{color:noi>=0?C.navy:C.red}}>
+                      {(s.income>0||s.expenses>0)?fmtCAD(noi):'â'}
+                    </td>
+                    <td className="px-4 py-3 text-right text-xs font-medium" style={{color:margin!=null?(margin>=0.2?C.green:margin>=0?C.gold:C.red):'#9CA3AF'}}>
+                      {margin!=null?fmtPct(margin):'â'}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {t.count>0
+                        ? <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs font-bold">{t.count}</span>
+                        : <span className="text-gray-300">â</span>}
+                    </td>
+                    <td className="px-4 py-3 text-right font-medium" style={{color:C.gold}}>{t.rent>0?fmtCAD(t.rent,true):'â'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Tenants Tab
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function TenantsTab() {
+  const [showInactive, setShowInactive] = useState(false);
+
+  const { data: allTenants, loading } = useQuery(
+    () => sb.from('tenants').select('*').order('is_active', {ascending:false}).order('property_id'),
+    []
+  );
+  const { data: invoices } = useQuery(
+    () => sb.from('tenant_invoices').select('tenant_id,status,total_amount,amount_paid,due_date').eq('period_year',2026).eq('period_month',3),
+    []
+  );
+
+  const invMap = useMemo(() => {
+    const m = {};
+    invoices.forEach(i=>{m[i.tenant_id]=i;});
+    return m;
+  }, [invoices]);
+
+  const tenants = useMemo(() =>
+    showInactive ? allTenants : allTenants.filter(t=>t.is_active),
+    [allTenants, showInactive]
+  );
+
+  const totals = useMemo(() => {
+    const active = allTenants.filter(t=>t.is_active);
+    return {
+      count: active.length,
+      roll:  active.reduce((s,t)=>s+parseFloat(t.monthly_rent||0),0),
+      owed:  invoices.reduce((s,i)=>s+Math.max(0,parseFloat(i.total_amount||0)-parseFloat(i.amount_paid||0)),0),
+    };
+  }, [allTenants, invoices]);
+
+  if (loading) return <Spinner />;
+
+  return (
+    <div className="space-y-4">
+      {/* Summary bar */}
+      <div className="grid grid-cols-3 gap-4">
+        <KPI icon="ð¥" label="Active Tenants"    value={totals.count}        accent={C.navy} />
+        <KPI icon="ðµ" label="Monthly Rent Roll" value={fmtCAD(totals.roll,true)} accent={C.gold} />
+        <KPI icon="â ï¸" label="Mar 2026 Owing"    value={fmtCAD(totals.owed,true)} accent={totals.owed>0?C.red:C.green} />
+      </div>
+
+      <div className="flex items-center justify-between">
+        <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
+          <input type="checkbox" checked={showInactive} onChange={e=>setShowInactive(e.target.checked)}
+                 className="rounded" />
+          Show inactive tenants
+        </label>
+        <span className="text-xs text-gray-400">{tenants.length} tenants shown</span>
+      </div>
+
+      <Card>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{background:C.navy}} className="text-white">
+                <th className="px-4 py-3 text-left font-semibold">Tenant</th>
+                <th className="px-4 py-3 text-left font-semibold">Property</th>
+                <th className="px-4 py-3 text-left font-semibold">Unit</th>
+                <th className="px-4 py-3 text-right font-semibold">Monthly Rent</th>
+                <th className="px-4 py-3 text-center font-semibold">Mar Invoice</th>
+                <th className="px-4 py-3 text-right font-semibold">Amount Paid</th>
+                <th className="px-4 py-3 text-right font-semibold">Balance</th>
+                <th className="px-4 py-3 text-center font-semibold">Status</th>
+                <th className="px-4 py-3 text-left font-semibold">Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tenants.map((t,i) => {
+                const inv = invMap[t.id];
+                const balance = inv ? parseFloat(inv.total_amount||0)-parseFloat(inv.amount_paid||0) : null;
+                const isAlert = balance > 0 || inv?.status === 'overdue';
+                return (
+                  <tr key={t.id} className={`border-b border-gray-100 transition-colors hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'} ${!t.is_active?'opacity-50':''} ${isAlert?'bg-red-50/30':''}`}>
+                    <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>
+                      {isAlert && <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-2 mb-0.5" />}
+                      {t.name}
+                    </td>
+                    <td className="px-4 py-3 text-gray-600 text-xs">{t.property_id?.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</td>
+                    <td className="px-4 py-3 text-gray-500 text-xs">{t.unit||'â'}</td>
+                    <td className="px-4 py-3 text-right font-semibold" style={{color:C.gold}}>{fmtCAD(t.monthly_rent)}</td>
+                    <td className="px-4 py-3 text-center">{inv ? <Pill status={inv.status}/> : <span className="text-gray-300 text-xs">â</span>}</td>
+                    <td className="px-4 py-3 text-right" style={{color:C.green}}>{inv?.amount_paid>0?fmtCAD(inv.amount_paid):'â'}</td>
+                    <td className="px-4 py-3 text-right font-bold" style={{color:balance>0?C.red:balance===0?C.green:'#9CA3AF'}}>
+                      {balance!=null?fmtCAD(balance):'â'}
+                    </td>
+                    <td className="px-4 py-3 text-center"><Pill status={t.is_active?'active':'inactive'} /></td>
+                    <td className="px-4 py-3 text-xs text-gray-400">{t.email||t.phone||'â'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Transactions Tab
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function TransactionsTab() {
+  const [search,        setSearch]        = useState('');
+  const [filterEntity,  setFilterEntity]  = useState('all');
+  const [filterType,    setFilterType]    = useState('all');
+  const [filterYear,    setFilterYear]    = useState(2025);
+  const [page,          setPage]          = useState(0);
+  const PAGE = 75;
+
+  const { data: all, loading } = useQuery(
+    () => sb.from('transactions').select('*').eq('year', filterYear).order('date', {ascending:false}).limit(1000),
+    [filterYear]
+  );
+
+  useEffect(() => { setPage(0); }, [search, filterEntity, filterType]);
+
+  const filtered = useMemo(() => {
+    let t = all;
+    if (filterEntity !== 'all') t = t.filter(r=>r.entity_id===filterEntity);
+    if (filterType   !== 'all') t = t.filter(r=>r.txn_type===filterType);
+    if (search) {
+      const q = search.toLowerCase();
+      t = t.filter(r =>
+        (r.description||'').toLowerCase().includes(q) ||
+        (r.category||'').toLowerCase().includes(q)    ||
+        (r.property_id||'').toLowerCase().includes(q) ||
+        (r.vendor||'').toLowerCase().includes(q)
+      );
+    }
+    return t;
+  }, [all, filterEntity, filterType, search]);
+
+  const paged = filtered.slice(page*PAGE, (page+1)*PAGE);
+  const pages = Math.max(1, Math.ceil(filtered.length/PAGE));
+
+  const summaryInc = filtered.filter(t=>t.txn_type==='income').reduce((s,t)=>s+parseFloat(t.amount||0),0);
+  const summaryExp = filtered.filter(t=>t.txn_type==='expense').reduce((s,t)=>s+Math.abs(parseFloat(t.amount||0)),0);
+
+  return (
+    <div className="space-y-4">
+      {/* Filter bar */}
+      <Card className="p-4">
+        <div className="flex flex-wrap gap-3 items-center">
+          <input
+            className="border border-gray-200 rounded-xl px-3 py-2 text-sm flex-1 min-w-52 focus:outline-none focus:ring-2"
+            style={{'--tw-ring-color': C.gold}}
+            placeholder="ð  Search description, property, vendor, categoryâ¦"
+            value={search}
+            onChange={e=>setSearch(e.target.value)}
+          />
+          <select className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none" value={filterYear} onChange={e=>setFilterYear(+e.target.value)}>
+            {[2024,2025,2026].map(y=><option key={y} value={y}>{y}</option>)}
+          </select>
+          <select className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none" value={filterEntity} onChange={e=>setFilterEntity(e.target.value)}>
+            <option value="all">All Entities</option>
+            {Object.entries(ENTITY_LABELS).map(([k,v])=><option key={k} value={k}>{v}</option>)}
+          </select>
+          <select className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none" value={filterType} onChange={e=>setFilterType(e.target.value)}>
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <div className="flex gap-4 text-xs ml-auto font-medium">
+            <span style={{color:C.green}}>â {fmtCAD(summaryInc,true)}</span>
+            <span style={{color:C.red}}>â {fmtCAD(summaryExp,true)}</span>
+            <span className="text-gray-400">{filtered.length} rows</span>
+          </div>
+        </div>
+      </Card>
+
+      {loading ? <Spinner /> : (
+        <Card>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{background:C.navy}} className="text-white">
+                  <th className="px-4 py-3 text-left">Date</th>
+                  <th className="px-4 py-3 text-left">Description</th>
+                  <th className="px-4 py-3 text-left">Category</th>
+                  <th className="px-4 py-3 text-left">Property</th>
+                  <th className="px-4 py-3 text-left">Entity</th>
+                  <th className="px-4 py-3 text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paged.map((t,i) => (
+                  <tr key={t.id} className={`border-b border-gray-100 hover:bg-blue-50 transition-colors ${i%2?'bg-gray-50/40':'bg-white'}`}>
+                    <td className="px-4 py-2.5 text-gray-400 text-xs whitespace-nowrap">{fmtDate(t.date)}</td>
+                    <td className="px-4 py-2.5 font-medium max-w-xs" style={{color:C.navy}} title={t.description}>
+                      <span className="block truncate">{t.description||'â'}</span>
+                    </td>
+                    <td className="px-4 py-2.5 text-gray-500 text-xs">{t.category||'â'}</td>
+                    <td className="px-4 py-2.5 text-gray-500 text-xs">{t.property_id||'â'}</td>
+                    <td className="px-4 py-2.5">
+                      <span className="text-xs px-1.5 py-0.5 rounded font-medium text-white"
+                            style={{background:ENTITY_COLORS[t.entity_id]||'#888'}}>
+                        {t.entity_id}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-bold whitespace-nowrap"
+                        style={{color:t.txn_type==='income'?C.green:C.red}}>
+                      {t.txn_type==='income'?'+':''}{fmtCAD(parseFloat(t.amount))}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* Pagination */}
+          <div className="flex justify-between items-center px-4 py-3 border-t border-gray-100 text-xs text-gray-500">
+            <button disabled={page===0} onClick={()=>setPage(p=>p-1)}
+                    className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50 font-medium">
+              â Prev
+            </button>
+            <span>Page {page+1} of {pages}</span>
+            <button disabled={(page+1)>=pages} onClick={()=>setPage(p=>p+1)}
+                    className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50 font-medium">
+              Next â
+            </button>
+          </div>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Invoices Tab
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function InvoicesTab() {
+  const [year,  setYear]  = useState(2026);
+  const [month, setMonth] = useState(3);
+
+  const { data: invoices, loading } = useQuery(
+    () => sb.from('v_invoice_dashboard').select('*').eq('period_year',year).eq('period_month',month).order('property_id'),
+    [year, month]
+  );
+
+  const totals = useMemo(() => {
+    const billed    = invoices.reduce((s,i)=>s+parseFloat(i.total_amount||0),0);
+    const collected = invoices.reduce((s,i)=>s+parseFloat(i.amount_paid||0),0);
+    return { billed, collected, outstanding: billed-collected };
+  }, [invoices]);
+
+  return (
+    <div className="space-y-4">
+      {/* Controls */}
+      <div className="flex flex-wrap gap-3 items-center bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+        <select className="border border-gray-200 rounded-xl px-3 py-2 text-sm" value={month} onChange={e=>setMonth(+e.target.value)}>
+          {MONTHS.map((m,i)=><option key={i} value={i+1}>{m}</option>)}
+        </select>
+        <select className="border border-gray-200 rounded-xl px-3 py-2 text-sm" value={year} onChange={e=>setYear(+e.target.value)}>
+          {[2024,2025,2026].map(y=><option key={y} value={y}>{y}</option>)}
+        </select>
+        <div className="ml-auto flex gap-5 text-sm font-medium">
+          <span>Billed: <span style={{color:C.navy}}>{fmtCAD(totals.billed)}</span></span>
+          <span>Collected: <span style={{color:C.green}}>{fmtCAD(totals.collected)}</span></span>
+          <span>Outstanding: <span style={{color:totals.outstanding>0?C.red:C.green}}>{fmtCAD(totals.outstanding)}</span></span>
+        </div>
+      </div>
+
+      {loading ? <Spinner /> : (
+        <Card>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{background:C.navy}} className="text-white">
+                  <th className="px-4 py-3 text-left">Invoice #</th>
+                  <th className="px-4 py-3 text-left">Tenant</th>
+                  <th className="px-4 py-3 text-left">Property</th>
+                  <th className="px-4 py-3 text-left">Unit</th>
+                  <th className="px-4 py-3 text-right">Amount</th>
+                  <th className="px-4 py-3 text-right">Paid</th>
+                  <th className="px-4 py-3 text-right">Balance</th>
+                  <th className="px-4 py-3 text-center">Status</th>
+                  <th className="px-4 py-3 text-left">Due</th>
+                </tr>
+              </thead>
+              <tbody>
+                {invoices.map((inv,i) => {
+                  const bal = parseFloat(inv.balance_owing||0);
+                  return (
+                    <tr key={inv.invoice_number} className={`border-b border-gray-100 hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'} ${bal>0?'border-l-2 border-l-red-400':''}`}>
+                      <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{inv.invoice_number}</td>
+                      <td className="px-4 py-2.5 font-semibold" style={{color:C.navy}}>{inv.tenant_name}</td>
+                      <td className="px-4 py-2.5 text-gray-500 text-xs">{inv.property_id?.replace(/-/g,' ')}</td>
+                      <td className="px-4 py-2.5 text-gray-400 text-xs">{inv.unit||'â'}</td>
+                      <td className="px-4 py-2.5 text-right font-medium" style={{color:C.gold}}>{fmtCAD(inv.total_amount)}</td>
+                      <td className="px-4 py-2.5 text-right" style={{color:C.green}}>{parseFloat(inv.amount_paid)>0?fmtCAD(inv.amount_paid):'â'}</td>
+                      <td className="px-4 py-2.5 text-right font-bold" style={{color:bal>0?C.red:C.green}}>{fmtCAD(bal)}</td>
+                      <td className="px-4 py-2.5 text-center"><Pill status={inv.status}/></td>
+                      <td className="px-4 py-2.5 text-gray-400 text-xs">{fmtDate(inv.due_date)}</td>
+                    </tr>
+                  );
+                })}
+                {!invoices.length && (
+                  <tr><td colSpan="9" className="py-12 text-center text-gray-400">No invoices for {MONTHS[month-1]} {year}</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Investors Tab
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function InvestorsTab() {
+  const { data: lenders, loading } = useQuery(
+    () => sb.from('partner_agreements')
+            .select('*, partners(name,email,type)')
+            .eq('agreement_type','second_mortgage')
+            .order('monthly_payment', {ascending:false}),
+    []
+  );
+  const { data: equity } = useQuery(
+    () => sb.from('partner_agreements')
+            .select('*, partners(name,email,type)')
+            .eq('agreement_type','equity'),
+    []
+  );
+
+  const totalMonthly = useMemo(() => lenders.reduce((s,l)=>s+parseFloat(l.monthly_payment||0),0), [lenders]);
+  const totalPrincipal = useMemo(() => lenders.reduce((s,l)=>s+parseFloat(l.principal||0),0), [lenders]);
+
+  if (loading) return <Spinner />;
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-3 gap-4">
+        <KPI icon="ð¦" label="Private Lenders"       value={lenders.length}             accent={C.navy} />
+        <KPI icon="ð³" label="Total Debt (2nd Mtg)"  value={fmtCAD(totalPrincipal,true)} accent={C.red} />
+        <KPI icon="ð" label="Monthly Interest Cost" value={fmtCAD(totalMonthly,true)}   accent={C.gold} sub={`$${(totalMonthly*12/1000).toFixed(0)}k/year`} />
+      </div>
+
+      <Card>
+        <div className="px-5 pt-4 pb-2">
+          <SectionTitle sub="All private 2nd mortgage lenders">Private Lenders</SectionTitle>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{background:C.navy}} className="text-white">
+                <th className="px-4 py-3 text-left">Lender</th>
+                <th className="px-4 py-3 text-left">Property</th>
+                <th className="px-4 py-3 text-right">Principal</th>
+                <th className="px-4 py-3 text-right">Rate</th>
+                <th className="px-4 py-3 text-right">Monthly Interest</th>
+                <th className="px-4 py-3 text-right">Annual Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              {lenders.map((l,i) => (
+                <tr key={l.id} className={`border-b border-gray-100 hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'}`}>
+                  <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>{l.partners?.name||'â'}</td>
+                  <td className="px-4 py-3 text-gray-500 text-xs">{l.property_id?.replace(/-/g,' ')}</td>
+                  <td className="px-4 py-3 text-right font-medium">{fmtCAD(l.principal)}</td>
+                  <td className="px-4 py-3 text-right text-gray-600">{l.rate?`${(parseFloat(l.rate)*100).toFixed(1)}%`:'â'}</td>
+                  <td className="px-4 py-3 text-right font-bold" style={{color:C.red}}>{fmtCAD(l.monthly_payment)}</td>
+                  <td className="px-4 py-3 text-right text-gray-500">{l.monthly_payment?fmtCAD(parseFloat(l.monthly_payment)*12,true):'-'}</td>
+                </tr>
+              ))}
+              <tr className="font-bold" style={{background:'#F8FAFC'}}>
+                <td className="px-4 py-3" colSpan="2">TOTAL</td>
+                <td className="px-4 py-3 text-right">{fmtCAD(totalPrincipal)}</td>
+                <td />
+                <td className="px-4 py-3 text-right" style={{color:C.red}}>{fmtCAD(totalMonthly)}</td>
+                <td className="px-4 py-3 text-right text-gray-500">{fmtCAD(totalMonthly*12,true)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      {equity.length > 0 && (
+        <Card>
+          <div className="px-5 pt-4 pb-2">
+            <SectionTitle sub="JV / equity partners">Equity Partners</SectionTitle>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{background:C.navy}} className="text-white">
+                  <th className="px-4 py-3 text-left">Partner</th>
+                  <th className="px-4 py-3 text-left">Property</th>
+                  <th className="px-4 py-3 text-right">Ownership</th>
+                  <th className="px-4 py-3 text-right">Monthly Payout</th>
+                  <th className="px-4 py-3 text-left">Schedule</th>
+                </tr>
+              </thead>
+              <tbody>
+                {equity.map((e,i) => (
+                  <tr key={e.id} className={`border-b border-gray-100 hover:bg-blue-50 ${i%2?'bg-gray-50/40':'bg-white'}`}>
+                    <td className="px-4 py-3 font-semibold" style={{color:C.navy}}>{e.partners?.name||'â'}</td>
+                    <td className="px-4 py-3 text-gray-500 text-xs">{e.property_id?.replace(/-/g,' ')}</td>
+                    <td className="px-4 py-3 text-right">{e.ownership_pct?fmtPct(parseFloat(e.ownership_pct)):'â'}</td>
+                    <td className="px-4 py-3 text-right font-medium" style={{color:C.gold}}>
+                      {parseFloat(e.fixed_monthly_payment)>0?fmtCAD(e.fixed_monthly_payment):'TBD'}
+                    </td>
+                    <td className="px-4 py-3 text-gray-500 text-xs capitalize">{e.payout_schedule||'â'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Root App
+// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function App() {
+  const [tab, setTab] = useState('dashboard');
+
+  const TABS = [
+    { id:'dashboard',    icon:'ð', label:'Dashboard'    },
+    { id:'properties',   icon:'ð ', label:'Properties'   },
+    { id:'tenants',      icon:'ð¥', label:'Tenants'      },
+    { id:'transactions', icon:'ð', label:'Transactions' },
+    { id:'invoices',     icon:'ð', label:'Invoices'     },
+    { id:'investors',    icon:'ð¦', label:'Investors'    },
+  ];
+
+  return (
+    <div className="min-h-screen" style={{background:C.bg}}>
+      {/* Header */}
+      <header style={{background:C.navy}} className="sticky top-0 z-50 shadow-xl">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-14">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-white text-sm shadow"
+                   style={{background:C.gold}}>A</div>
+              <div>
+                <div className="text-white font-bold text-sm leading-none">Altaray Property Management</div>
+                <div className="text-xs mt-0.5" style={{color:C.gold}}>EstateOS â¢ Live Data</div>
+              </div>
+            </div>
+            <div className="hidden sm:block text-xs text-gray-400">
+              {new Date().toLocaleDateString('en-CA',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
+            </div>
+          </div>
+
+          {/* Tab bar */}
+          <div className="flex gap-0 overflow-x-auto">
+            {TABS.map(t => (
+              <button key={t.id} onClick={()=>setTab(t.id)}
+                className={`px-4 py-3 text-xs font-semibold whitespace-nowrap transition-all border-b-2 ${tab===t.id?'tab-active':'tab-inactive'}`}>
+                {t.icon} {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      {/* Main */}
+      <main className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6">
+        {tab==='dashboard'    && <DashboardTab />}
+        {tab==='properties'   && <PropertiesTab />}
+        {tab==='tenants'      && <TenantsTab />}
+        {tab==='transactions' && <TransactionsTab />}
+        {tab==='invoices'     && <InvoicesTab />}
+        {tab==='investors'    && <InvestorsTab />}
+      </main>
+
+      <footer className="text-center text-xs text-gray-400 py-8">
+        EstateOS Â· Altaray Property Management Ltd. Â·
+        <a href="https://supabase.com" className="ml-1 hover:underline" style={{color:C.gold}}>Live Supabase data</a>
+        Â· Auto-refreshes on load
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
 </html>
