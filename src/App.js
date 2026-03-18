@@ -1715,6 +1715,30 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
   };
 
   const [expenses, setExpenses] = useState(initExpenses);
+
+  // ── Supabase live expense sync ─────────────────────────────
+  const SUPABASE_URL = "https://ctwhmhnsfdvrkrklwvig.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0d2htaG5zZmR2cmtya2x3dmlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTQ0NjgsImV4cCI6MjA4OTI3MDQ2OH0.l6HkD37x3Rd7cXdbI2K3htz9qAa4OqgF1HvdER7BjGc";
+  useEffect(() => {
+    fetch(`${SUPABASE_URL}/rest/v1/estateos_monthly_expenses`, {
+      headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+    })
+    .then(r => r.json())
+    .then(rows => {
+      if (!Array.isArray(rows) || rows.length === 0) return;
+      setExpenses(prev => {
+        const next = JSON.parse(JSON.stringify(prev));
+        rows.forEach(({ property_id, month, category, amount }) => {
+          if (next[property_id] && next[property_id][month]) {
+            next[property_id][month][category] = parseFloat(amount) || 0;
+          }
+        });
+        return next;
+      });
+    })
+    .catch(err => console.warn("Supabase sync failed, using cached data:", err));
+  }, []);
+  // ── end Supabase sync ────────────────────────────────────────
   const [reportView, setReportView] = useState("property"); // property | corp | portfolio
   const [reportMonth, setReportMonth] = useState(CURRENT_MONTH);
   const [reportProperty, setReportProperty] = useState(PORTFOLIO[6]); // 43 Ruskin default
