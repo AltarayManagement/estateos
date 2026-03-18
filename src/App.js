@@ -754,6 +754,324 @@ function OwnerPayout({ selectedMonth }) {
     );
 }
 
+
+// ── COMMAND CENTER TAB ────────────────────────────────────────────────────────
+function CommandCenterTab() {
+  const today = new Date();
+
+  function monthsUntil(dateStr) {
+    if (!dateStr || dateStr === "—") return null;
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const clean = dateStr.replace(/,/g,'').trim();
+    const parts = clean.split(' ');
+    let d = null;
+    if (parts.length === 3) d = new Date(parts[2], months.findIndex(m => parts[1].startsWith(m)), parseInt(parts[0]));
+    else if (parts.length === 2) { const mi = months.findIndex(m => parts[0].startsWith(m)); if (mi>=0) d = new Date(parseInt(parts[1]), mi, 1); }
+    if (!d || isNaN(d)) { d = new Date(dateStr); }
+    if (!d || isNaN(d)) return null;
+    return Math.round((d - today) / (1000*60*60*24*30.44));
+  }
+
+  const portfolioData = [
+    { id:"787-downing",   address:"787 Downing",   value:850000,  mortgage:508000,  cashFlow:850,  capRate:4.2, entity:"AwesomeJV" },
+    { id:"30-barbara",    address:"30 Barbara",    value:1100000, mortgage:447164,  cashFlow:1800, capRate:5.4, entity:"AwesomeJV" },
+    { id:"213-colborne",  address:"213 Colborne",  value:780000,  mortgage:209145,  cashFlow:2200, capRate:5.8, entity:"AltaraySvc" },
+    { id:"285-van-order", address:"285 Van Order", value:650000,  mortgage:345839,  cashFlow:1200, capRate:5.2, entity:"AltaraySvc" },
+    { id:"661-milford",   address:"661 Milford",   value:520000,  mortgage:380000,  cashFlow:900,  capRate:4.9, entity:"AltaraySvc" },
+    { id:"913-uxbridge",  address:"913 Uxbridge",  value:890000,  mortgage:620000,  cashFlow:1400, capRate:5.1, entity:"AltaraySvc" },
+    { id:"43-ruskin",     address:"43 Ruskin",     value:710000,  mortgage:329899,  cashFlow:1100, capRate:5.3, entity:"AltaraySvc" },
+    { id:"293-van-order", address:"293 Van Order", value:540000,  mortgage:211143,  cashFlow:950,  capRate:4.8, entity:"AltaraySvc" },
+  ];
+
+  const debtRows = Object.entries(MORTGAGE_DATA).map(([key, m]) => {
+    const mo = monthsUntil(m.maturity);
+    const alert = mo === null ? "unknown" : mo < 0 ? "expired" : mo <= 12 ? "red" : mo <= 24 ? "yellow" : "ok";
+    return { key, ...m, monthsLeft: mo, alert };
+  }).sort((a, b) => {
+    const ord = { expired:0, red:1, yellow:2, unknown:3, ok:4 };
+    return ord[a.alert] - ord[b.alert];
+  });
+
+  const totalValue    = portfolioData.reduce((s, p) => s + p.value, 0);
+  const totalDebt     = portfolioData.reduce((s, p) => s + p.mortgage, 0);
+  const totalEquity   = totalValue - totalDebt;
+  const totalRentCF   = portfolioData.reduce((s, p) => s + p.cashFlow, 0);
+  const leverage      = totalDebt / totalValue;
+  const annualCF      = totalRentCF * 12;
+  const cfYield       = annualCF / totalEquity;
+  const sorted3       = [...portfolioData].sort((a,b) => b.value - a.value);
+  const top3Value     = sorted3.slice(0,3).reduce((s,p) => s+p.value, 0);
+  const concentration = top3Value / totalValue;
+  const monthlyDebtPayments = debtRows.reduce((s,r) => s + (r.monthlyPayment||0), 0);
+  const otherIncome   = 12000;
+  const propExpenses  = 3200;
+  const currentCF     = totalRentCF - monthlyDebtPayments - propExpenses + otherIncome;
+  const TARGET_CF     = 30000;
+  const gap           = TARGET_CF - currentCF;
+
+  const investors = [
+    { name:"Justin",   capital:150000, returnRate:10, distributed:15000 },
+    { name:"Tanya",    capital:100000, returnRate:8,  distributed:8000  },
+    { name:"Marshall", capital:200000, returnRate:12, distributed:24000 },
+  ];
+
+  const liquidity = [
+    { label:"Cash (Operating)",    amount:45000  },
+    { label:"HELOC / LOC",         amount:120000 },
+    { label:"Investment Accounts", amount:85000  },
+  ];
+  const totalLiquidity = liquidity.reduce((s,l) => s+l.amount, 0);
+  const runwayMonths   = totalLiquidity / monthlyDebtPayments;
+
+  const opportunities = [
+    { name:"BRRRR Flip",         capital:120000, ret:"18–22%", timeline:"6–9 mo",   priority:"high"   },
+    { name:"Covered Call ETF",   capital:50000,  ret:"12–15%", timeline:"Ongoing",  priority:"high"   },
+    { name:"New JV Acquisition", capital:200000, ret:"15–20%", timeline:"12–18 mo", priority:"medium" },
+    { name:"Options Strategy",   capital:30000,  ret:"20–30%", timeline:"Monthly",  priority:"medium" },
+  ];
+
+  const fmt = n => n != null ? (n<0?"-":"")+"$"+Math.abs(Math.round(n)).toLocaleString("en-CA") : "—";
+  const pct = n => n != null ? (n*100).toFixed(1)+"%" : "—";
+
+  const S = {
+    page:    { padding:"28px 24px", maxWidth:1180, margin:"0 auto" },
+    sec:     { background:"#0d1117", border:"1px solid #1e293b", borderRadius:12, padding:"22px 24px", marginBottom:20 },
+    h2:      { fontSize:11, fontWeight:700, letterSpacing:2, color:"#64748b", textTransform:"uppercase", marginBottom:16, margin:"0 0 16px 0" },
+    card:    { background:"#070a10", borderRadius:8, padding:"14px 18px", textAlign:"center" },
+    val:     { fontSize:22, fontWeight:700, color:"#f6c90e" },
+    lbl:     { fontSize:11, color:"#64748b", marginTop:4 },
+    table:   { width:"100%", borderCollapse:"collapse" },
+    th:      { fontSize:11, color:"#64748b", textAlign:"left", padding:"8px 10px", borderBottom:"1px solid #1e293b", fontWeight:600, letterSpacing:1 },
+    td:      { fontSize:13, padding:"9px 10px", borderBottom:"1px solid #0d1117", color:"#cbd5e1" },
+  };
+  const badge = (c) => ({ display:"inline-block", padding:"2px 8px", borderRadius:4, fontSize:11, fontWeight:600,
+    background: c==="expired"?"#4c0519":c==="red"?"#7f1d1d":c==="yellow"?"#78350f":"#052e16",
+    color:      c==="expired"?"#f43f5e":c==="red"?"#ef4444":c==="yellow"?"#f59e0b":"#22c55e" });
+
+  return (
+    <div style={S.page}>
+      <div style={{ marginBottom:24, display:"flex", justifyContent:"space-between", alignItems:"flex-end" }}>
+        <div>
+          <div style={{ fontSize:22, fontWeight:700, color:"#f6c90e", fontFamily:"'Playfair Display',serif" }}>🎯 Command Center</div>
+          <div style={{ fontSize:13, color:"#64748b", marginTop:4 }}>Portfolio intelligence — operator cockpit view</div>
+        </div>
+        <div style={{ fontSize:12, color:"#475569" }}>Reviewed: {today.toLocaleDateString("en-CA")}</div>
+      </div>
+
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:20 }}>
+        {[
+          { lbl:"PORTFOLIO LEVERAGE (Debt/Assets)", val:pct(leverage), sub:"Target: 55–65%", color: leverage>0.7?"#ef4444":leverage>0.65?"#f59e0b":"#22c55e" },
+          { lbl:"CASH FLOW YIELD (Annual CF/Equity)", val:pct(cfYield), sub:"Target: >8%", color:"#f6c90e" },
+          { lbl:"RISK CONCENTRATION (Top 3 Props)", val:pct(concentration), sub:"Target: <50%", color: concentration>0.5?"#f59e0b":"#22c55e" },
+        ].map((k,i) => (
+          <div key={i} style={S.card}>
+            <div style={{ ...S.val, color:k.color }}>{k.val}</div>
+            <div style={S.lbl}>{k.lbl}</div>
+            <div style={{ fontSize:11, color:"#475569", marginTop:4 }}>{k.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>① Portfolio Net Worth</div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(5,1fr)", gap:12 }}>
+          {[
+            { lbl:"Total Property Value", val:fmt(totalValue), color:"#f1f5f9" },
+            { lbl:"Total Mortgage Debt",  val:fmt(totalDebt),  color:"#ef4444" },
+            { lbl:"Net Real Estate Equity", val:fmt(totalEquity), color:"#22c55e" },
+            { lbl:"Liquid Cash + Investments", val:fmt(45000+85000), color:"#f6c90e" },
+            { lbl:"Est. Total Net Worth", val:fmt(totalEquity+45000+85000), color:"#f6c90e" },
+          ].map((m,i) => (
+            <div key={i} style={S.card}>
+              <div style={{ ...S.val, color:m.color }}>{m.val}</div>
+              <div style={S.lbl}>{m.lbl}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize:11, color:"#475569", marginTop:12 }}>⚠️ Property values are estimates — update with current appraisals for accuracy.</div>
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>② Monthly Cash Flow Engine</div>
+        <div style={{ display:"flex", gap:24, alignItems:"flex-start" }}>
+          <div style={{ flex:1 }}>
+            <table style={S.table}>
+              <thead><tr><th style={S.th}>Category</th><th style={S.th}>Monthly</th></tr></thead>
+              <tbody>
+                {[
+                  { cat:"Rental Income",         val:totalRentCF,   hi:true },
+                  { cat:"Mortgage Payments",      val:-Math.round(monthlyDebtPayments) },
+                  { cat:"Property Expenses",      val:-propExpenses },
+                  { cat:"Net Rental Cash Flow",   val:totalRentCF-Math.round(monthlyDebtPayments)-propExpenses, bold:true },
+                  { cat:"Options Trading",        val:8000 },
+                  { cat:"Coaching / Other",       val:4000 },
+                  { cat:"Total Monthly Income",   val:currentCF, bold:true, big:true },
+                ].map((r,i) => (
+                  <tr key={i}>
+                    <td style={{ ...S.td, ...(r.bold?{fontWeight:700,color:"#f1f5f9"}:{}) }}>{r.cat}</td>
+                    <td style={{ ...S.td, color:r.val>=0?"#22c55e":"#ef4444", fontWeight:r.big?"700":"400", fontSize:r.big?15:13 }}>
+                      {r.val>=0?"+":""}{fmt(r.val)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ width:210, background:"#070a10", borderRadius:10, padding:"20px 16px", textAlign:"center", flexShrink:0 }}>
+            <div style={{ fontSize:10, color:"#64748b", letterSpacing:2, marginBottom:8 }}>$30K/MONTH TARGET</div>
+            <div style={{ fontSize:30, fontWeight:800, color:"#f6c90e" }}>{fmt(currentCF)}</div>
+            <div style={{ fontSize:11, color:"#475569", margin:"6px 0" }}>current monthly</div>
+            <div style={{ background:"#1e293b", borderRadius:6, height:8, overflow:"hidden", margin:"10px 0" }}>
+              <div style={{ height:"100%", width:Math.min(100,(currentCF/TARGET_CF)*100)+"%", background:currentCF>=TARGET_CF?"#22c55e":"#f6c90e", transition:"width 0.5s" }} />
+            </div>
+            <div style={{ fontSize:13, fontWeight:700, color:gap>0?"#ef4444":"#22c55e" }}>
+              {gap>0?"Gap: -"+fmt(gap):"Surplus: +"+fmt(-gap)}
+            </div>
+            <div style={{ fontSize:10, color:"#475569", marginTop:6 }}>{pct(currentCF/TARGET_CF)} of target</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>③ Debt & Refinance Tracker — Renewal Radar</div>
+        <table style={S.table}>
+          <thead>
+            <tr>
+              {["Property","Lender","Balance","Rate","Monthly","Maturity","Months Left","Status"].map(h => <th key={h} style={S.th}>{h}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {debtRows.map((r,i) => (
+              <tr key={i}>
+                <td style={{ ...S.td, color:"#f1f5f9" }}>{r.mortgagee||r.key}</td>
+                <td style={S.td}>{r.lender}</td>
+                <td style={{ ...S.td, color:"#f6c90e" }}>{fmt(r.balance)}</td>
+                <td style={S.td}>{r.rate?r.rate+"%":"—"}</td>
+                <td style={S.td}>{fmt(r.monthlyPayment)}</td>
+                <td style={S.td}>{r.maturity}</td>
+                <td style={{ ...S.td, color:r.monthsLeft<0?"#f43f5e":r.monthsLeft<=12?"#ef4444":r.monthsLeft<=24?"#f59e0b":"#22c55e" }}>
+                  {r.monthsLeft!==null?(r.monthsLeft<0?"EXPIRED":r.monthsLeft+" mo"):"—"}
+                </td>
+                <td style={S.td}><span style={badge(r.alert)}>{r.alert.toUpperCase()}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>④ Property Performance Table</div>
+        <table style={S.table}>
+          <thead>
+            <tr>{["Property","Entity","Est. Value","Mortgage","Equity","Monthly CF","Cap Rate","LTV"].map(h=><th key={h} style={S.th}>{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            {[...portfolioData].sort((a,b)=>b.cashFlow-a.cashFlow).map((p,i)=>{
+              const eq=p.value-p.mortgage; const ltv=p.mortgage/p.value;
+              return (
+                <tr key={i}>
+                  <td style={{ ...S.td, color:"#f1f5f9", fontWeight:600 }}>{p.address}</td>
+                  <td style={{ ...S.td, color:"#64748b", fontSize:11 }}>{p.entity}</td>
+                  <td style={S.td}>{fmt(p.value)}</td>
+                  <td style={{ ...S.td, color:"#ef4444" }}>{fmt(p.mortgage)}</td>
+                  <td style={{ ...S.td, color:"#22c55e" }}>{fmt(eq)}</td>
+                  <td style={{ ...S.td, color:"#f6c90e" }}>+{fmt(p.cashFlow)}/mo</td>
+                  <td style={S.td}>{p.capRate}%</td>
+                  <td style={{ ...S.td, color:ltv>0.8?"#ef4444":ltv>0.7?"#f59e0b":"#22c55e" }}>{pct(ltv)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div style={{ fontSize:11, color:"#475569", marginTop:10 }}>⚠️ Update property values with current appraisals or BPOs for accuracy.</div>
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>⑤ Investor Capital Tracker</div>
+        <table style={S.table}>
+          <thead>
+            <tr>{["Investor","Capital","Return Rate","Annual Owed","Distributed","Outstanding"].map(h=><th key={h} style={S.th}>{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            {investors.map((inv,i)=>{
+              const owed=inv.capital*(inv.returnRate/100); const out=owed-inv.distributed;
+              return (
+                <tr key={i}>
+                  <td style={{ ...S.td, color:"#f1f5f9", fontWeight:600 }}>{inv.name}</td>
+                  <td style={{ ...S.td, color:"#f6c90e" }}>{fmt(inv.capital)}</td>
+                  <td style={S.td}>{inv.returnRate}%</td>
+                  <td style={S.td}>{fmt(owed)}</td>
+                  <td style={{ ...S.td, color:"#22c55e" }}>{fmt(inv.distributed)}</td>
+                  <td style={{ ...S.td, color:out>0?"#ef4444":"#22c55e" }}>{fmt(out)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>⑥ Liquidity & Safety Buffer</div>
+        <div style={{ display:"flex", gap:24 }}>
+          <div style={{ flex:1 }}>
+            <table style={S.table}>
+              <thead><tr><th style={S.th}>Source</th><th style={S.th}>Amount</th></tr></thead>
+              <tbody>
+                {liquidity.map((l,i)=>(
+                  <tr key={i}>
+                    <td style={S.td}>{l.label}</td>
+                    <td style={{ ...S.td, color:"#22c55e" }}>{fmt(l.amount)}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td style={{ ...S.td, fontWeight:700, color:"#f1f5f9" }}>Total Liquidity</td>
+                  <td style={{ ...S.td, fontWeight:700, color:"#f6c90e" }}>{fmt(totalLiquidity)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style={{ width:190, background:"#070a10", borderRadius:10, padding:"20px 16px", textAlign:"center", flexShrink:0 }}>
+            <div style={{ fontSize:10, color:"#64748b", letterSpacing:2, marginBottom:8 }}>SURVIVAL RUNWAY</div>
+            <div style={{ fontSize:38, fontWeight:800, color:runwayMonths>6?"#22c55e":runwayMonths>3?"#f59e0b":"#ef4444" }}>
+              {runwayMonths.toFixed(1)}
+            </div>
+            <div style={{ fontSize:12, color:"#475569" }}>months coverage</div>
+            <div style={{ fontSize:11, color:"#475569", marginTop:8 }}>Monthly obligations: {fmt(monthlyDebtPayments)}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={S.sec}>
+        <div style={S.h2}>⑦ Opportunity Radar — Where Does the Next Dollar Go?</div>
+        <table style={S.table}>
+          <thead>
+            <tr>{["Opportunity","Capital Needed","Expected Return","Timeline","Priority"].map(h=><th key={h} style={S.th}>{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            {opportunities.map((o,i)=>(
+              <tr key={i}>
+                <td style={{ ...S.td, color:"#f1f5f9", fontWeight:600 }}>{o.name}</td>
+                <td style={{ ...S.td, color:"#f6c90e" }}>{fmt(o.capital)}</td>
+                <td style={{ ...S.td, color:"#22c55e" }}>{o.ret}</td>
+                <td style={S.td}>{o.timeline}</td>
+                <td style={S.td}>
+                  <span style={{ padding:"2px 8px", borderRadius:4, fontSize:11, fontWeight:600, background:o.priority==="high"?"#14532d":"#1e3a5f", color:o.priority==="high"?"#22c55e":"#60a5fa" }}>
+                    {o.priority.toUpperCase()}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ fontSize:11, color:"#334155", textAlign:"center", paddingBottom:20 }}>
+        🎯 Command Center v1.0 — Review every Monday morning. Build the habit: portfolio managers control risk, entrepreneurs chase deals.
+      </div>
+    </div>
+  );
+}
+
 export default function EstateOS() {
   const [tab, setTab] = useState("dashboard");
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -2727,6 +3045,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
           { id: "payout", label: "Management Payout" },
           { id: "t776", label: "T776 Tax" },
           { id: "mortgages", label: "Mortgages" },
+          { id: "command-center", label: "Command Center" },
           { id: "chat", label: "AI Co-worker" },
         ].map(t => (
           <button key={t.id} onClick={() => !t.disabled && setTab(t.id)} disabled={t.disabled}
@@ -2748,6 +3067,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
         {tab === "mortgages" && <MortgagesTab />}
         {tab === "property" && <PropertyDetail />}
         {tab === "chat" && <AIChat />}
+        {tab === "command-center" && <CommandCenterTab />}
       </div>
 
       <EmailModal />
