@@ -1647,6 +1647,8 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
       "Mar 2026": { "Mortgage Principal": 807.25, "Mortgage Interest": 420.00, "Property Taxes": 389.00, "Insurance": 274.63, "Co-owner Payment": 875.00, "Bank Charges": 10.95, "Repairs & Maintenance": 50.00 },
     };
     Object.entries(hamMonths).forEach(([m, vals]) => {
+      ham[m] = { ...BLANK_MONTH(), ...vals };
+    });
     // — 661 MILFORD (Altaray & Waxwing 50/50) — CIBC
     const milford = data["661-milford"];
     MONTHS.forEach(m => {
