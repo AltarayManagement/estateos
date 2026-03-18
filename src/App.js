@@ -1647,79 +1647,68 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
       "Mar 2026": { "Mortgage Principal": 807.25, "Mortgage Interest": 420.00, "Property Taxes": 389.00, "Insurance": 274.63, "Co-owner Payment": 875.00, "Bank Charges": 10.95, "Repairs & Maintenance": 50.00 },
     };
     Object.entries(hamMonths).forEach(([m, vals]) => {
-      ham[m] = { ...BLANK_MONTH(), ...vals };
-    // — 661 MILFORD (Altaray & Waxwing 50/50) — CIBC ————————————————
+    // — 661 MILFORD (Altaray & Waxwing 50/50) — CIBC
     const milford = data["661-milford"];
     MONTHS.forEach(m => {
       milford[m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 70.03, "Mortgage Interest": 2088.83,
         "Property Taxes": 437, "Insurance": 183.52, "Utilities": 540 };
     });
-
-    // — 30 BARBARA (AwesomeJV & Sal 50/50) — Scotia ———————————————
+    // — 30 BARBARA (AwesomeJV & Sal 50/50) — Scotia
     const barbara = data["30-barbara"];
     MONTHS.forEach(m => {
       barbara[m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 695.06, "Mortgage Interest": 1616.25,
         "Property Taxes": 378, "Insurance": 279.98, "Utilities": 204 };
     });
-
-    // — 164 KIRKPATRICK ———————————————————————————
+    // — 164 KIRKPATRICK
     MONTHS.forEach(m => {
       data["164-kirkpatrick"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 1956.92,
         "Property Taxes": 382, "Insurance": 157, "Utilities": 225 };
     });
-
-    // — 232 VAN ORDER ————————————————————————————
+    // — 232 VAN ORDER
     MONTHS.forEach(m => {
       data["232-van-order"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 2667,
         "Property Taxes": 423, "Insurance": 150, "Utilities": 150 };
     });
-
-    // — 787 DOWNING ——————————————————————————————
+    // — 787 DOWNING
     MONTHS.forEach(m => {
       data["787-downing"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 2740.48,
         "Property Taxes": 0, "Insurance": 161.72, "Utilities": 200 };
     });
-
-    // — 913 UXBRIDGE —————————————————————————————
+    // — 913 UXBRIDGE
     MONTHS.forEach(m => {
       data["913-uxbridge"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 2024.72,
         "Property Taxes": 287, "Insurance": 226.61, "Utilities": 100 };
     });
-
-    // — 285 VAN ORDER ————————————————————————————
+    // — 285 VAN ORDER
     MONTHS.forEach(m => {
       data["285-van-order"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 2268.61,
         "Property Taxes": 481, "Insurance": 190.25, "Utilities": 0 };
     });
-
-    // — 293 VAN ORDER ————————————————————————————
+    // — 293 VAN ORDER
     MONTHS.forEach(m => {
       data["293-van-order"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 905.94,
         "Property Taxes": 378, "Insurance": 231.79, "Utilities": 147.35 };
     });
-
-    // — 32 HOLLAND CRES ———————————————————————————
+    // — 32 HOLLAND CRES
     MONTHS.forEach(m => {
       data["32-holland-cres"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 3750,
         "Property Taxes": 392, "Insurance": 319, "Utilities": 0 };
     });
-
-    // — 246 ADELAIDE ——————————————————————————————
+    // — 246 ADELAIDE
     MONTHS.forEach(m => {
       data["246-adelaide"][m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 11458,
         "Property Taxes": 0, "Insurance": 788, "Utilities": 1880 };
     });
-
     return data;
   };
 
