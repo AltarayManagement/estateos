@@ -367,7 +367,7 @@ const PORTFOLIO = [
   },
 ];
 
-const MONTHS = ["Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
+const MONTHS = ["Jan 2025","Feb 2025","Mar 2025","Apr 2025","May 2025","Jun 2025","Jul 2025","Aug 2025","Sep 2025","Oct 2025","Nov 2025","Dec 2025","Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
 const CURRENT_MONTH = "Mar 2026";
 const LEASE_FOLDER = "https://drive.google.com/drive/folders/1ZC_rrkiRVBOn1R28iljpQpVJVXQa0PBS";
 
@@ -1624,7 +1624,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
 
     // ── 43 RUSKIN (2771051 Ontario Inc.) ────────────────────────────────────────
     const ruskin = data["43-ruskin"];
-    ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
+    MONTHS.forEach(m => {
       ruskin[m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 0, "Mortgage Interest": 1248.23,
         "Property Taxes": 364.60, "Insurance": 128.00, "Utilities": 400.00 };
@@ -1633,7 +1633,7 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
 
     // ── 401 SOUTHWOOD (2771051 Ontario Inc.) ─────────────────────────────────────
     const south = data["401-southwood"];
-    ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
+    MONTHS.forEach(m => {
       south[m] = { ...BLANK_MONTH(),
         "Mortgage Principal": 1978.00, "Mortgage Interest": 0,
         "Property Taxes": 322.50, "Insurance": 159.05, "Utilities": 209.03 };
@@ -1648,39 +1648,76 @@ Respond ONLY with a JSON array. Each item: { "type": "rent"|"expense"|"unknown",
     };
     Object.entries(hamMonths).forEach(([m, vals]) => {
       ham[m] = { ...BLANK_MONTH(), ...vals };
-    });
-
-    // ── 661 MILFORD (Altaray & Waxwing 50/50) — CIBC Annual Statement 2025 ──────
-    // Loan #003440072 · $2,706.09/mo · Principal paid 2025: $840.31 · Interest paid: $25,066
-    // Monthly: Principal $70.03 · Interest $2,088.83 · Rate 3.7% as at Dec 31 2025
+    // — 661 MILFORD (Altaray & Waxwing 50/50) — CIBC ————————————————
     const milford = data["661-milford"];
-    ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
+    MONTHS.forEach(m => {
       milford[m] = { ...BLANK_MONTH(),
-        "Mortgage Principal": 70.03,
-        "Mortgage Interest": 2088.83,
-        "Insurance": 0 };  // insurance to be confirmed
+        "Mortgage Principal": 70.03, "Mortgage Interest": 2088.83,
+        "Property Taxes": 437, "Insurance": 183.52, "Utilities": 540 };
     });
 
-    // ── 30 BARBARA (AwesomeJV & Sal 50/50) — Scotia Annual Statement 2025 ───────
-    // Mortgage #5016099 · $2,194.48/mo · Principal paid 2025: $8,340.66 · Interest: $19,394.95
-    // Monthly: Principal $695.06 · Interest $1,616.25 · Rate 3.9% as at Dec 31 2025
+    // — 30 BARBARA (AwesomeJV & Sal 50/50) — Scotia ———————————————
     const barbara = data["30-barbara"];
-    ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
+    MONTHS.forEach(m => {
       barbara[m] = { ...BLANK_MONTH(),
-        "Mortgage Principal": 695.06,
-        "Mortgage Interest": 1616.25,
-        "Insurance": 0 };  // insurance to be confirmed
+        "Mortgage Principal": 695.06, "Mortgage Interest": 1616.25,
+        "Property Taxes": 378, "Insurance": 279.98, "Utilities": 204 };
     });
 
-    // ── 164 KIRKPATRICK ──────────────────────────────────────────────────────────
-    ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
+    // — 164 KIRKPATRICK ———————————————————————————
+    MONTHS.forEach(m => {
       data["164-kirkpatrick"][m] = { ...BLANK_MONTH(),
-        "Property Taxes": 0, "Insurance": 151.38 };
+        "Mortgage Principal": 0, "Mortgage Interest": 1956.92,
+        "Property Taxes": 382, "Insurance": 157, "Utilities": 225 };
     });
 
-    // ── 232 VAN ORDER ────────────────────────────────────────────────────────────
-    ["Jan 2026","Feb 2026","Mar 2026"].forEach(m => {
-      data["232-van-order"][m] = { ...BLANK_MONTH(), "Insurance": 142.75 };
+    // — 232 VAN ORDER ————————————————————————————
+    MONTHS.forEach(m => {
+      data["232-van-order"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 2667,
+        "Property Taxes": 423, "Insurance": 150, "Utilities": 150 };
+    });
+
+    // — 787 DOWNING ——————————————————————————————
+    MONTHS.forEach(m => {
+      data["787-downing"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 2740.48,
+        "Property Taxes": 0, "Insurance": 161.72, "Utilities": 200 };
+    });
+
+    // — 913 UXBRIDGE —————————————————————————————
+    MONTHS.forEach(m => {
+      data["913-uxbridge"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 2024.72,
+        "Property Taxes": 287, "Insurance": 226.61, "Utilities": 100 };
+    });
+
+    // — 285 VAN ORDER ————————————————————————————
+    MONTHS.forEach(m => {
+      data["285-van-order"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 2268.61,
+        "Property Taxes": 481, "Insurance": 190.25, "Utilities": 0 };
+    });
+
+    // — 293 VAN ORDER ————————————————————————————
+    MONTHS.forEach(m => {
+      data["293-van-order"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 905.94,
+        "Property Taxes": 378, "Insurance": 231.79, "Utilities": 147.35 };
+    });
+
+    // — 32 HOLLAND CRES ———————————————————————————
+    MONTHS.forEach(m => {
+      data["32-holland-cres"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 3750,
+        "Property Taxes": 392, "Insurance": 319, "Utilities": 0 };
+    });
+
+    // — 246 ADELAIDE ——————————————————————————————
+    MONTHS.forEach(m => {
+      data["246-adelaide"][m] = { ...BLANK_MONTH(),
+        "Mortgage Principal": 0, "Mortgage Interest": 11458,
+        "Property Taxes": 0, "Insurance": 788, "Utilities": 1880 };
     });
 
     return data;
